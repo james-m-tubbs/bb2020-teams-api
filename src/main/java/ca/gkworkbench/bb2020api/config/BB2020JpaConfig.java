@@ -5,14 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "ca.gkworkbench.bb2020api.daeo")
+//@EnableJpaRepositories(basePackages = "ca.gkworkbench.bb2020api.dao")
 @PropertySource("bb2020api.properties")
 @EnableTransactionManagement
 public class BB2020JpaConfig {
@@ -30,10 +32,17 @@ public class BB2020JpaConfig {
         return dataSource;
     }
 
-    // configure entityManagerFactory
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setPackagesToScan("ca.gkworkbench.bb2020api.dao.team");
+        return em;
+    }
 
-    // configure transactionManager
-
-    // configure additional Hibernate Properties
-
+    @Bean
+    public EntityManager entityManager() {
+        return entityManagerFactory().getObject().createEntityManager();
+    }
 }

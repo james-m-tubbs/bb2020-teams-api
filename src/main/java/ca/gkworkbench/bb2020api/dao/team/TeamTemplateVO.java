@@ -1,9 +1,12 @@
 package ca.gkworkbench.bb2020api.dao.team;
 
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "TeamTemplate")
 public class TeamTemplateVO {
 
     @Id
