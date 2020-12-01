@@ -1,5 +1,7 @@
 package ca.gkworkbench.bb2020api.config;
 
+import ca.gkworkbench.bb2020api.player.template.bo.PlayerTemplateBO;
+import ca.gkworkbench.bb2020api.player.template.bo.PlayerTemplateBOImpl;
 import ca.gkworkbench.bb2020api.team.template.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.template.bo.TeamTemplateBOImpl;
 import ca.gkworkbench.bb2020api.team.template.dao.TeamTemplateDAO;
@@ -29,7 +31,12 @@ public class bb2020TestConfig {
     }
 
     @Bean
+    public PlayerTemplateBO playerTemplateBO() {
+        return new PlayerTemplateBOImpl();
+    }
+
+    @Bean
     public TeamTemplateBO teamTemplateBO() {
-        return new TeamTemplateBOImpl(teamTemplateDAO());
+        return new TeamTemplateBOImpl(teamTemplateDAO(),playerTemplateBO());
     }
 }

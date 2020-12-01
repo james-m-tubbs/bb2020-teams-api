@@ -1,5 +1,9 @@
 package ca.gkworkbench.bb2020api.team.template.vo;
 
+import ca.gkworkbench.bb2020api.player.template.vo.PlayerTemplateVO;
+
+import java.util.List;
+
 public class TeamTemplateVO {
     private long teamTemplateId;
 
@@ -8,16 +12,16 @@ public class TeamTemplateVO {
     private int tier;
     private String specialRules;
     private boolean apothecary = false;
+    private List<PlayerTemplateVO> ptVOs;
 
-    public TeamTemplateVO(long teamTemplateId, String teamType, long rerollCost, int tier, String specialRules, String apothStr) {
+    public TeamTemplateVO(long teamTemplateId, String teamType, long rerollCost, int tier, String specialRules, boolean apothecary, List<PlayerTemplateVO> ptVOs) {
         this.teamTemplateId = teamTemplateId;
         this.teamType = teamType;
         this.rerollCost = rerollCost;
         this.tier = tier;
         this.specialRules = specialRules;
-        if (apothStr != null && apothStr.equalsIgnoreCase("Y")) {
-            this.apothecary = true;
-        }
+        this.apothecary = apothecary;
+        this.ptVOs = ptVOs;
     }
 
     public long getTeamTemplateId() {
@@ -64,6 +68,10 @@ public class TeamTemplateVO {
         return apothecary;
     }
 
+    public List<PlayerTemplateVO> getPtVOs() {
+        return ptVOs;
+    }
+
     @Override
     public String toString() {
         return "TeamTemplateVO{" +
@@ -72,7 +80,8 @@ public class TeamTemplateVO {
                 ", rerollCost=" + rerollCost +
                 ", tier=" + tier +
                 ", specialRules='" + specialRules + '\'' +
-                ", apothecary='" + apothecary + '\'' +
+                ", apothecary=" + apothecary +
+                ", ptVOs=" + ptVOs +
                 '}';
     }
 }

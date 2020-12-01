@@ -35,13 +35,17 @@ public class TeamTemplateDAOImpl extends JdbcDaoSupport implements TeamTemplateD
     public class TeamTemplateRowMapper implements RowMapper
     {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            boolean apothecary = false;
+            if (rs.getString("apothecary").equalsIgnoreCase("Y")) apothecary = true;
+
             TeamTemplateVO ttVO = new TeamTemplateVO(
                     rs.getInt("teamTemplateID"),
                     rs.getString("teamTemplateName"),
                     rs.getInt("rerollCost"),
                     rs.getInt("tier"),
                     rs.getString("specialRules"),
-                    rs.getString("apothecary")
+                    apothecary,
+                    null
             );
             return ttVO;
         }
