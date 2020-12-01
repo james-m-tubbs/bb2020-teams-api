@@ -4,11 +4,9 @@ import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 public class TeamTemplateDAOImpl extends JdbcDaoSupport implements TeamTemplateDAO {
 
@@ -18,7 +16,7 @@ public class TeamTemplateDAOImpl extends JdbcDaoSupport implements TeamTemplateD
 //        tier int NOT NULL, -- i don't know what this is yet?
 //        specialRules varchar(255),
 
-    private final String SELECT_ONE_SQL = "SELECT * FROM TeamTemplate where TeamTemplateID = ?;";
+    private final String SELECT_ONE_SQL = "SELECT * FROM TeamTemplate where id = ?;";
 
     @Override
     public TeamTemplateVO getTeamTemplateByID(int teamTemplateId) throws Exception {
@@ -29,7 +27,7 @@ public class TeamTemplateDAOImpl extends JdbcDaoSupport implements TeamTemplateD
 
     @Override
     public List<TeamTemplateVO> getTeamList() throws Exception {
-        return getJdbcTemplate().query(SELECT_ONE_SQL, new TeamTemplateRowMapper());
+        return getJdbcTemplate().query(SELECT_ALL_SQL, new TeamTemplateRowMapper());
     }
 
     public class TeamTemplateRowMapper implements RowMapper
@@ -39,7 +37,7 @@ public class TeamTemplateDAOImpl extends JdbcDaoSupport implements TeamTemplateD
             if (rs.getString("apothecary").equalsIgnoreCase("Y")) apothecary = true;
 
             TeamTemplateVO ttVO = new TeamTemplateVO(
-                    rs.getInt("teamTemplateID"),
+                    rs.getInt("id"),
                     rs.getString("teamTemplateName"),
                     rs.getInt("rerollCost"),
                     rs.getInt("tier"),

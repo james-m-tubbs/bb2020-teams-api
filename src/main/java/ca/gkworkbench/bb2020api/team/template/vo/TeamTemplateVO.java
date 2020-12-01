@@ -5,31 +5,31 @@ import ca.gkworkbench.bb2020api.player.template.vo.PlayerTemplateVO;
 import java.util.List;
 
 public class TeamTemplateVO {
-    private long teamTemplateId;
+    private long id;
 
     private String teamType;
     private long rerollCost;
     private int tier;
     private String specialRules;
     private boolean apothecary = false;
-    private List<PlayerTemplateVO> ptVOs;
+    private List<PlayerTemplateVO> playerTemplates;
 
     public TeamTemplateVO(long teamTemplateId, String teamType, long rerollCost, int tier, String specialRules, boolean apothecary, List<PlayerTemplateVO> ptVOs) {
-        this.teamTemplateId = teamTemplateId;
+        this.id = teamTemplateId;
         this.teamType = teamType;
         this.rerollCost = rerollCost;
         this.tier = tier;
         this.specialRules = specialRules;
         this.apothecary = apothecary;
-        this.ptVOs = ptVOs;
+        this.playerTemplates = ptVOs;
     }
 
     public long getTeamTemplateId() {
-        return teamTemplateId;
+        return id;
     }
 
     public void setTeamTemplateId(long teamTemplateId) {
-        this.teamTemplateId = teamTemplateId;
+        this.id = teamTemplateId;
     }
 
     public String getTeamType() {
@@ -68,20 +68,32 @@ public class TeamTemplateVO {
         return apothecary;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setApothecary(boolean apothecary) {
+        this.apothecary = apothecary;
+    }
+
+    public void setPtVOs(List<PlayerTemplateVO> ptVOs) {
+        this.playerTemplates = ptVOs;
+    }
+
     public List<PlayerTemplateVO> getPtVOs() {
-        return ptVOs;
+        return playerTemplates;
     }
 
     @Override
     public String toString() {
         return "TeamTemplateVO{" +
-                "teamTemplateId=" + teamTemplateId +
+                "id=" + id +
                 ", teamType='" + teamType + '\'' +
                 ", rerollCost=" + rerollCost +
                 ", tier=" + tier +
                 ", specialRules='" + specialRules + '\'' +
                 ", apothecary=" + apothecary +
-                ", ptVOs=" + ptVOs +
+                ", playerTemplates=" + playerTemplates +
                 '}';
     }
 }

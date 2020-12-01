@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface PlayerTemplateBO {
 
-    public List<PlayerTemplateVO> getPlayerTemplatesByTeamId(int teamId);
+    public List<PlayerTemplateVO> getPlayerTemplatesByTeamId(int teamId) throws Exception;
+
+    public PlayerTemplateVO getPlayerTemplateById(int id) throws Exception;
 }

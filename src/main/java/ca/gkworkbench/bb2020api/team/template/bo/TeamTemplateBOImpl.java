@@ -1,12 +1,12 @@
 package ca.gkworkbench.bb2020api.team.template.bo;
 
 import ca.gkworkbench.bb2020api.player.template.bo.PlayerTemplateBO;
+import ca.gkworkbench.bb2020api.player.template.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.team.template.dao.TeamTemplateDAO;
 import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
 import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.Map;
 
 public class TeamTemplateBOImpl implements TeamTemplateBO {
 
@@ -26,12 +26,13 @@ public class TeamTemplateBOImpl implements TeamTemplateBO {
 
     public String getJsonTeamTemplateByID(int teamTemplateId) throws Exception {
         TeamTemplateVO ttVO = ttDAO.getTeamTemplateByID(teamTemplateId);
+        List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(teamTemplateId);
+        ttVO.setPtVOs(ptVOs);
         return gson.toJson(ttVO);
     }
 
     public List<TeamTemplateVO> getTeamList() throws Exception {
-        //List<TeamTemplateVO> ttVOs = null;
-        return null;
+        return ttDAO.getTeamList();
     }
 
     public String getJsonTeamList() throws Exception {

@@ -16,7 +16,11 @@ public class TeamTemplateController {
 
     @RequestMapping(value = "/team/template", method = RequestMethod.GET)
     public String teamTemplate() {
-        return "";
+        try {
+            return ttBO.getJsonTeamList();
+        } catch (Exception e) {
+            return "An Error Occurred: " + e.getMessage();
+        }
     }
 
     @RequestMapping(value = "/team/template/{id}", method = RequestMethod.GET)
