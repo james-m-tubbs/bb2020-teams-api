@@ -1,7 +1,7 @@
-package ca.gkworkbench.bb2020api.team.template.bo;
+package ca.gkworkbench.bb2020api.team.bo;
 
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.team.vo.TeamTemplateVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

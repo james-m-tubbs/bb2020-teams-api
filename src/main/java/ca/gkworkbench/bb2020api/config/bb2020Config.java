@@ -1,13 +1,13 @@
 package ca.gkworkbench.bb2020api.config;
 
-import ca.gkworkbench.bb2020api.player.template.bo.PlayerTemplateBO;
-import ca.gkworkbench.bb2020api.player.template.bo.PlayerTemplateBOImpl;
-import ca.gkworkbench.bb2020api.player.template.dao.PlayerTemplateDAO;
-import ca.gkworkbench.bb2020api.player.template.dao.PlayerTemplateDAOImpl;
-import ca.gkworkbench.bb2020api.team.template.bo.TeamTemplateBO;
-import ca.gkworkbench.bb2020api.team.template.bo.TeamTemplateBOImpl;
-import ca.gkworkbench.bb2020api.team.template.dao.TeamTemplateDAO;
-import ca.gkworkbench.bb2020api.team.template.dao.TeamTemplateDAOImpl;
+import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
+import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBOImpl;
+import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
+import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAOImpl;
+import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
+import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBOImpl;
+import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
+import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

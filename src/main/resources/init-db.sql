@@ -3,20 +3,20 @@ create table PlayerTemplate (id int NOT NULL AUTO_INCREMENT, teamTemplateId int 
 
 -- humans
 INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (1, 'Human', 50000, 1, 'Old World Classic', 'Y');
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Lineman', 'Y', 16, 50000, 6, 3, 3, 4, 9);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Thrower', 'N', 2, 80000, 6, 3, 3, 2, 9);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Catcher', 'N', 4, 65000, 8, 2, 3, 5, 8);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Blitzer', 'N', 4, 85000, 7, 3, 3, 4, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Human Lineman', 'Y', 16, 50000, 6, 3, 3, 4, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Human Thrower', 'N', 2, 80000, 6, 3, 3, 2, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Human Catcher', 'N', 4, 65000, 8, 2, 3, 5, 8);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Human Blitzer', 'N', 4, 85000, 7, 3, 3, 4, 9);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Halfling Hopeful', 'N', 3, 30000, 5, 2, 3, 4, 7);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (1, 'Ogre', 'N', 1, 140000, 5, 5, 4, 5, 10);
 
 --orcs
 INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (2, 'Orcs', 60000, 1, 'Badlands Brawl', 'Y');
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Lineman', 'Y', 16, 50000, 5, 3, 3, 4, 10);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Thrower', 'N', 2, 65000, 5, 3, 3, 3, 9);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Blitzer', 'N', 4, 80000, 6, 3, 3, 4, 10);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Orc Lineman', 'Y', 16, 50000, 5, 3, 3, 4, 10);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Orc Thrower', 'N', 2, 65000, 5, 3, 3, 3, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Orc Blitzer', 'N', 4, 80000, 6, 3, 3, 4, 10);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Big Un Blocker', 'N', 4, 90000, 5, 4, 4, 0, 10);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Goblin', 'N', 4, 40000, 6, 2, 3, 4, 8);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Orc Goblin', 'N', 4, 40000, 6, 2, 3, 4, 8);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (2, 'Untrained Troll', 'N', 1, 115000, 4, 5, 5, 5, 10);
 
 -- chaos chosen
@@ -42,17 +42,17 @@ INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma,
 
 -- Dark Elves
 INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (5, 'Dark Elves', 50000, 1, 'Elven Kingdom League', 'Y');
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Dark Elf', 'Y', 12, 70000, 6, 3, 2, 4, 9);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Runner', 'N', 2, 80000, 7, 3, 2, 3, 8);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Blitzer', 'N', 4, 100000, 7, 3, 2, 4, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Dark Elf Lineman', 'Y', 12, 70000, 6, 3, 2, 4, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Dark Elf Runner', 'N', 2, 80000, 7, 3, 2, 3, 8);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Dark Elf Blitzer', 'N', 4, 100000, 7, 3, 2, 4, 9);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Assassin', 'N', 2, 85000, 7, 3, 2, 5, 8);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (5, 'Witch Elf', 'N', 2, 110000, 7, 3, 2, 5, 8);
 
 -- dwarf
 INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (6, 'Dwarf', 50000, 1, 'Old World Classic, Worlds Edge League', 'Y');
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Dwarf Blocker', 'Y', 12, 70000, 4, 3, 4, 5, 10);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Runner', 'N', 2, 85000, 6, 3, 3, 4, 9);
-INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Blitzer', 'N', 2, 80000, 5, 3, 3, 4, 10);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Dwarf Runner', 'N', 2, 85000, 6, 3, 3, 4, 9);
+INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Dwarf Blitzer', 'N', 2, 80000, 5, 3, 3, 4, 10);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Troll Slayer', 'N', 2, 95000, 5, 3, 4, 0, 9);
 INSERT INTO PlayerTemplate(teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av ) values (6, 'Deathroller', 'N', 1, 170000, 4, 7, 5, 0, 11);
 

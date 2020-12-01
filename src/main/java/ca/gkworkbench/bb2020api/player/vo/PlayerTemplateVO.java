@@ -1,4 +1,4 @@
-package ca.gkworkbench.bb2020api.player.template.vo;
+package ca.gkworkbench.bb2020api.player.vo;
 
 import java.util.List;
 

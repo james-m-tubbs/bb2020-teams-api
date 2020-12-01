@@ -1,6 +1,6 @@
-package ca.gkworkbench.bb2020api.team.template.dao;
+package ca.gkworkbench.bb2020api.team.dao;
 
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.team.vo.TeamTemplateVO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 

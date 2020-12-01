@@ -1,7 +1,6 @@
-package ca.gkworkbench.bb2020api.player.template.dao;
+package ca.gkworkbench.bb2020api.player.dao;
 
-import ca.gkworkbench.bb2020api.player.template.vo.PlayerTemplateVO;
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 
 import java.util.List;
 

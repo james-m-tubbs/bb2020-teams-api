@@ -1,9 +1,8 @@
-package ca.gkworkbench.bb2020api.team.template.bo;
+package ca.gkworkbench.bb2020api.team.bo;
 
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.team.vo.TeamTemplateVO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TeamTemplateBO {
 

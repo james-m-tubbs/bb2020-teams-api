@@ -1,9 +1,8 @@
-package ca.gkworkbench.bb2020api.team.template.dao;
+package ca.gkworkbench.bb2020api.team.dao;
 
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.team.vo.TeamTemplateVO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TeamTemplateDAO {
 

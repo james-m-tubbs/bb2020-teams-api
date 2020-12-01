@@ -1,7 +1,6 @@
-package ca.gkworkbench.bb2020api.team.template.controller;
+package ca.gkworkbench.bb2020api.team.controller;
 
-import ca.gkworkbench.bb2020api.team.template.bo.TeamTemplateBO;
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,9 +1,9 @@
-package ca.gkworkbench.bb2020api.team.template.bo;
+package ca.gkworkbench.bb2020api.team.bo;
 
-import ca.gkworkbench.bb2020api.player.template.bo.PlayerTemplateBO;
-import ca.gkworkbench.bb2020api.player.template.vo.PlayerTemplateVO;
-import ca.gkworkbench.bb2020api.team.template.dao.TeamTemplateDAO;
-import ca.gkworkbench.bb2020api.team.template.vo.TeamTemplateVO;
+import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
+import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
+import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
+import ca.gkworkbench.bb2020api.team.vo.TeamTemplateVO;
 import com.google.gson.Gson;
 
 import java.util.List;

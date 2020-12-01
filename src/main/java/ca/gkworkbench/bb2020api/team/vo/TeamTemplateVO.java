@@ -1,6 +1,6 @@
-package ca.gkworkbench.bb2020api.team.template.vo;
+package ca.gkworkbench.bb2020api.team.vo;
 
-import ca.gkworkbench.bb2020api.player.template.vo.PlayerTemplateVO;
+import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 
 import java.util.List;
 
