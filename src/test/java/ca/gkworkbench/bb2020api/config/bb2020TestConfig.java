@@ -4,6 +4,8 @@ import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
 import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBOImpl;
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAOImpl;
+import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
+import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAOImpl;
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBOImpl;
 import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
@@ -42,6 +44,19 @@ public class bb2020TestConfig {
 
     /**
      ******************************
+     * Skill Template Beans
+     ******************************
+     */
+
+    @Bean
+    public SkillTemplateDAO skillTemplateDAO() {
+        SkillTemplateDAOImpl stDAO = new SkillTemplateDAOImpl();
+        stDAO.setDataSource(dataSource());
+        return stDAO;
+    }
+
+    /**
+     ******************************
      * Player Template Beans
      ******************************
      */
@@ -55,9 +70,10 @@ public class bb2020TestConfig {
 
     @Bean
     public PlayerTemplateBO playerTemplateBO() {
-        return new PlayerTemplateBOImpl(playerTemplateDAO());
+        return new PlayerTemplateBOImpl(
+                playerTemplateDAO(),
+                skillTemplateDAO());
     }
-
     /*
      ******************************
      * Team Template Beans

@@ -1,5 +1,7 @@
 package ca.gkworkbench.bb2020api.player.vo;
 
+import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
+
 import java.util.List;
 
 public class PlayerTemplateVO {
@@ -15,11 +17,11 @@ public class PlayerTemplateVO {
     int AG;
     int PA;
     int AV;
-    List<String> skills;
+    List<SkillVO> skills;
     String primary;
     String secondary;
 
-    public PlayerTemplateVO(int id, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<String> skills, String primary, String secondary) {
+    public PlayerTemplateVO(int id, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> skills, String primary, String secondary) {
         this.id = id;
         this.teamTemplateId = teamTemplateId;
         this.position = position;
@@ -132,11 +134,11 @@ public class PlayerTemplateVO {
         this.AV = AV;
     }
 
-    public List<String> getSkills() {
+    public List<SkillVO> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<String> skills) {
+    public void setSkills(List<SkillVO> skills) {
         this.skills = skills;
     }
 

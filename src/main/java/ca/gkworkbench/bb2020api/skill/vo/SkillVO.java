@@ -1,10 +1,11 @@
 package ca.gkworkbench.bb2020api.skill.vo;
 
-public class SkillVO {
+//create table Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255), type CHAR(1));
 
+public class SkillVO {
     int id;
     String skill;
-    String type; //GSAPM
+    String type;
 
     public SkillVO(int id, String skill, String type) {
         this.id = id;
@@ -34,14 +35,5 @@ public class SkillVO {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "SkillTemplateVO{" +
-                "id=" + id +
-                ", skill='" + skill + '\'' +
-                ", type='" + type + '\'' +
-                '}';
     }
 }
