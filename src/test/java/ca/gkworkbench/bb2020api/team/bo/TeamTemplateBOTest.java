@@ -25,6 +25,10 @@ public class TeamTemplateBOTest {
     public void insert_team_and_query() {
         try {
             TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(1);
+            System.err.println(ttVO.toString());
+            Assert.assertTrue(ttVO.getTeamType().equals("Human"));
+            Assert.assertTrue(ttVO.getPtVOs().size() ==6 );
+            Assert.assertTrue(ttVO.getPtVOs().get(6).getPosition().equalsIgnoreCase("Human Ogre"));
             System.out.println(ttVO.toString());
         } catch (Exception e) {
             Assert.fail(e.getMessage());
