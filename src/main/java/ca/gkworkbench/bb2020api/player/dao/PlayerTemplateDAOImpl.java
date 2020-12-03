@@ -44,8 +44,8 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
                     rs.getInt("pa"),
                     rs.getInt("av"),
                     null,
-                    null,
-                    null
+                    rs.getString("primary_skills"),
+                    rs.getString("secondary_skills")
             );
             return ptVO;
         }

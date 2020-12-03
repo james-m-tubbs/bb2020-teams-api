@@ -1,7 +1,7 @@
 package ca.gkworkbench.bb2020api.skill.dao;
 
-import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAOImpl;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
+import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -11,25 +11,16 @@ import java.util.List;
 
 public class SkillTemplateDAOImpl extends JdbcDaoSupport implements SkillTemplateDAO {
 
-    private final String SELECT_SKILL_BY_ID = "SELECT * FROM PlayerTemplate where teamTemplateID = ?;";
-
-    private final String SELECT_SKILLS_BY_TYPE = "SELECT * FROM PlayerTemplate where teamTemplateID = ?;";
+    private final String SELECT_SKILL_BY_ID = "SELECT * FROM skillTemplate where id = ?;";
 
     @Override
-    public List<PlayerTemplateVO> getPlayerTemplateListByTeamTemplateId(int teamTemplateId) throws Exception {
-        return getJdbcTemplate().query(SELECT_BY_TEAM_SQL, new PlayerTemplateDAOImpl.PlayerTemplateRowMapper(), new Object[]{teamTemplateId});
-    }
-
-    private final String SELECT_ONE_SQL = "SELECT * FROM PlayerTemplate where id = ?;";
-
-    @Override
-    public PlayerTemplateVO getPlayerTemplateVOById(int id) throws Exception {
-        return (PlayerTemplateVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerTemplateDAOImpl.PlayerTemplateRowMapper(), new Object[]{id});
+    public List<SkillVO> getSkillTemplateByPlayerID(int id) throws Exception {
+        //return (PlayerTemplateVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerTemplateDAOImpl.PlayerTemplateRowMapper(), new Object[]{id});
+        return null;
     }
 
     //teamTemplateId, position, linemanFlag, QTY, cost, MA, ST, AG, PA, AV
-    public class PlayerTemplateRowMapper implements RowMapper
-    {
+    public class PlayerTemplateRowMapper implements RowMapper {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
             boolean linemanFlag = false;
             if (rs.getString("linemanFLag").equalsIgnoreCase("Y")) linemanFlag = true;
@@ -52,4 +43,5 @@ public class SkillTemplateDAOImpl extends JdbcDaoSupport implements SkillTemplat
             );
             return ptVO;
         }
+    }
 }

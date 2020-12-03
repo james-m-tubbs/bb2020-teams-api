@@ -16,10 +16,10 @@ public class PlayerTemplateVO {
     int PA;
     int AV;
     List<String> skills;
-    List<String> primary;
-    List<String> secondary;
+    String primary;
+    String secondary;
 
-    public PlayerTemplateVO(int id, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<String> skills, List<String> primary, List<String> secondary) {
+    public PlayerTemplateVO(int id, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<String> skills, String primary, String secondary) {
         this.id = id;
         this.teamTemplateId = teamTemplateId;
         this.position = position;
@@ -138,22 +138,6 @@ public class PlayerTemplateVO {
 
     public void setSkills(List<String> skills) {
         this.skills = skills;
-    }
-
-    public List<String> getPrimary() {
-        return primary;
-    }
-
-    public void setPrimary(List<String> primary) {
-        this.primary = primary;
-    }
-
-    public List<String> getSecondary() {
-        return secondary;
-    }
-
-    public void setSecondary(List<String> secondary) {
-        this.secondary = secondary;
     }
 
     @Override

@@ -1,12 +1,12 @@
 package ca.gkworkbench.bb2020api.skill.vo;
 
-public class SkillTemplateVO {
+public class SkillVO {
 
     int id;
     String skill;
     String type; //GSAPM
 
-    public SkillTemplateVO(int id, String skill, String type) {
+    public SkillVO(int id, String skill, String type) {
         this.id = id;
         this.skill = skill;
         this.type = type;
