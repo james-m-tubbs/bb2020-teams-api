@@ -1,5 +1,6 @@
-package ca.gkworkbench.bb2020api.player.dao;
+package ca.gkworkbench.bb2020api.player.dao.impl;
 
+import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;

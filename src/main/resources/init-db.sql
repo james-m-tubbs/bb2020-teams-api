@@ -1,5 +1,9 @@
+--user table
+CREATE TABLE coaches(id int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, adminFlag CHAR(1), validatedFlag CHAR(1), PRIMARY KEY(id));
+INSERT INTO coaches (id,username, password, adminFlag, validatedFlag) values(1, 'admin', 'admin', 'Y', 'Y');
+
 --skill table
-create table Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255), type CHAR(1));
+CREATE TABLE Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255) NOT NULL, type CHAR(1) NOT NULL);
 --general
 INSERT INTO Skills (id,skill, type) values(1, 'Block', 'G');
 INSERT INTO Skills (id,skill, type) values(2, 'Sure Hands', 'G');
@@ -22,9 +26,9 @@ INSERT INTO Skills (id,skill, type) values(42, 'Bone Head', 'E');
 INSERT INTO Skills (id,skill, type) values(43,'Loner', 'E');
 INSERT INTO Skills (id,skill, type) values(44,'Throw Team-Mate', 'E');
 
-create table TeamTemplate (id int, teamTemplateName varchar(255) NOT NULL, rerollCost int NOT NULL, tier int NOT NULL, specialRules varchar(255), apothecary char(1) NOT NULL, PRIMARY KEY (id));
-create table PlayerTemplate (id int NOT NULL AUTO_INCREMENT, teamTemplateId int NOT NULL, position varchar(255) NOT NULL, linemanFlag char(1) NOT NULL, qty int NOT NULL, cost int NOT NULL, ma int NOT NULL, st int NOT NULL, ag int NOT NULL, pa int NOT NULL, av int NOT NULL, primary_skills VARCHAR(255), secondary_skills VARCHAR(255), PRIMARY KEY (id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id));
-create table SkillTemplate(id int NOT NULL AUTO_INCREMENT, playerTemplateId int NOT NULL, skillId int NOT NULL, skillValue int, PRIMARY KEY (id), FOREIGN KEY(playerTemplateId) REFERENCES PlayerTemplate(id), FOREIGN KEY(skillId) REFERENCES Skills(id));
+CREATE TABLE TeamTemplate (id int NOT NULL, teamTemplateName varchar(255) NOT NULL, rerollCost int NOT NULL, tier int NOT NULL, specialRules varchar(255), apothecary char(1) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE PlayerTemplate (id int NOT NULL AUTO_INCREMENT, teamTemplateId int NOT NULL, position varchar(255) NOT NULL, linemanFlag char(1) NOT NULL, qty int NOT NULL, cost int NOT NULL, ma int NOT NULL, st int NOT NULL, ag int NOT NULL, pa int NOT NULL, av int NOT NULL, primary_skills VARCHAR(255), secondary_skills VARCHAR(255), PRIMARY KEY (id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id));
+CREATE TABLE SkillTemplate(id int NOT NULL AUTO_INCREMENT, playerTemplateId int NOT NULL, skillId int NOT NULL, skillValue int, PRIMARY KEY (id), FOREIGN KEY(playerTemplateId) REFERENCES PlayerTemplate(id), FOREIGN KEY(skillId) REFERENCES Skills(id));
 
 -- humans
 INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (1, 'Human', 50000, 1, 'Old World Classic', 'Y');
@@ -105,3 +109,11 @@ INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, 
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (38, 7, 'Goblin Bruiser', 'Y', 12, 45000, 6, 2, 3, 4, 8,'A','GPS');
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (39, 7, 'Black Orc', 'N', 4, 90000, 4, 4, 4, 5, 10,'GS','AP');
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (40, 7, 'Trained Troll', 'N', 1, 115000, 4, 5, 5, 5, 10,'S','AGP');
+
+-- teams
+CREATE TABLE Teams(id int NOT NULL AUTO_INCREMENT, coachId int NOT NULL, teamTemplateId int NOT NULL, teamName varchar(255) NOT NULL, totalCas int NOT NULL DEFAULT 0, totalTouchdowns int NOT NULL DEFAULT 0, treasury int NOT NULL DEFAULT 1000000, leaguePoints int NOT NULL DEFAULT 0, rerolls int NOT NULL DEFAULT 0, coaches int NOT NULL DEFAULT 0, cheerleaders int NOT NULL DEFAULT 0, apothecaryFlag char(1) default 'N', teamValue int NOT NULL DEFAULT 0, currentTeamValue int NOT NULL DEFAULT 0, PRIMARY KEY(id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id), FOREIGN KEY(coachId) REFERENCES coaches(id));
+INSERT INTO Teams (id, coachId, teamTemplateId, teamName) values (1, 1, 1, 'The Rookie Testers');
+--players
+CREATE TABLE Players(id int NOT NULL AUTO_INCREMENT, TeamId int NOT NULL, PlayerTemplateId int NOT NULL, name VARCHAR(255), spp int NOT NULL DEFAULT 0, hiringFee int NOT NULL default 0, currentValue int NOT NULL default 0, PRIMARY KEY(id), FOREIGN KEY (TeamId) REFERENCES Teams(id), FOREIGN KEY(PlayerTemplateId) REFERENCES PlayerTemplate(id));
+--player skill
+CREATE TABLE PlayerSkills(id int NOT NULL AUTO_INCREMENT, playerId int NOT NULL, skillValue int, PRIMARY KEY(id), FOREIGN KEY (playerId) REFERENCES Players(id));

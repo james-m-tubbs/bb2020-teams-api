@@ -1,5 +1,6 @@
-package ca.gkworkbench.bb2020api.player.bo;
+package ca.gkworkbench.bb2020api.player.bo.impl;
 
+import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
