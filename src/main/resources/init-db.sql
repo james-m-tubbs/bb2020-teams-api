@@ -7,24 +7,96 @@ CREATE TABLE Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255) NOT NULL,
 --general
 INSERT INTO Skills (id,skill, type) values(1, 'Block', 'G');
 INSERT INTO Skills (id,skill, type) values(2, 'Sure Hands', 'G');
-
+INSERT INTO Skills (id,skill, type) values(3, 'Dauntless', 'G');
+INSERT INTO Skills (id,skill, type) values(4, 'Dirty Player', 'G');
+INSERT INTO Skills (id,skill, type) values(5, 'Fend', 'G');
+INSERT INTO Skills (id,skill, type) values(6, 'Frenzy', 'G');
+INSERT INTO Skills (id,skill, type) values(7, 'Kick', 'G');
+INSERT INTO Skills (id,skill, type) values(8, 'Pro', 'G');
+INSERT INTO Skills (id,skill, type) values(9, 'Shadowing', 'G');
+INSERT INTO Skills (id,skill, type) values(10, 'Strip Ball', 'G');
+INSERT INTO Skills (id,skill, type) values(11, 'Tackle', 'G');
+INSERT INTO Skills (id,skill, type) values(12, 'Wrestle', 'G');
 --agility
-INSERT INTO Skills (id,skill, type) values(10, 'Dodge', 'A');
-INSERT INTO Skills (id,skill, type) values(11, 'Catch', 'A');
-
---strength
-INSERT INTO Skills (id,skill, type) values(20, 'Mighty Blow', 'S');
-INSERT INTO Skills (id,skill, type) values(21, 'Thick Skull', 'S');
-
+INSERT INTO Skills (id,skill, type) values(13, 'Diving Tackle', 'A');
+INSERT INTO Skills (id,skill, type) values(14, 'Defensive', 'A');
+INSERT INTO Skills (id,skill, type) values(15, 'Jump Up', 'A');
+INSERT INTO Skills (id,skill, type) values(16, 'Leap', 'A');
+INSERT INTO Skills (id,skill, type) values(17, 'Safe Pair of Hands', 'A');
+INSERT INTO Skills (id,skill, type) values(18, 'Sneaky Git', 'A');
+INSERT INTO Skills (id,skill, type) values(19, 'Sprint', 'A');
+INSERT INTO Skills (id,skill, type) values(20, 'Sure Feet', 'A');
+INSERT INTO Skills (id,skill, type) values(21, 'Dodge', 'A');
+INSERT INTO Skills (id,skill, type) values(22, 'Catch', 'A');
+INSERT INTO Skills (id,skill, type) values(23, 'Diving Catch', 'A');
+--mutations
+INSERT INTO Skills (id,skill, type) values(24, 'Big Hand', 'M');
+INSERT INTO Skills (id,skill, type) values(25, 'Claws', 'M');
+INSERT INTO Skills (id,skill, type) values(26, 'Distubring Presence', 'M');
+INSERT INTO Skills (id,skill, type) values(27, 'Extra Arms', 'M');
+INSERT INTO Skills (id,skill, type) values(28, 'Foul Appearance', 'M');
+INSERT INTO Skills (id,skill, type) values(29, 'Horns', 'M');
+INSERT INTO Skills (id,skill, type) values(30, 'Iron Hard Skin', 'M');
+INSERT INTO Skills (id,skill, type) values(31, 'Monstrous Mouth', 'M');
+INSERT INTO Skills (id,skill, type) values(32, 'Prehensile Tail', 'M');
+INSERT INTO Skills (id,skill, type) values(33, 'Tentacles', 'M');
+INSERT INTO Skills (id,skill, type) values(34, 'Two Heads', 'M');
+INSERT INTO Skills (id,skill, type) values(35, 'Very Long Legs', 'M');
 --passing
-INSERT INTO Skills (id,skill, type) values(30, 'Pass', 'P');
-
---extrodinary
-INSERT INTO Skills (id,skill, type) values(40, 'Right Stuff', 'E');
-INSERT INTO Skills (id,skill, type) values(41, 'Stunty', 'E');
-INSERT INTO Skills (id,skill, type) values(42, 'Bone Head', 'E');
-INSERT INTO Skills (id,skill, type) values(43,'Loner', 'E');
-INSERT INTO Skills (id,skill, type) values(44,'Throw Team-Mate', 'E');
+INSERT INTO Skills (id,skill, type) values(36, 'Accurate', 'P');
+INSERT INTO Skills (id,skill, type) values(37, 'Cannoneer', 'P');
+INSERT INTO Skills (id,skill, type) values(38, 'Cloud Burster', 'P');
+INSERT INTO Skills (id,skill, type) values(39, 'Dump-Off', 'P');
+INSERT INTO Skills (id,skill, type) values(40, 'Fumblerooskie', 'P');
+INSERT INTO Skills (id,skill, type) values(41, 'Hail Mary Pass', 'P');
+INSERT INTO Skills (id,skill, type) values(42, 'Leader', 'P');
+INSERT INTO Skills (id,skill, type) values(43, 'Nerves of Steel', 'P');
+INSERT INTO Skills (id,skill, type) values(44, 'On the Ball', 'P');
+INSERT INTO Skills (id,skill, type) values(45, 'Pass', 'P');
+INSERT INTO Skills (id,skill, type) values(46, 'Running Pass', 'P');
+INSERT INTO Skills (id,skill, type) values(47, 'Safe Pass', 'P');
+--strength
+INSERT INTO Skills (id,skill, type) values(48, 'Arm Bar', 'S');
+INSERT INTO Skills (id,skill, type) values(49, 'Brawler', 'S');
+INSERT INTO Skills (id,skill, type) values(50, 'Break Tackle', 'S');
+INSERT INTO Skills (id,skill, type) values(51, 'Grab', 'S');
+INSERT INTO Skills (id,skill, type) values(52, 'Guard', 'S');
+INSERT INTO Skills (id,skill, type) values(53, 'Juggernaut', 'S');
+INSERT INTO Skills (id,skill, type) values(54, 'Mighty Blow', 'S');
+INSERT INTO Skills (id,skill, type) values(55, 'Multiple Block', 'S');
+INSERT INTO Skills (id,skill, type) values(56, 'Pile Driver', 'S');
+INSERT INTO Skills (id,skill, type) values(57, 'Stand Firm', 'S');
+INSERT INTO Skills (id,skill, type) values(58, 'Strong Arm', 'S');
+INSERT INTO Skills (id,skill, type) values(59, 'Thick Skull', 'S');
+--traits
+INSERT INTO Skills (id,skill, type) values(60, 'Animal Savagery', 'T');
+INSERT INTO Skills (id,skill, type) values(61, 'Animosity', 'T');
+INSERT INTO Skills (id,skill, type) values(62, 'Always Hungry', 'T');
+INSERT INTO Skills (id,skill, type) values(63, 'Ball and Chain', 'T');
+INSERT INTO Skills (id,skill, type) values(64, 'Bombardier', 'T');
+INSERT INTO Skills (id,skill, type) values(65, 'Bone Head', 'T');
+INSERT INTO Skills (id,skill, type) values(66, 'Chainsaw', 'T');
+INSERT INTO Skills (id,skill, type) values(67, 'Decay', 'T');
+INSERT INTO Skills (id,skill, type) values(68, 'Hypnotic Gaze', 'T');
+INSERT INTO Skills (id,skill, type) values(69, 'Kick Team-Mate', 'T');
+INSERT INTO Skills (id,skill, type) values(70, 'Loner', 'T');
+INSERT INTO Skills (id,skill, type) values(71, 'No Hands', 'T');
+INSERT INTO Skills (id,skill, type) values(72, 'Plague Ridden', 'T');
+INSERT INTO Skills (id,skill, type) values(73, 'Pogo Stick', 'T');
+INSERT INTO Skills (id,skill, type) values(74, 'Projectile Vomit', 'T');
+INSERT INTO Skills (id,skill, type) values(75, 'Really Stupid', 'T');
+INSERT INTO Skills (id,skill, type) values(76, 'Regeneration', 'T');
+INSERT INTO Skills (id,skill, type) values(77, 'Right Stuff', 'T');
+INSERT INTO Skills (id,skill, type) values(78, 'Secret Weapon', 'T');
+INSERT INTO Skills (id,skill, type) values(79, 'Stab', 'T');
+INSERT INTO Skills (id,skill, type) values(80, 'Stunty', 'T');
+INSERT INTO Skills (id,skill, type) values(81, 'Swarming', 'T');
+INSERT INTO Skills (id,skill, type) values(82, 'Swoop', 'T');
+INSERT INTO Skills (id,skill, type) values(83, 'Take Root', 'T');
+INSERT INTO Skills (id,skill, type) values(84, 'Titchy', 'T');
+INSERT INTO Skills (id,skill, type) values(85, 'Throw Team-Mate', 'T');
+INSERT INTO Skills (id,skill, type) values(86, 'Timm-ber!', 'T');
+INSERT INTO Skills (id,skill, type) values(87, 'Unchannelled Fury', 'T');
 
 CREATE TABLE TeamTemplate (id int NOT NULL, teamTemplateName varchar(255) NOT NULL, rerollCost int NOT NULL, tier int NOT NULL, specialRules varchar(255), apothecary char(1) NOT NULL, PRIMARY KEY (id));
 CREATE TABLE PlayerTemplate (id int NOT NULL AUTO_INCREMENT, teamTemplateId int NOT NULL, position varchar(255) NOT NULL, linemanFlag char(1) NOT NULL, qty int NOT NULL, cost int NOT NULL, ma int NOT NULL, st int NOT NULL, ag int NOT NULL, pa int NOT NULL, av int NOT NULL, primary_skills VARCHAR(255), secondary_skills VARCHAR(255), PRIMARY KEY (id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id));
