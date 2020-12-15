@@ -94,7 +94,7 @@ INSERT INTO Skills (id,skill, type) values(81, 'Swarming', 'T');
 INSERT INTO Skills (id,skill, type) values(82, 'Swoop', 'T');
 INSERT INTO Skills (id,skill, type) values(83, 'Take Root', 'T');
 INSERT INTO Skills (id,skill, type) values(84, 'Titchy', 'T');
-INSERT INTO Skills (id,skill, type) values(85, 'Throw Team-Mate', 'T');
+INSERT INTO Skills (id,skill, type) values(85, 'Throw Team-mate', 'T');
 INSERT INTO Skills (id,skill, type) values(86, 'Timm-ber!', 'T');
 INSERT INTO Skills (id,skill, type) values(87, 'Unchannelled Fury', 'T');
 
@@ -104,7 +104,7 @@ CREATE TABLE SkillTemplate(id int NOT NULL AUTO_INCREMENT, playerTemplateId int 
 
 -- START OF TEAMS --
 -- black orc
-INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (1, 'Black Orc', 60000, 2, 'Badlands Brawl, Bribery and Corruption', 'Y');
+INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (7, 'Black Orc', 60000, 2, 'Badlands Brawl, Bribery and Corruption', 'Y');
 --Goblin Bruiser
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (38, 7, 'Goblin Bruiser', 'Y', 12, 45000, 6, 2, 3, 4, 8,'A','GPS');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (38, select(id) from Skills where skill = 'Dodge' );
@@ -118,12 +118,12 @@ INSERT INTO SkillTemplate(playerTemplateId, skillId) values (39, select(id) from
 --Trained Troll
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (40, 7, 'Trained Troll', 'N', 1, 115000, 4, 5, 5, 5, 10,'S','AGP');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Always Hungry');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Loner','3+');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Mighty Blow','+1');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (40, select(id) from Skills where skill = 'Loner','3+');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (40, select(id) from Skills where skill = 'Mighty Blow','+1');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Projectile Vomit');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Really Stupid');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Regeneration');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Throw Team-mate');
+INSERT INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Throw Team-mate');
 
 -- chaos chosen
 INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (3, 'Chaos Chosen', 60000, 2, 'Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeench', 'Y');
@@ -135,25 +135,25 @@ INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost,
 --chaos troll
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (15, 3, 'Chaos Troll', 'N', 1, 115000, 4, 5, 5, 5, 10,'MS','AG');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Always Hungry');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Loner','4+');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Mighty Blow','+1');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (15, select(id) from Skills where skill = 'Loner','4+');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (15, select(id) from Skills where skill = 'Mighty Blow','+1');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Projectile Vomit');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Really Stupid');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Regeneration');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Throw Team-mate');
+INSERT INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Throw Team-mate');
 --chaos ogre
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (16, 3, 'Chaos Ogre', 'N', 1, 140000, 5, 5, 4, 5, 10,'MS','AG');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Bone Head');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Loner','4+');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Mighty Blow','+1');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (16, select(id) from Skills where skill = 'Loner','4+');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (16, select(id) from Skills where skill = 'Mighty Blow','+1');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Thick Skull');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Throw Team-mate');
 --minotaur
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (17, 3, 'Minotaur', 'N', 1, 150000, 5, 5, 4, 0, 9,'MS','AG');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Loner','4+');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (17, select(id) from Skills where skill = 'Loner','4+');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Frenzy');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Horns');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Mighty Blow');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (17, select(id) from Skills where skill = 'Mighty Blow', '+1');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Thick Skull');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Unchannelled Fury');
 
@@ -212,25 +212,25 @@ INSERT INTO SkillTemplate(playerTemplateId, skillId) values (6, select(id) from 
 INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (6, select(id) from Skills where skill = 'Loner', '4+');
 INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (6, select(id) from Skills where skill = 'Mighty Blow', '+1' );
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (6, select(id) from Skills where skill = 'Thick Skull');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (6, select(id) from Skills where skill = 'Throw Team-Mate');
+INSERT INTO SkillTemplate(playerTemplateId, skillId) values (6, select(id) from Skills where skill = 'Throw Team-mate');
 
 --orcs
-INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (2, 'Orcs', 60000, 1, 'Badlands Brawl', 'Y');
+INSERT INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (2, 'Orc', 60000, 1, 'Badlands Brawl', 'Y');
 --lineman
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (7, 2, 'Orc Lineman', 'Y', 16, 50000, 5, 3, 3, 4, 10,'G','AS');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (7, select(id) from Skills where skill = 'Animosity', 'Orc Linemen');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (7, select(id) from Skills where skill = 'Animosity', 'Orc Linemen');
 --thrower
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (8, 2, 'Orc Thrower', 'N', 2, 65000, 5, 3, 3, 3, 9,'GP','AS');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (8, select(id) from Skills where skill = 'Animosity', 'All Team-mates');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (8, select(id) from Skills where skill = 'Animosity', 'All Team-mates');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (8, select(id) from Skills where skill = 'Pass');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (8, select(id) from Skills where skill = 'Sure Hands');
 --blitzer
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (9, 2, 'Orc Blitzer', 'N', 4, 80000, 6, 3, 3, 4, 10,'GS','AP');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (9, select(id) from Skills where skill = 'Animosity', 'All Team-mates');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (9, select(id) from Skills where skill = 'Animosity', 'All Team-mates');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (9, select(id) from Skills where skill = 'Block');
 --big-un blocker
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (10, 2, 'Big Un Blocker', 'N', 4, 90000, 5, 4, 4, 0, 10,'GS','A');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (10, select(id) from Skills where skill = 'Animosity', 'Big-Un Blocker');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (10, select(id) from Skills where skill = 'Animosity', 'Big-Un Blocker');
 --goblin
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (11, 2, 'Orc Goblin', 'N', 4, 40000, 6, 2, 3, 4, 8,'A','GS');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (11, select(id) from Skills where skill = 'Dodge');
@@ -239,8 +239,8 @@ INSERT INTO SkillTemplate(playerTemplateId, skillId) values (11, select(id) from
 --troll
 INSERT INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primary_skills, secondary_skills ) values (12, 2, 'Untrained Troll', 'N', 1, 115000, 4, 5, 5, 5, 10,'S','AGP');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (12, select(id) from Skills where skill = 'Always Hungry');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (12, select(id) from Skills where skill = 'Loner','4+');
-INSERT INTO SkillTemplate(playerTemplateId, skillId) values (12, select(id) from Skills where skill = 'Mighty Blow','+1');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (12, select(id) from Skills where skill = 'Loner','4+');
+INSERT INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (12, select(id) from Skills where skill = 'Mighty Blow','+1');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (12, select(id) from Skills where skill = 'Projectile Vomit');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (12, select(id) from Skills where skill = 'Really Stupid');
 INSERT INTO SkillTemplate(playerTemplateId, skillId) values (12, select(id) from Skills where skill = 'Regeneration');

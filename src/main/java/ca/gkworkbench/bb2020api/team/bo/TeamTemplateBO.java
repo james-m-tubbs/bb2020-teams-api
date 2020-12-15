@@ -7,8 +7,8 @@ import java.util.List;
 public interface TeamTemplateBO {
 
     // ** Single Query **
-    public TeamTemplateVO getTeamTemplateByID(int teamTemplateId) throws Exception;
-    public String getJsonTeamTemplateByID(int teamTemplateId) throws Exception;
+    public TeamTemplateVO getTeamTemplateByID(int teamTemplateId, boolean playerDetails) throws Exception;
+    public String getJsonTeamTemplateByID(int teamTemplateId, boolean playerDetails) throws Exception;
 
     // ** Everything **
     public List<TeamTemplateVO> getTeamList() throws Exception;

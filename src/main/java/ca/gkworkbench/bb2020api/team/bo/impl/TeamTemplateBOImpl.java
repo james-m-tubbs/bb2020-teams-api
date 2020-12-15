@@ -21,15 +21,17 @@ public class TeamTemplateBOImpl implements TeamTemplateBO {
         this.gson = new Gson();
     }
 
-    public TeamTemplateVO getTeamTemplateByID(int teamTemplateId) throws Exception {
-        return ttDAO.getTeamTemplateByID(teamTemplateId);
+    public TeamTemplateVO getTeamTemplateByID(int teamTemplateId, boolean playerDetails) throws Exception {
+        TeamTemplateVO ttVO = ttDAO.getTeamTemplateByID(teamTemplateId);
+        if (playerDetails) {
+            List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(teamTemplateId);
+            ttVO.setPtVOs(ptVOs);
+        }
+        return ttVO;
     }
 
-    public String getJsonTeamTemplateByID(int teamTemplateId) throws Exception {
-        TeamTemplateVO ttVO = ttDAO.getTeamTemplateByID(teamTemplateId);
-        List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(teamTemplateId);
-        ttVO.setPtVOs(ptVOs);
-        return gson.toJson(ttVO);
+    public String getJsonTeamTemplateByID(int teamTemplateId, boolean playerDetails) throws Exception {
+        return gson.toJson(getTeamTemplateByID(teamTemplateId, playerDetails));
     }
 
     public List<TeamTemplateVO> getTeamList() throws Exception {

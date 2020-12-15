@@ -1,7 +1,5 @@
 package ca.gkworkbench.bb2020api.skill.dao;
 
-import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
-import ca.gkworkbench.bb2020api.skill.vo.SkillTemplateVO;
 import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -12,7 +10,7 @@ import java.util.List;
 
 public class SkillTemplateDAOImpl extends JdbcDaoSupport implements SkillTemplateDAO {
 
-    private final String SELECT_SKILLS_BY_PLAYER_ID = "SELECT * FROM SKILLS WHERE id IN (select skillId from skilltemplate where playerTemplateId = ?);";
+    private final String SELECT_SKILLS_BY_PLAYER_ID = "SELECT S.id as id, s.skill as skill, s.type as type, st.skillValue as skillValue FROM SKILLS S, SKILLTEMPLATE ST WHERE S.id = ST.skillId AND ST.playerTemplateId = ?;";
 
     @Override
     public List<SkillVO> getBaseSkillsByPlayerTemplateId(int id) throws Exception {
@@ -27,6 +25,10 @@ public class SkillTemplateDAOImpl extends JdbcDaoSupport implements SkillTemplat
                     rs.getString("skill"),
                     rs.getString("type")
             );
+            String skillValue = rs.getString("skillValue");
+            if (skillValue != null && skillValue.length() > 0) {
+                sVO.setSkill(sVO.getSkill()+"("+skillValue+")");
+            }
             return sVO;
         }
     }
