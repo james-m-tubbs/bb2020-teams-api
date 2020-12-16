@@ -8,6 +8,8 @@ public interface TeamsBO {
 
     public TeamVO createNewTeamFromTemplateId(String teamName, int coachId, int teamTemplateId, int treasury) throws Exception;
 
+    public TeamVO createNewTeamFromTemplateIdDefaultTreasury(String teamName, int coachId, int teamTemplateId) throws Exception;
+
     public TeamVO redraftTeamFromTeamId(int teamId, int treasury) throws Exception;
 
     public TeamVO buyPlayerFromTemplate(int teamId, int playerId) throws Exception;

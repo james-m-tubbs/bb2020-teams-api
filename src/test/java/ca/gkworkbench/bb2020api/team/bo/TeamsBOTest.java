@@ -25,7 +25,7 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 1);
             Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
             Assert.assertTrue(tVO.getCoachId() == 1);
-            //Assert.assertNull
+            Assert.assertFalse(tVO.isHasApothecary());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -43,6 +43,42 @@ public class TeamsBOTest {
             System.err.println(e.getMessage());
             e.printStackTrace();
             //expected
+        }
+    }
+
+    @Test
+    public void create_orc_team_and_validate_result() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateId("The Veteran JUnits", 1, 2, 1100000);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("The Veteran JUnits"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 2);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1100000);
+            Assert.assertFalse(tVO.isHasApothecary());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void create_chaos_chosen_team_and_validate_result() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("The Chaos Defaults", 1, 3);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("The Chaos Defaults"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1100000);
+            Assert.assertFalse(tVO.isHasApothecary());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
         }
     }
 }
