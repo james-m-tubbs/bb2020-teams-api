@@ -6,6 +6,10 @@ public interface TeamsBO {
 
     public TeamVO getTeamById(int teamId) throws Exception;
 
+    public TeamVO createNewTeamFromTemplateId(String teamName, int coachId, int teamTemplateId, int treasury) throws Exception;
+
+    public TeamVO redraftTeamFromTeamId(int teamId, int treasury) throws Exception;
+
     public TeamVO buyPlayerFromTemplate(int teamId, int playerId) throws Exception;
 
     public String getJsonTeam(TeamVO tVO) throws Exception;

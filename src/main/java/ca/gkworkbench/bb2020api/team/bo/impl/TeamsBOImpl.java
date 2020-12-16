@@ -28,6 +28,19 @@ public class TeamsBOImpl implements TeamsBO {
     }
 
     @Override
+    public TeamVO createNewTeamFromTemplateId(String teamName, int coachId, int teamTemplateId, int treasury) throws Exception {
+        return null;
+    }
+
+    @Override
+    public TeamVO redraftTeamFromTeamId(int teamId, int treasury) throws Exception {
+        TeamVO tVO = tDAO.getTeamById(teamId);
+        //reset all players to "inactive" status
+        //reset the treasury to the desired amount
+        return tVO;
+    }
+
+    @Override
     public TeamVO buyPlayerFromTemplate(int teamId, int playerId) throws Exception {
         return null;
     }
