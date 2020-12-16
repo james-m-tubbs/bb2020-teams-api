@@ -34,6 +34,11 @@ public class PlayerTemplateBOImpl implements PlayerTemplateBO {
     }
 
     @Override
+    public String getJsonPlayerTemplatesTeamId(int id) throws Exception {
+        return gson.toJson(getPlayerTemplatesByTeamId(id));
+    }
+
+    @Override
     public PlayerTemplateVO getPlayerTemplateById(int id) throws Exception {
         PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(id);
         ptVO = getSkillsForPlayerTemplateVO(ptVO);

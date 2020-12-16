@@ -18,7 +18,7 @@ public class PlayerBOImpl implements PlayerBO {
     }
 
     @Override
-    public List<PlayerTemplateVO> getAvailablePlayersForTeam(int playerTemplateId) throws Exception {
+    public List<PlayerTemplateVO> getAvailablePlayersForTeam(int playerTemplateId, boolean redraft) throws Exception {
         return null;
     }
 
