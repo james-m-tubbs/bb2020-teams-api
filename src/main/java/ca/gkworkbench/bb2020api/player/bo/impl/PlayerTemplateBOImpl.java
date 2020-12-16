@@ -29,6 +29,7 @@ public class PlayerTemplateBOImpl implements PlayerTemplateBO {
         for (int i=0; i<ptVOs.size(); i++) {
             returnList.add(getSkillsForPlayerTemplateVO(ptVOs.get(i)));
         }
+        if (returnList.size() < 1) throw new Exception("Error - Empty Resultset. Is the teamId correct? teamId:"+teamId);
         return returnList;
     }
 

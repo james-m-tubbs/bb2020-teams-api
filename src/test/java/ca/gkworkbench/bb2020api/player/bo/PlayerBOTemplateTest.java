@@ -21,7 +21,6 @@ public class PlayerBOTemplateTest {
     @Test
     public void test_get_human_lineman_from_id() {
         try {
-            //1, 1, 'Human Lineman', 'Y', 16, 50000, 6, 3, 3, 4, 9, 'G', 'AS'
             PlayerTemplateVO ptVO = ptBO.getPlayerTemplateById(1);
             System.err.println(ptVO);
             Assert.assertTrue(ptVO.getId() == 1);
@@ -36,7 +35,100 @@ public class PlayerBOTemplateTest {
             Assert.assertTrue(ptVO.getAV() == 9);
             Assert.assertTrue(ptVO.getSkills().size() == 0);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();;
             Assert.fail();
         }
     }
+
+    @Test
+    public void test_get_missing_player_id() {
+        try {
+            PlayerTemplateVO ptVO = ptBO.getPlayerTemplateById(-1);
+            System.err.println(ptVO);
+            Assert.fail();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();;
+            //expected
+        }
+    }
+
+    @Test
+    public void test_get_orc_players_by_team_id() {
+        try {
+            List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(1);
+            System.err.println(ptVOs);
+            Assert.assertTrue(ptVOs.size() == 6);
+            PlayerTemplateVO ptVO;
+            //checking for each player on the team
+            for (int i=0; i<ptVOs.size(); i++) {
+                ptVO = ptVOs.get(i);
+                if (ptVO.getId()==1) {
+                    System.err.println(ptVO);
+                    Assert.assertTrue(ptVO.getId() == 1);
+                    Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
+                    Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
+                    Assert.assertTrue(ptVO.getMaxCount() == 16);
+                    Assert.assertTrue(ptVO.getCost() == 50000);
+                    Assert.assertTrue(ptVO.getMA() == 6);
+                    Assert.assertTrue(ptVO.getST() == 3);
+                    Assert.assertTrue(ptVO.getAG() == 3);
+                    Assert.assertTrue(ptVO.getPA() == 4);
+                    Assert.assertTrue(ptVO.getAV() == 9);
+                    Assert.assertTrue(ptVO.getSkills().size() == 0);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();;
+            Assert.fail();
+            //expected
+        }
+    }
+
+    @Test
+    public void test_get_human_lineman_from_get_player_templates_by_team_id() {
+        try {
+            List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(1);
+            System.err.println(ptVOs);
+            Assert.assertTrue(ptVOs.size() == 6);
+            PlayerTemplateVO ptVO;
+            //checking for each player on the team
+            for (int i=0; i<ptVOs.size(); i++) {
+                ptVO = ptVOs.get(i);
+                Assert.assertNotNull(ptVO);
+                Assert.assertNotNull(ptVO.getSkills());
+                Assert.assertNotNull(ptVO.getMA());
+                Assert.assertNotNull(ptVO.getST());
+                Assert.assertNotNull(ptVO.getAG());
+                Assert.assertNotNull(ptVO.getPA());
+                Assert.assertNotNull(ptVO.getAV());
+                Assert.assertNotNull(ptVO.getCost());
+                Assert.assertNotNull(ptVO.getCost());
+                Assert.assertNotNull(ptVO.getPosition());
+                Assert.assertNotNull(ptVO.getMaxCount());
+                Assert.assertNotNull(ptVO.getTeamTemplateId());
+                Assert.assertNotNull(ptVO.getId());
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();;
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void test_get_players_by_teamid_missing_team_id() {
+        try {
+            List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(-1);
+            System.err.println(ptVOs);
+            Assert.fail();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            //expected
+        }
+    }
+
 }
