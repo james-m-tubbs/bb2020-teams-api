@@ -13,7 +13,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= bb2020TestConfig.class)
-public class PlayerBOTemplateTest {
+public class PlayerTemplateBOTest {
 
     @Autowired
     PlayerTemplateBO ptBO;
