@@ -8,6 +8,8 @@ public interface TeamsDAO {
 
     public TeamVO getTeamById(int teamId) throws Exception;
 
+    public TeamVO getTeamByName(String teamName) throws Exception;
+
     public void insertTeamVO(TeamVO teamVO) throws Exception;
 
     public void updateTeamVO(TeamVO teamVO) throws Exception;

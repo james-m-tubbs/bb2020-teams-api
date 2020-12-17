@@ -17,17 +17,17 @@ public class TeamController {
     @RequestMapping(value = "/team/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getTeamById(@PathVariable("id") int id) {
         try {
-            return tBO.getJsonTeam(tBO.getTeamById(id));
+            return tBO.getJsonTeam(tBO.getTeamById(id, false));
         } catch (Exception e) {
             e.printStackTrace();
             return "An Error Occurred: " + e.getMessage();
         }
     }
 
-    @RequestMapping(value = "/team/{tId}/buy/template/{ptId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getTeamById(@PathVariable("tId") int teamId, @PathVariable("ptId") int playerTemplateId) {
+    @RequestMapping(value = "/team/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getTeamByIdWithDetails(@PathVariable("id") int id) {
         try {
-            return tBO.getJsonTeam(tBO.buyPlayerFromTemplate(teamId, playerTemplateId));
+            return tBO.getJsonTeam(tBO.getTeamById(id, true));
         } catch (Exception e) {
             e.printStackTrace();
             return "An Error Occurred: " + e.getMessage();

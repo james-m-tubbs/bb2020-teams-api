@@ -19,13 +19,23 @@ public class TeamsBOTest {
     @Test
     public void select_rookie_testers_by_team_by_id() {
         try {
-            TeamVO tVO = tBO.getTeamById(1);
+            TeamVO tVO = tBO.getTeamById(1, false);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getId() == 1);
             Assert.assertTrue(tVO.getTeamTemplateId() == 1);
             Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
             Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getCoaches()==0);
+            Assert.assertTrue(tVO.getCheerleaders()==0);
+            Assert.assertTrue(tVO.getTotalCAS()==0);
+            Assert.assertTrue(tVO.getTotalTouchdowns()==0);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getLeaguePoints()==0);
+            Assert.assertTrue(tVO.getRerolls()==0);
+            Assert.assertTrue(tVO.getTeamValue()==0);
             Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertNull(tVO.getTeamTemplateVO());
+            Assert.assertNull(tVO.getPlayers());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -34,9 +44,49 @@ public class TeamsBOTest {
     }
 
     @Test
-    public void select_missing_team_by_id() {
+    public void select_rookie_testers_by_team_by_team_name() {
         try {
-            TeamVO tVO = tBO.getTeamById(-1);
+            TeamVO tVO = tBO.getTeamByName("The Rookie Testers", false);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getId() == 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getCoaches()==0);
+            Assert.assertTrue(tVO.getCheerleaders()==0);
+            Assert.assertTrue(tVO.getTotalCAS()==0);
+            Assert.assertTrue(tVO.getTotalTouchdowns()==0);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getLeaguePoints()==0);
+            Assert.assertTrue(tVO.getRerolls()==0);
+            Assert.assertTrue(tVO.getTeamValue()==0);
+            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertNull(tVO.getTeamTemplateVO());
+            Assert.assertNull(tVO.getPlayers());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void select_missing_team_by_id_and_fail() {
+        try {
+            TeamVO tVO = tBO.getTeamById(-1, false);
+            System.err.println(tVO);
+            Assert.fail();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            //expected
+        }
+    }
+
+    @Test
+    public void select_missing_team_by_name_and_fail() {
+        try {
+            TeamVO tVO = tBO.getTeamByName("The Norland Nobodies", false);
             System.err.println(tVO);
             Assert.fail();
         } catch (Exception e) {
@@ -73,12 +123,40 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getId() > 1);
             Assert.assertTrue(tVO.getTeamTemplateId() == 3);
             Assert.assertTrue(tVO.getCoachId() == 1);
-            Assert.assertTrue(tVO.getTreasury() == 1100000);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
             Assert.assertFalse(tVO.isHasApothecary());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
             Assert.fail();
         }
+    }
+
+    @Test
+    public void create_two_teams_with_same_name_and_fail() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("The Dwarf Doubles", 1, 6);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("The Dwarf Doubles"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 6);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+            Assert.assertFalse(tVO.isHasApothecary());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("The Dwarf Doubles", 1, 6);
+            Assert.fail();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            //expected
+        }
+
     }
 }

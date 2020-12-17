@@ -9,10 +9,8 @@ public class TeamVO {
     private int id;
     // BBUserId int NOT NULL,
     private int coachId;
-    private String coachName;
     // teamTemplateId int NOT NULL,
     private int teamTemplateId;
-    private String teamType;
     // teamName varchar(255) NOT NULL,
     private String teamName;
     // totalCas int NOT NULL DEFAULT 0,
@@ -37,13 +35,13 @@ public class TeamVO {
     private int currentTeamValue;
     // player List
     private List<PlayerVO> players;
+    // team template
+    private TeamTemplateVO teamTemplateVO;
 
-    public TeamVO(int id, int coachId, String coachName, int teamTemplateId, String teamType, String teamName, int totalCAS, int totalTouchdowns, int treasury, int leaguePoints, int rerolls, int coaches, int cheerleaders, boolean hasApothecary, int teamValue, int currentTeamValue, List<PlayerVO> players) {
+    public TeamVO(int id, int coachId, int teamTemplateId, String teamName, int totalCAS, int totalTouchdowns, int treasury, int leaguePoints, int rerolls, int coaches, int cheerleaders, boolean hasApothecary, int teamValue, int currentTeamValue, List<PlayerVO> players, TeamTemplateVO teamTemplateVO) {
         this.id = id;
         this.coachId = coachId;
-        this.coachName = coachName;
         this.teamTemplateId = teamTemplateId;
-        this.teamType = teamType;
         this.teamName = teamName;
         this.totalCAS = totalCAS;
         this.totalTouchdowns = totalTouchdowns;
@@ -56,6 +54,14 @@ public class TeamVO {
         this.teamValue = teamValue;
         this.currentTeamValue = currentTeamValue;
         this.players = players;
+        this.teamTemplateVO = teamTemplateVO;
+    }
+
+    public TeamVO(int coachId, int teamTemplateId, String teamName, int treasury) {
+        this.coachId = coachId;
+        this.teamTemplateId = teamTemplateId;
+        this.teamName = teamName;
+        this.treasury = treasury;
     }
 
     public int getId() {
@@ -170,22 +176,6 @@ public class TeamVO {
         this.currentTeamValue = currentTeamValue;
     }
 
-    public String getCoachName() {
-        return coachName;
-    }
-
-    public void setCoachName(String coachName) {
-        this.coachName = coachName;
-    }
-
-    public String getTeamType() {
-        return teamType;
-    }
-
-    public void setTeamType(String teamType) {
-        this.teamType = teamType;
-    }
-
     public List<PlayerVO> getPlayers() {
         return players;
     }
@@ -194,14 +184,20 @@ public class TeamVO {
         this.players = players;
     }
 
+    public TeamTemplateVO getTeamTemplateVO() {
+        return teamTemplateVO;
+    }
+
+    public void setTeamTemplateVO(TeamTemplateVO teamTemplateVO) {
+        this.teamTemplateVO = teamTemplateVO;
+    }
+
     @Override
     public String toString() {
         return "TeamVO{" +
                 "id=" + id +
                 ", coachId=" + coachId +
-                ", coachName='" + coachName + '\'' +
                 ", teamTemplateId=" + teamTemplateId +
-                ", teamType='" + teamType + '\'' +
                 ", teamName='" + teamName + '\'' +
                 ", totalCAS=" + totalCAS +
                 ", totalTouchdowns=" + totalTouchdowns +
@@ -214,6 +210,7 @@ public class TeamVO {
                 ", teamValue=" + teamValue +
                 ", currentTeamValue=" + currentTeamValue +
                 ", players=" + players +
+                ", teamTemplateVO=" + teamTemplateVO +
                 '}';
     }
 }

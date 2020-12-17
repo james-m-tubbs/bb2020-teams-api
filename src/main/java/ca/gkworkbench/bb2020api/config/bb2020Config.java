@@ -1,6 +1,8 @@
 package ca.gkworkbench.bb2020api.config;
 
+import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
 import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
+import ca.gkworkbench.bb2020api.player.bo.impl.PlayerBOImpl;
 import ca.gkworkbench.bb2020api.player.bo.impl.PlayerTemplateBOImpl;
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.dao.impl.PlayerTemplateDAOImpl;
@@ -99,6 +101,24 @@ public class bb2020Config {
 
     /**
      ******************************
+     * Player Beans
+     ******************************
+     */
+
+//    @Bean
+//    public PlayerDAO playerDAO() {
+//        PlayerDAOImpl pDAO = new PlayerDAOImpl();
+//        pDAO.setDataSource(dataSource());
+//        return pDAO;
+//    }
+
+    @Bean
+    public PlayerBO playerBO() {
+        return new PlayerBOImpl();
+    }
+
+    /**
+     ******************************
      * Team Beans
      ******************************
      */
@@ -114,6 +134,7 @@ public class bb2020Config {
     public TeamsBO teamsBO() {
         return new TeamsBOImpl(
                 teamsDAO(),
-                teamTemplateDAO());
+                teamTemplateBO(),
+                playerBO());
     }
 }

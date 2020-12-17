@@ -1,6 +1,7 @@
 package ca.gkworkbench.bb2020api.team.bo.impl;
 
 import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
+import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
 import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
 import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
@@ -10,26 +11,41 @@ import com.google.gson.Gson;
 public class TeamsBOImpl implements TeamsBO {
 
     private TeamsDAO tDAO;
-    private TeamTemplateDAO ttDAO;
+    private TeamTemplateBO ttBO;
     private PlayerBO pBO;
     private Gson gson;
 
-    public TeamsBOImpl(TeamsDAO tDAO, TeamTemplateDAO ttDAO) {
+    public TeamsBOImpl(TeamsDAO tDAO, TeamTemplateBO ttBO, PlayerBO pBO) {
         this.tDAO = tDAO;
-        this.ttDAO = ttDAO;
+        this.ttBO = ttBO;
+        this.pBO = pBO;
         this.gson = new Gson();
     }
 
     @Override
-    public TeamVO getTeamById(int teamId) throws Exception {
+    public TeamVO getTeamById(int teamId, boolean withDetails) throws Exception {
         TeamVO tVO = tDAO.getTeamById(teamId);
-        //tVO.setPlayers(pBO.getPlayersByTeamId(teamId));
+        if (withDetails) tVO = getTeamDetails(tVO);
+        return tVO;
+    }
+
+    @Override
+    public TeamVO getTeamByName(String teamName, boolean withDetails) throws Exception {
+        TeamVO tVO = tDAO.getTeamByName(teamName);
+        if (withDetails) tVO = getTeamDetails(tVO);
         return tVO;
     }
 
     @Override
     public TeamVO createNewTeamFromTemplateId(String teamName, int coachId, int teamTemplateId, int treasury) throws Exception {
-        return null;
+        //create the new team
+        TeamVO tVO = new TeamVO(coachId, teamTemplateId, teamName, treasury);
+        tVO = getTeamDetails(tVO);
+        tDAO.insertTeamVO(tVO);
+
+        //immediately query back
+        return getTeamByName(teamName, true);
+
     }
 
     @Override
@@ -46,12 +62,13 @@ public class TeamsBOImpl implements TeamsBO {
     }
 
     @Override
-    public TeamVO buyPlayerFromTemplate(int teamId, int playerId) throws Exception {
-        return null;
-    }
-
-    @Override
     public String getJsonTeam(TeamVO tVO) throws Exception {
         return gson.toJson(tVO);
+    }
+
+    private TeamVO getTeamDetails(TeamVO teamVO) throws Exception {
+        teamVO.setPlayers(pBO.getPlayersByTeamId(teamVO.getId()));
+        teamVO.setTeamTemplateVO(ttBO.getTeamTemplateByID(teamVO.getTeamTemplateId(), false));
+        return teamVO;
     }
 }

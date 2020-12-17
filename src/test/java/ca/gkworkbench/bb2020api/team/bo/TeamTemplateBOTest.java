@@ -20,11 +20,6 @@ public class TeamTemplateBOTest {
     TeamTemplateBO ttBO;
 
     @Test
-    public void validate_autowire_config() {
-        Assert.assertNotNull(ttBO);
-    }
-
-    @Test
     public void query_human_team_no_details() {
         try {
             TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(1, false);
