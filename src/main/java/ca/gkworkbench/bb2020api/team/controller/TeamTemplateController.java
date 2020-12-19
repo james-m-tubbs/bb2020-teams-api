@@ -14,7 +14,7 @@ public class TeamTemplateController {
     @Autowired
     TeamTemplateBO ttBO;
 
-    @RequestMapping(value = "/team/template", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/template", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String teamTemplate() {
         try {
             return ttBO.getJsonTeamList();
@@ -23,7 +23,7 @@ public class TeamTemplateController {
         }
     }
 
-    @RequestMapping(value = "/team/template/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/template/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String templateMapper(@PathVariable("id") int id) {
         try {
             return ttBO.getJsonTeamTemplateByID(id, true);

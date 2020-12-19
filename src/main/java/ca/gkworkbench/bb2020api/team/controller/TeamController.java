@@ -14,7 +14,7 @@ public class TeamController {
     @Autowired
     TeamsBO tBO;
 
-    @RequestMapping(value = "/team/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getTeamById(@PathVariable("id") int id) {
         try {
             return tBO.getJsonTeam(tBO.getTeamById(id, false));
@@ -24,7 +24,7 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/team/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public String getTeamByIdWithDetails(@PathVariable("id") int id) {
         try {
             return tBO.getJsonTeam(tBO.getTeamById(id, true));
