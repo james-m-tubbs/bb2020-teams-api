@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.team.vo;
 
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamVO {
@@ -181,6 +182,7 @@ public class TeamVO {
     }
 
     public void setPlayers(List<PlayerVO> players) {
+        if (players == null) players = new ArrayList<PlayerVO>();
         this.players = players;
     }
 

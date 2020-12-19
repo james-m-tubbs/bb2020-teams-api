@@ -159,4 +159,76 @@ public class TeamsBOTest {
         }
 
     }
+    
+    @Test
+    public void update_missing_team_and_fail() {
+        try {
+            TeamVO tVO = tBO.getTeamById(1, false);
+            tVO.setId(-1);
+            tVO = tBO.updateTeamWithGeneratedTV(tVO);
+            Assert.fail();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            //expected
+        }
+    }
+
+    @Test
+    public void create_team_add_coaching_items_and_update_with_value() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Uthers Updates", 1, 1);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("Uthers Updates"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+
+            tVO.setRerolls(2); //100k
+            tVO.setHasApothecary(true); //50k
+            tVO.setCoaches(1); //10k
+            tVO.setCheerleaders(2); //20k
+            //total 180k
+            tVO = tBO.updateTeamWithGeneratedTV(tVO);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamValue()==180000);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==180000);
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void create_team_add_coaching_items_and_update_then_query() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Questing Queries", 1, 2);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("Questing Queries"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 2);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+
+            tVO.setRerolls(2); //120k
+            tVO.setHasApothecary(false); //50k
+            tVO.setCoaches(3); //30k
+            tVO.setCheerleaders(2); //20k
+            //total 170k
+            tVO = tBO.updateTeamWithGeneratedTV(tVO);
+            Assert.assertTrue(tVO.getTeamValue()==170000);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==170000);
+
+            TeamVO qVO = tBO.getTeamById(tVO.getId(), true);
+            Assert.assertTrue(tVO.getId()==qVO.getId());
+            Assert.assertTrue(tVO.getTeamValue()==qVO.getTeamValue());
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }
+

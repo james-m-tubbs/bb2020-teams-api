@@ -27,10 +27,14 @@ public class PlayerVO {
     private int PA;
     // AV
     private int AV;
+    //drafted
+    private boolean drafted;
+    //injured
+    private boolean injured;
     // Skills
     private List<SkillVO> skills;
 
-    public PlayerVO(int id, String name, String position, int spp, int hiringFee, int currentValue, int MA, int ST, int AG, int PA, int AV, List<SkillVO> skills) {
+    public PlayerVO(int id, String name, String position, int spp, int hiringFee, int currentValue, int MA, int ST, int AG, int PA, int AV, boolean drafted, boolean injured, List<SkillVO> skills) {
         this.id = id;
         this.name = name;
         this.position = position;
@@ -42,7 +46,25 @@ public class PlayerVO {
         this.AG = AG;
         this.PA = PA;
         this.AV = AV;
+        this.drafted = drafted;
+        this.injured = injured;
         this.skills = skills;
+    }
+
+    public boolean isDrafted() {
+        return drafted;
+    }
+
+    public void setDrafted(boolean drafted) {
+        this.drafted = drafted;
+    }
+
+    public boolean isInjured() {
+        return injured;
+    }
+
+    public void setInjured(boolean injured) {
+        this.injured = injured;
     }
 
     public int getId() {
@@ -139,5 +161,25 @@ public class PlayerVO {
 
     public void setSkills(List<SkillVO> skills) {
         this.skills = skills;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerVO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", position='" + position + '\'' +
+                ", spp=" + spp +
+                ", hiringFee=" + hiringFee +
+                ", currentValue=" + currentValue +
+                ", MA=" + MA +
+                ", ST=" + ST +
+                ", AG=" + AG +
+                ", PA=" + PA +
+                ", AV=" + AV +
+                ", drafted=" + drafted +
+                ", injured=" + injured +
+                ", skills=" + skills +
+                '}';
     }
 }

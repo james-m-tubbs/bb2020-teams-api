@@ -8,13 +8,13 @@ public class TeamTemplateVO {
     private long id;
 
     private String teamType;
-    private long rerollCost;
+    private int rerollCost;
     private int tier;
     private String specialRules;
     private boolean apothecary = false;
     private List<PlayerTemplateVO> playerTemplates;
 
-    public TeamTemplateVO(long teamTemplateId, String teamType, long rerollCost, int tier, String specialRules, boolean apothecary, List<PlayerTemplateVO> ptVOs) {
+    public TeamTemplateVO(long teamTemplateId, String teamType, int rerollCost, int tier, String specialRules, boolean apothecary, List<PlayerTemplateVO> ptVOs) {
         this.id = teamTemplateId;
         this.teamType = teamType;
         this.rerollCost = rerollCost;
@@ -40,11 +40,11 @@ public class TeamTemplateVO {
         this.teamType = teamType;
     }
 
-    public long getRerollCost() {
+    public int getRerollCost() {
         return rerollCost;
     }
 
-    public void setRerollCost(long rerollCost) {
+    public void setRerollCost(int rerollCost) {
         this.rerollCost = rerollCost;
     }
 

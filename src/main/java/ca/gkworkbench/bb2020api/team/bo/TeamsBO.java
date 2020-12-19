@@ -12,6 +12,10 @@ public interface TeamsBO {
 
     public TeamVO createNewTeamFromTemplateIdDefaultTreasury(String teamName, int coachId, int teamTemplateId) throws Exception;
 
+    public TeamVO updateTeamWithGeneratedTV(TeamVO tVO) throws Exception;
+
+    public TeamVO buyPlayerForTeam(int teamId, int playerTemplateId, String playerName) throws Exception;
+
     public TeamVO redraftTeamFromTeamId(int teamId, int treasury) throws Exception;
 
     public String getJsonTeam(TeamVO tVO) throws Exception;

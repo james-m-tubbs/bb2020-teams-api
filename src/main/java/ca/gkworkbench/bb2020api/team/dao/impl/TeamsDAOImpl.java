@@ -52,13 +52,13 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                 );
     }
 
-    private final String UPDATE_ONE_QUERY = "UPDATE Teams set (coachId, teamTemplateId, teamName, totalCas, totalTouchdowns, treasury, leaguePoints, rerolls, coaches, cheerleaders, apothecaryFlag, teamValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id = ?";
+    private final String UPDATE_ONE_QUERY = "UPDATE Teams set coachId = ?, teamTemplateId = ?, teamName = ?, totalCas = ?, totalTouchdowns = ?, treasury = ?, leaguePoints = ?, rerolls = ?, coaches = ?, cheerleaders = ?, apothecaryFlag = ?, teamValue= ? WHERE id = ?";
     @Override
     public void updateTeamVO(TeamVO teamVO) throws Exception {
         String apoth = "N";
         if (teamVO.isHasApothecary()) apoth = "Y";
         getJdbcTemplate().update(
-                INSERT_ONE_QUERY,
+                UPDATE_ONE_QUERY,
                 teamVO.getCoachId(),
                 teamVO.getTeamTemplateId(),
                 teamVO.getTeamName(),
