@@ -30,11 +30,11 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
         return (List<TeamVO>)getJdbcTemplate().queryForObject(SELECT_TEAMS_BY_COACH, new TeamsDAOImpl.TeamRowMapper(), new Object[]{coachId});
     }
 
-    private final String INSERT_ONE_QUERY = "INSERT INTO Teams (coachId, teamTemplateId, teamName, totalCas, totalTouchdowns, treasury, leaguePoints, rerolls, coaches, cheerleaders, apothecaryFlag, teamValue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String INSERT_ONE_QUERY = "INSERT INTO Teams (coachId, teamTemplateId, teamName, totalCas, totalTouchdowns, treasury, leaguePoints, rerolls, coaches, cheerleaders, apothecaryFlag, teamValue, currentTeamValue, dedicatedFans) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     @Override
     public void insertTeamVO(TeamVO teamVO) throws Exception {
         String apoth = "N";
-        if (teamVO.isHasApothecary()) apoth = "Y";
+        if (teamVO.hasApothecary()) apoth = "Y";
         getJdbcTemplate().update(
                 INSERT_ONE_QUERY,
                 teamVO.getCoachId(),
@@ -48,15 +48,17 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                 teamVO.getCoaches(),
                 teamVO.getCheerleaders(),
                 apoth,
-                teamVO.getTeamValue()
+                teamVO.getTeamValue(),
+                teamVO.getCurrentTeamValue(),
+                teamVO.getDedicatedFans()
                 );
     }
 
-    private final String UPDATE_ONE_QUERY = "UPDATE Teams set coachId = ?, teamTemplateId = ?, teamName = ?, totalCas = ?, totalTouchdowns = ?, treasury = ?, leaguePoints = ?, rerolls = ?, coaches = ?, cheerleaders = ?, apothecaryFlag = ?, teamValue= ?, currentTeamValue = ? WHERE id = ?";
+    private final String UPDATE_ONE_QUERY = "UPDATE Teams set coachId = ?, teamTemplateId = ?, teamName = ?, totalCas = ?, totalTouchdowns = ?, treasury = ?, leaguePoints = ?, rerolls = ?, coaches = ?, cheerleaders = ?, apothecaryFlag = ?, teamValue= ?, currentTeamValue = ?, dedicatedFans = ? WHERE id = ?";
     @Override
     public void updateTeamVO(TeamVO teamVO) throws Exception {
         String apoth = "N";
-        if (teamVO.isHasApothecary()) apoth = "Y";
+        if (teamVO.hasApothecary()) apoth = "Y";
         getJdbcTemplate().update(
                 UPDATE_ONE_QUERY,
                 teamVO.getCoachId(),
@@ -72,6 +74,7 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                 apoth,
                 teamVO.getTeamValue(),
                 teamVO.getCurrentTeamValue(),
+                teamVO.getDedicatedFans(),
                 teamVO.getId()
         );
     }
@@ -114,6 +117,8 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                     rs.getInt("teamValue"),
                     // currentTeamValue int NOT NULL DEFAULT 0
                     rs.getInt("currentTeamValue"),
+                    // dedicatedFans
+                    rs.getInt("dedicatedFans"),
                     // we don't know the players yet
                     null,
                     null

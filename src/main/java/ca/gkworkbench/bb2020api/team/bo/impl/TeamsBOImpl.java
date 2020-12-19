@@ -102,7 +102,7 @@ public class TeamsBOImpl implements TeamsBO {
         int totalValue = 0;
         totalValue = totalValue + (10000 * tVO.getCheerleaders());
         totalValue = totalValue + (10000 * tVO.getCoaches());
-        if (tVO.isHasApothecary()) totalValue = totalValue + 50000;
+        if (tVO.hasApothecary()) totalValue = totalValue + 50000;
         totalValue = totalValue + (tVO.getTeamTemplateVO().getRerollCost() * tVO.getRerolls());
 
         List<PlayerVO> players = tVO.getPlayers();

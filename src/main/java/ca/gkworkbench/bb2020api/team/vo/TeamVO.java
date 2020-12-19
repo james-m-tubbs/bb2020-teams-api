@@ -34,12 +34,14 @@ public class TeamVO {
     private int teamValue;
     // currentTeamValue int NOT NULL DEFAULT 0,
     private int currentTeamValue;
+    //dedicated fans
+    private int dedicatedFans;
     // player List
     private List<PlayerVO> players;
     // team template
     private TeamTemplateVO teamTemplateVO;
 
-    public TeamVO(int id, int coachId, int teamTemplateId, String teamName, int totalCAS, int totalTouchdowns, int treasury, int leaguePoints, int rerolls, int coaches, int cheerleaders, boolean hasApothecary, int teamValue, int currentTeamValue, List<PlayerVO> players, TeamTemplateVO teamTemplateVO) {
+    public TeamVO(int id, int coachId, int teamTemplateId, String teamName, int totalCAS, int totalTouchdowns, int treasury, int leaguePoints, int rerolls, int coaches, int cheerleaders, boolean hasApothecary, int teamValue, int currentTeamValue, int dedicatedFans, List<PlayerVO> players, TeamTemplateVO teamTemplateVO) {
         this.id = id;
         this.coachId = coachId;
         this.teamTemplateId = teamTemplateId;
@@ -54,6 +56,7 @@ public class TeamVO {
         this.hasApothecary = hasApothecary;
         this.teamValue = teamValue;
         this.currentTeamValue = currentTeamValue;
+        this.dedicatedFans = dedicatedFans;
         this.players = players;
         this.teamTemplateVO = teamTemplateVO;
     }
@@ -153,7 +156,7 @@ public class TeamVO {
         this.cheerleaders = cheerleaders;
     }
 
-    public boolean isHasApothecary() {
+    public boolean hasApothecary() {
         return hasApothecary;
     }
 
@@ -195,6 +198,14 @@ public class TeamVO {
         this.teamTemplateVO = teamTemplateVO;
     }
 
+    public int getDedicatedFans() {
+        return dedicatedFans;
+    }
+
+    public void setDedicatedFans(int dedicatedFans) {
+        this.dedicatedFans = dedicatedFans;
+    }
+
     @Override
     public String toString() {
         return "TeamVO{" +
@@ -212,6 +223,7 @@ public class TeamVO {
                 ", hasApothecary=" + hasApothecary +
                 ", teamValue=" + teamValue +
                 ", currentTeamValue=" + currentTeamValue +
+                ", dedicatedFans=" + dedicatedFans +
                 ", players=" + players +
                 ", teamTemplateVO=" + teamTemplateVO +
                 '}';

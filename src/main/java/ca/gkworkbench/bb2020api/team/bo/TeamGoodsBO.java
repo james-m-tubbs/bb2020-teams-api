@@ -11,6 +11,7 @@ public interface TeamGoodsBO {
     public TeamVO buyCoachForTeam(int teamId) throws Exception;
     public TeamVO buyApothForTeam(int teamId) throws Exception;
     public TeamVO buyRerollForTeam(int teamId) throws Exception;
+    public TeamVO buyDedicatedFans(int teamId) throws Exception;
 
     //toss goods for team
     public PlayerVO unhireRookiePlayerForTeam(int playerId) throws Exception;

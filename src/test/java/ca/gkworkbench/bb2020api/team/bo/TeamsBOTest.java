@@ -34,7 +34,9 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getLeaguePoints()==0);
             Assert.assertTrue(tVO.getRerolls()==0);
             Assert.assertTrue(tVO.getTeamValue()==0);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getDedicatedFans()==1);
+            Assert.assertFalse(tVO.hasApothecary());
             Assert.assertNull(tVO.getTeamTemplateVO());
             Assert.assertNotNull(tVO.getPlayers());
             Assert.assertTrue(tVO.getPlayers().size()==0);
@@ -62,7 +64,9 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getLeaguePoints()==0);
             Assert.assertTrue(tVO.getRerolls()==0);
             Assert.assertTrue(tVO.getTeamValue()==0);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getDedicatedFans()==1);
+            Assert.assertFalse(tVO.hasApothecary());
             Assert.assertNull(tVO.getTeamTemplateVO());
             Assert.assertNotNull(tVO.getPlayers());
             Assert.assertTrue(tVO.getPlayers().size()==0);
@@ -109,7 +113,7 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 2);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1100000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -127,7 +131,7 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 3);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -145,7 +149,7 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 6);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -219,6 +223,7 @@ public class TeamsBOTest {
             tVO.setHasApothecary(false); //50k
             tVO.setCoaches(3); //30k
             tVO.setCheerleaders(2); //20k
+            tVO.setDedicatedFans(4);
             //total 170k
             tVO = tBO.updateTeamWithGeneratedTV(tVO);
             Assert.assertTrue(tVO.getTeamValue()==170000);
@@ -227,6 +232,8 @@ public class TeamsBOTest {
             TeamVO qVO = tBO.getTeamById(tVO.getId(), true);
             Assert.assertTrue(tVO.getId()==qVO.getId());
             Assert.assertTrue(tVO.getTeamValue()==qVO.getTeamValue());
+            Assert.assertTrue(tVO.getCurrentTeamValue()==qVO.getCurrentTeamValue());
+            Assert.assertTrue(tVO.getDedicatedFans()==qVO.getDedicatedFans());
         } catch (Exception e) {
             System.err.print(e.getMessage());
             e.printStackTrace();

@@ -22,7 +22,7 @@ public class TeamGoodsBOImpl implements TeamGoodsBO {
     @Override
     public TeamVO buyCheerleaderForTeam(int teamId) throws Exception {
         TeamVO tVO = tBO.getTeamById(teamId, false);
-        if (tVO.getCheerleaders() == 10) throw new WarnException("Cheerleaders at max");
+        if (tVO.getCheerleaders() >= 10) throw new WarnException("Cheerleaders at max");
         if (tVO.getTreasury() < 10000) throw new WarnException("Not enough funds");
         tVO.setTreasury(tVO.getTreasury()-10000);
         tVO.setCheerleaders(tVO.getCheerleaders()+1);
@@ -42,7 +42,7 @@ public class TeamGoodsBOImpl implements TeamGoodsBO {
     public TeamVO buyCoachForTeam(int teamId) throws Exception {
         TeamVO tVO = tBO.getTeamById
 (teamId, false);
-        if (tVO.getCoaches() == 6) throw new WarnException("Coaches at max");
+        if (tVO.getCoaches() >= 6) throw new WarnException("Coaches at max");
         if (tVO.getTreasury() < 10000) throw new WarnException("Not enough funds");
         tVO.setTreasury(tVO.getTreasury()-10000);
         tVO.setCoaches(tVO.getCoaches()+1);
@@ -61,7 +61,7 @@ public class TeamGoodsBOImpl implements TeamGoodsBO {
     @Override
     public TeamVO buyApothForTeam(int teamId) throws Exception {
         TeamVO tVO = tBO.getTeamById(teamId, false);
-        if (tVO.isHasApothecary()) throw new WarnException("Apothecary Exists");
+        if (tVO.hasApothecary()) throw new WarnException("Apothecary Exists");
         if (tVO.getTreasury() < 50000) throw new WarnException("Not enough funds");
         tVO.setTreasury(tVO.getTreasury()-50000);
         tVO.setHasApothecary(true);
@@ -71,9 +71,8 @@ public class TeamGoodsBOImpl implements TeamGoodsBO {
 
     @Override
     public TeamVO fireApothForTeam(int teamId) throws Exception {
-        TeamVO tVO = tBO.getTeamById
-(teamId, false);
-        if (!tVO.isHasApothecary()) throw new WarnException("Apothecary Does't Exist");
+        TeamVO tVO = tBO.getTeamById(teamId, false);
+        if (!tVO.hasApothecary()) throw new WarnException("Apothecary Does't Exist");
         tVO.setHasApothecary(false);
         return tBO.updateTeamWithGeneratedTV(tVO);
     }
@@ -93,12 +92,23 @@ public class TeamGoodsBOImpl implements TeamGoodsBO {
         int rerollCost = tVO.getTeamTemplateVO().getRerollCost();
         if (isExperienced()) { rerollCost = rerollCost*2; }
         if (tVO.getTreasury() < rerollCost) throw new WarnException("Not enough funds");
+        tVO.setTreasury(tVO.getTreasury()-rerollCost);
         tVO.setRerolls(tVO.getRerolls()+1);
         return tBO.updateTeamWithGeneratedTV(tVO);
     }
 
+    @Override
+    public TeamVO buyDedicatedFans(int teamId) throws Exception {
+        TeamVO tVO = tBO.getTeamById(teamId, false);
+        if (tVO.getDedicatedFans() >= 6) throw new WarnException("Fans at max");
+        if (tVO.getTreasury() < 10000) throw new WarnException("Not enough funds");
+        tVO.setTreasury(tVO.getTreasury()-10000);
+        tVO.setDedicatedFans(tVO.getDedicatedFans()+1);
+        return tBO.updateTeamWithGeneratedTV(tVO);
+    }
+
     private boolean isExperienced() {
-        return true;
+        return false;
     }
 
     @Override

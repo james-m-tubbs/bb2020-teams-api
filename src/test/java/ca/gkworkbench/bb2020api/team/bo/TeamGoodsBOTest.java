@@ -29,20 +29,45 @@ public class TeamGoodsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 1);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
 
             tVO = tgBO.buyApothForTeam(tVO.getId());
             System.err.println(tVO);
             Assert.assertTrue(tVO.getTeamValue() == 50000);
             Assert.assertTrue(tVO.getCurrentTeamValue() == 50000);
             Assert.assertTrue(tVO.getTreasury() == 950000);
-            Assert.assertTrue(tVO.isHasApothecary());
+            Assert.assertTrue(tVO.hasApothecary());
         } catch (Exception e) {
             System.err.print(e.getMessage());
             e.printStackTrace();
             Assert.fail();
         }
     }
+
+//    @Test
+//    public void create_buy_apoth_not_allowed() {
+//        try {
+//            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Sporting Spenders", 1, 1);
+//            System.err.println(tVO);
+//            Assert.assertTrue(tVO.getTeamName().equals("Sporting Spenders"));
+//            Assert.assertTrue(tVO.getId() > 1);
+//            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+//            Assert.assertTrue(tVO.getCoachId() == 1);
+//            Assert.assertTrue(tVO.getTreasury() == 1000000);
+//            Assert.assertFalse(tVO.hasApothecary());
+//
+//            tVO = tgBO.buyApothForTeam(tVO.getId());
+//            System.err.println(tVO);
+//            Assert.assertTrue(tVO.getTeamValue() == 50000);
+//            Assert.assertTrue(tVO.getCurrentTeamValue() == 50000);
+//            Assert.assertTrue(tVO.getTreasury() == 950000);
+//            Assert.assertTrue(tVO.hasApothecary());
+//        } catch (Exception e) {
+//            System.err.print(e.getMessage());
+//            e.printStackTrace();
+//            Assert.fail();
+//        }
+//    }
 
     @Test
     public void create_poor_team_fail_pass_fail_buy_goods_due_to_budget() {
@@ -55,7 +80,7 @@ public class TeamGoodsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 1);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 10000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
             teamId = tVO.getId();
         } catch (Exception e) {
             System.err.print(e.getMessage());
@@ -115,19 +140,19 @@ public class TeamGoodsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 1);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
 
             tVO = tgBO.buyApothForTeam(tVO.getId());
             Assert.assertTrue(tVO.getTeamValue() == 50000);
             Assert.assertTrue(tVO.getCurrentTeamValue() == 50000);
             Assert.assertTrue(tVO.getTreasury() == 950000);
-            Assert.assertTrue(tVO.isHasApothecary());
+            Assert.assertTrue(tVO.hasApothecary());
 
             tVO = tgBO.fireApothForTeam(tVO.getId());
             Assert.assertTrue(tVO.getTeamValue() == 0);
             Assert.assertTrue(tVO.getCurrentTeamValue() == 0);
             Assert.assertTrue(tVO.getTreasury() == 950000);
-            Assert.assertFalse(tVO.isHasApothecary());
+            Assert.assertFalse(tVO.hasApothecary());
 
         } catch (Exception e) {
             System.err.print(e.getMessage());
@@ -202,6 +227,7 @@ public class TeamGoodsBOTest {
             Assert.assertTrue(tVO.getRerolls()==8);
             Assert.assertTrue(tVO.getTeamValue()==400000);
             Assert.assertTrue(tVO.getCurrentTeamValue()==400000);
+            Assert.assertTrue(tVO.getTreasury()==600000);
 
             for (int i = 0; i < 8; i++) {
                 tVO = tgBO.removeRerollForTeam(tVO.getId());
@@ -209,6 +235,7 @@ public class TeamGoodsBOTest {
             Assert.assertTrue(tVO.getRerolls()==0);
             Assert.assertTrue(tVO.getTeamValue()==0);
             Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getTreasury()==600000); //TODO we may want to make it so teams can "un-buy" goods too
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -256,6 +283,31 @@ public class TeamGoodsBOTest {
             System.err.println(e.getMessage());
             e.printStackTrace();
             //expected!
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void buy_6_dedicated_fans_success() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("buy dedicated fans and delete", 1, 1);
+            Assert.assertTrue(tVO.getTeamName().equals("buy dedicated fans and delete"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+            for (int i = 0; i < 6; i++) {
+                tVO = tgBO.buyDedicatedFans(tVO.getId());
+            }
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getDedicatedFans()==6);
+            Assert.assertTrue(tVO.getTeamValue()==0);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getTreasury()==940000);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
