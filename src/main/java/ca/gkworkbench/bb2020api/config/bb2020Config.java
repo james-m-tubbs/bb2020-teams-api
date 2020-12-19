@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("bb2020api.properties")
+@PropertySource("classpath:bb2020api.properties")
 @EnableTransactionManagement
 public class bb2020Config {
     @Autowired

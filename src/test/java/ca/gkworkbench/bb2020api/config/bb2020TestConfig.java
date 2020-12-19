@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("bb2020api.properties")
+@PropertySource("classpath:bb2020api-test.properties")
 @EnableTransactionManagement
 public class bb2020TestConfig {
     @Autowired
@@ -46,7 +46,7 @@ public class bb2020TestConfig {
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("classpath:init-db.sql")
+                .addScript("classpath:init-db-test.sql")
                 .build();
     }
 
