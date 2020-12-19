@@ -1,10 +1,10 @@
 package ca.gkworkbench.bb2020api.team.bo.impl;
 
+import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
-import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
 import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import com.google.gson.Gson;
@@ -65,12 +65,8 @@ public class TeamsBOImpl implements TeamsBO {
         }
         tVO = fillTeamValues(tVO);
         tDAO.updateTeamVO(tVO);
-        return tVO;
-    }
-
-    @Override
-    public TeamVO buyPlayerForTeam(int teamId, int playerTemplateId, String playerName) throws Exception {
-        return null;
+        System.out.println("Updating TeamVO:"+tVO);
+        return getTeamById(tVO.getId(), false);
     }
 
     @Override
@@ -103,7 +99,6 @@ public class TeamsBOImpl implements TeamsBO {
             pBO.getPlayersByTeamId(tVO.getId());
         }
 
-        Map<String, Integer> returnMap = new HashMap<String, Integer>();
         int totalValue = 0;
         totalValue = totalValue + (10000 * tVO.getCheerleaders());
         totalValue = totalValue + (10000 * tVO.getCoaches());

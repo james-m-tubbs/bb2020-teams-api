@@ -178,6 +178,7 @@ public class TeamVO {
     }
 
     public List<PlayerVO> getPlayers() {
+        if (players == null) return new ArrayList<PlayerVO>();
         return players;
     }
 

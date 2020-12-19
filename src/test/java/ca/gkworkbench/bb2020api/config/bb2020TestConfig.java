@@ -8,8 +8,10 @@ import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.dao.impl.PlayerTemplateDAOImpl;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAOImpl;
+import ca.gkworkbench.bb2020api.team.bo.TeamGoodsBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
+import ca.gkworkbench.bb2020api.team.bo.impl.TeamGoodsBOImpl;
 import ca.gkworkbench.bb2020api.team.bo.impl.TeamTemplateBOImpl;
 import ca.gkworkbench.bb2020api.team.bo.impl.TeamsBOImpl;
 import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
@@ -136,5 +138,11 @@ public class bb2020TestConfig {
                 teamsDAO(),
                 teamTemplateBO(),
                 playerBO());
+    }
+
+    @Bean
+    public TeamGoodsBO teamGoodsBO() {
+        return new TeamGoodsBOImpl(
+                teamsBO());
     }
 }

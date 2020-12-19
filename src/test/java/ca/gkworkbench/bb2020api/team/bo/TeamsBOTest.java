@@ -1,6 +1,7 @@
 package ca.gkworkbench.bb2020api.team.bo;
 
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
+import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,7 +36,8 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamValue()==0);
             Assert.assertFalse(tVO.isHasApothecary());
             Assert.assertNull(tVO.getTeamTemplateVO());
-            Assert.assertNull(tVO.getPlayers());
+            Assert.assertNotNull(tVO.getPlayers());
+            Assert.assertTrue(tVO.getPlayers().size()==0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -62,7 +64,8 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamValue()==0);
             Assert.assertFalse(tVO.isHasApothecary());
             Assert.assertNull(tVO.getTeamTemplateVO());
-            Assert.assertNull(tVO.getPlayers());
+            Assert.assertNotNull(tVO.getPlayers());
+            Assert.assertTrue(tVO.getPlayers().size()==0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -230,5 +233,6 @@ public class TeamsBOTest {
             Assert.fail();
         }
     }
+
 }
 

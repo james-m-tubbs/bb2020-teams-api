@@ -52,7 +52,7 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                 );
     }
 
-    private final String UPDATE_ONE_QUERY = "UPDATE Teams set coachId = ?, teamTemplateId = ?, teamName = ?, totalCas = ?, totalTouchdowns = ?, treasury = ?, leaguePoints = ?, rerolls = ?, coaches = ?, cheerleaders = ?, apothecaryFlag = ?, teamValue= ? WHERE id = ?";
+    private final String UPDATE_ONE_QUERY = "UPDATE Teams set coachId = ?, teamTemplateId = ?, teamName = ?, totalCas = ?, totalTouchdowns = ?, treasury = ?, leaguePoints = ?, rerolls = ?, coaches = ?, cheerleaders = ?, apothecaryFlag = ?, teamValue= ?, currentTeamValue = ? WHERE id = ?";
     @Override
     public void updateTeamVO(TeamVO teamVO) throws Exception {
         String apoth = "N";
@@ -71,6 +71,7 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                 teamVO.getCheerleaders(),
                 apoth,
                 teamVO.getTeamValue(),
+                teamVO.getCurrentTeamValue(),
                 teamVO.getId()
         );
     }
