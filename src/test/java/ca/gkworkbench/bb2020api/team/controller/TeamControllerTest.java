@@ -13,9 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -27,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(TeamController.class)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes= bb2020TestConfig.class)
-@AutoConfigureRestDocs(outputDir = "target/snippets")
 public class TeamControllerTest {
 
     @Autowired
@@ -51,8 +47,7 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.hasApothecary").value(false))
                 .andExpect(jsonPath("$.teamValue").value(0))
                 .andExpect(jsonPath("$.currentTeamValue").value(0))
-                .andExpect(jsonPath("$.dedicatedFans").value(1))
-                .andDo(document("team/1"));
+                .andExpect(jsonPath("$.dedicatedFans").value(1));
     }
 
     @Test
@@ -86,8 +81,7 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.teamTemplateVO.rerollCost").value(50000))
                 .andExpect(jsonPath("$.teamTemplateVO.tier").value(1))
                 .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Old World Classic"))
-                .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true))
-                .andDo(document("team/details/1"));
+                .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true));
     }
 
     @Test

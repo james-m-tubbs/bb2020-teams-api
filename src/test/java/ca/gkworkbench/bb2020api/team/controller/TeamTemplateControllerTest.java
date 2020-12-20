@@ -13,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,7 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(TeamTemplateController.class)
 @AutoConfigureMockMvc
 @ContextConfiguration(classes= bb2020TestConfig.class)
-@AutoConfigureRestDocs(outputDir = "target/snippets")
 public class TeamTemplateControllerTest {
 
     @Autowired
@@ -70,8 +68,7 @@ public class TeamTemplateControllerTest {
                 .andExpect(jsonPath("$.playerTemplates[1].primary").value("GP"))
                 .andExpect(jsonPath("$.playerTemplates[1].secondary").value("AS"))
                 .andExpect(jsonPath("$.playerTemplates[1].skills[0].skill").value("Sure Hands"))
-                .andExpect(jsonPath("$.playerTemplates[1].skills[1].skill").value("Pass"))
-                .andDo(document("api/team/template/1"));
+                .andExpect(jsonPath("$.playerTemplates[1].skills[1].skill").value("Pass"));
     }
 
     @Test

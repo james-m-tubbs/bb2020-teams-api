@@ -2,11 +2,13 @@ package ca.gkworkbench.bb2020api.player.controller;
 
 import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class PlayerTemplateController {
@@ -19,7 +21,10 @@ public class PlayerTemplateController {
         try {
             return ptBO.getJsonPlayerTemplateById(playerTemplateId);
         } catch (Exception e) {
-            return "An Error Occurred: " + e.getMessage();
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not Found"
+            );
         }
     }
 
@@ -28,7 +33,10 @@ public class PlayerTemplateController {
         try {
             return ptBO.getJsonPlayerTemplatesTeamId(teamId);
         } catch (Exception e) {
-            return "An Error Occurred: " + e.getMessage();
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not Found"
+            );
         }
     }
 }
