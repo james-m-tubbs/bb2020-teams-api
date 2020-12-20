@@ -2,11 +2,13 @@ package ca.gkworkbench.bb2020api.team.controller;
 
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class TeamTemplateController {
@@ -19,7 +21,10 @@ public class TeamTemplateController {
         try {
             return ttBO.getJsonTeamList();
         } catch (Exception e) {
-            return "An Error Occurred: " + e.getMessage();
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "Not Found"
+            );
         }
     }
 
@@ -28,7 +33,10 @@ public class TeamTemplateController {
         try {
             return ttBO.getJsonTeamTemplateByID(id, true);
         } catch (Exception e) {
-            return "An Error Occurred: " + e.getMessage();
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not Found"
+            );
         }
     }
 }

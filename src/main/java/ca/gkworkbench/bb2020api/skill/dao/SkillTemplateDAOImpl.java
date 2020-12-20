@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SkillTemplateDAOImpl extends JdbcDaoSupport implements SkillTemplateDAO {
 
-    private final String SELECT_SKILLS_BY_PLAYER_ID = "SELECT S.id as id, s.skill as skill, s.type as type, st.skillValue as skillValue FROM SKILLS S, SKILLTEMPLATE ST WHERE S.id = ST.skillId AND ST.playerTemplateId = ?;";
+    private final String SELECT_SKILLS_BY_PLAYER_ID = "SELECT S.id as id, s.skill as skill, s.type as type, st.skillValue as skillValue FROM SKILLS S, SKILLTEMPLATE ST WHERE S.id = ST.skillId AND ST.playerTemplateId = ? ORDER BY ID;";
 
     @Override
     public List<SkillVO> getBaseSkillsByPlayerTemplateId(int id) throws Exception {

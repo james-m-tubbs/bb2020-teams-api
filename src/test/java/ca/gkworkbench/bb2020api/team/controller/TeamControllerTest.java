@@ -35,7 +35,7 @@ public class TeamControllerTest {
 
     @Test
     public void get_team_endpoint_success() throws Exception {
-        this.mockMvc.perform(get("/team/1"))
+        this.mockMvc.perform(get("/api/team/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
@@ -57,14 +57,14 @@ public class TeamControllerTest {
 
     @Test
     public void get_team_endpoint_failure() throws Exception {
-        this.mockMvc.perform(get("/teams/999999"))
+        this.mockMvc.perform(get("/api/team/999999"))
                 .andExpect(status().is4xxClientError());
     }
 
     //{"id":1,"coachId":1,"teamTemplateId":1,"teamName":"The Rookie Testers","totalCAS":0,"totalTouchdowns":0,"treasury":1000000,"leaguePoints":0,"rerolls":0,"coaches":0,"cheerleaders":0,"hasApothecary":false,"teamValue":0,"currentTeamValue":0,"dedicatedFans":1,"players":[],"teamTemplateVO":{"id":1,"teamType":"Human","rerollCost":50000,"tier":1,"specialRules":"Old World Classic","apothecary":true}}
     @Test
     public void get_team_details_success() throws Exception {
-        this.mockMvc.perform(get("/team/details/1"))
+        this.mockMvc.perform(get("/api/team/details/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
@@ -92,7 +92,7 @@ public class TeamControllerTest {
 
     @Test
     public void get_team_details_failure() throws Exception {
-        this.mockMvc.perform(get("/teams/details/999999"))
+        this.mockMvc.perform(get("/api/team/details/999999"))
                 .andExpect(status().is4xxClientError());
     }
 }
