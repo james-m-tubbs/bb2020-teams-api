@@ -19,10 +19,13 @@ public class TeamGoodsController {
     TeamGoodsBO tgBO;
     @Autowired
     TeamsBO tBO;
+//    @Autowired
+//    AuthBO authBO;
 
     @RequestMapping(value = "/api/team/goods/add/apoth/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String add_apoth_by_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.buyApothForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -36,6 +39,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/remove/apoth/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String fire_apoth_for_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.fireApothForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -49,6 +53,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/add/cheerleader/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String add_cheerleader_by_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.buyCheerleaderForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -62,6 +67,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/remove/cheerleader/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String fire_cheerleader_for_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.fireApothForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -75,6 +81,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/add/coach/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String add_coach_by_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.buyCoachForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -88,6 +95,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/remove/coach/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String fire_coach_for_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.fireApothForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -101,6 +109,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/add/reroll/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String add_reroll_by_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.buyRerollForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -114,6 +123,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/remove/reroll/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String remove_reroll_for_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.removeRerollForTeam(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
@@ -127,6 +137,7 @@ public class TeamGoodsController {
     @RequestMapping(value = "/api/team/goods/add/fans/{teamId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String add_fans_for_team_id(@PathVariable("teamId") int teamId) {
         try {
+            //TODO Check Auth
             TeamVO tVO = tgBO.buyDedicatedFans(teamId);
             return tBO.getJsonTeam(tVO);
         } catch (Exception e) {
