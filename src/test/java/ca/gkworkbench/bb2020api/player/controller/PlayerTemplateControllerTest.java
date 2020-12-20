@@ -26,7 +26,6 @@ public class PlayerTemplateControllerTest {
     private MockMvc mockMvc;
 
     @Test
-
     public void get_team_endpoint_success() throws Exception {
         this.mockMvc.perform(get("/api/player/template/4"))
                 .andExpect(status().isOk())
@@ -51,6 +50,34 @@ public class PlayerTemplateControllerTest {
     @Test
     public void get_team_endpoint_failure() throws Exception {
         this.mockMvc.perform(get("/api/player/template/999999"))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void get_templates_by_team_success() throws Exception {
+        this.mockMvc.perform(get("/api/player/template/team/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[3].id").value(4))
+                .andExpect(jsonPath("$[3].teamTemplateId").value(1))
+                .andExpect(jsonPath("$[3].position").value("Human Blitzer"))
+                .andExpect(jsonPath("$[3].linemanFlag").value(false))
+                .andExpect(jsonPath("$[3].qty").value(4))
+                .andExpect(jsonPath("$[3].cost").value(85000))
+                .andExpect(jsonPath("$[3].MA").value(7))
+                .andExpect(jsonPath("$[3].ST").value(3))
+                .andExpect(jsonPath("$[3].AG").value(3))
+                .andExpect(jsonPath("$[3].PA").value(4))
+                .andExpect(jsonPath("$[3].AV").value(9))
+                .andExpect(jsonPath("$[3].skills[0].skill").value("Block"))
+                .andExpect(jsonPath("$[3].skills[0].type").value("G"))
+                .andExpect(jsonPath("$[3].primary").value("GS"))
+                .andExpect(jsonPath("$[3].secondary").value("AP"));
+    }
+
+    @Test
+    public void get_templates_by_team_failure() throws Exception {
+        this.mockMvc.perform(get("/api/player/template/team/999999"))
                 .andExpect(status().is4xxClientError());
     }
 }
