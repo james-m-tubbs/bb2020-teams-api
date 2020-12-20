@@ -16,10 +16,10 @@ public class TeamController {
     @Autowired
     TeamsBO tBO;
 
-    @RequestMapping(value = "/api/team/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getTeamById(@PathVariable("id") int id) {
+    @RequestMapping(value = "/api/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getTeamById(@PathVariable("teamId") int teamId) {
         try {
-            return tBO.getJsonTeam(tBO.getTeamById(id, false));
+            return tBO.getJsonTeam(tBO.getTeamById(teamId, false));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
@@ -28,10 +28,10 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/details/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getTeamByIdWithDetails(@PathVariable("id") int id) {
+    @RequestMapping(value = "/api/team/details/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getTeamByIdWithDetails(@PathVariable("teamId") int teamId) {
         try {
-            return tBO.getJsonTeam(tBO.getTeamById(id, true));
+            return tBO.getJsonTeam(tBO.getTeamById(teamId, true));
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
