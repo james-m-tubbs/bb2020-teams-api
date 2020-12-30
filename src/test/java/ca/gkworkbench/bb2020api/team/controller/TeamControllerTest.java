@@ -148,8 +148,29 @@ public class TeamControllerTest {
     @Test
     public void create_team_twice_and_expect_a_failure() throws Exception {
         this.mockMvc.perform(put("/api/team/create/1?teamName=Double%20Troubles"))
-                .andExpect(status().isOk());
-                //TODO validate response here
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.teamTemplateId").value(1))
+                .andExpect(jsonPath("$.teamName").value("Create Team Custom Treasury"))
+                .andExpect(jsonPath("$.totalCAS").value(0))
+                .andExpect(jsonPath("$.totalTouchdowns").value(0))
+                .andExpect(jsonPath("$.treasury").value(1))
+                .andExpect(jsonPath("$.leaguePoints").value(0))
+                .andExpect(jsonPath("$.rerolls").value(0))
+                .andExpect(jsonPath("$.coaches").value(0))
+                .andExpect(jsonPath("$.cheerleaders").value(0))
+                .andExpect(jsonPath("$.hasApothecary").value(false))
+                .andExpect(jsonPath("$.teamValue").value(0))
+                .andExpect(jsonPath("$.currentTeamValue").value(0))
+                .andExpect(jsonPath("$.dedicatedFans").value(1))
+                .andExpect(jsonPath("$.teamTemplateVO.id").value(1))
+                .andExpect(jsonPath("$.teamTemplateVO.teamType").value("Human"))
+                .andExpect(jsonPath("$.teamTemplateVO.rerollCost").value(50000))
+                .andExpect(jsonPath("$.teamTemplateVO.tier").value(1))
+                .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Old World Classic"))
+                .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true));
+
         this.mockMvc.perform(put("/api/team/create/1?teamName=Double%20Troubles"))
                 .andExpect(status().is4xxClientError());
     }
