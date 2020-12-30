@@ -31,11 +31,12 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/api/team/create/{teamTemplateId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createTeam(@PathVariable("teamTemplateId") int teamTemplateId, @RequestParam(name = "teamName") String teamName, @RequestParam(name="treasury") int treasury) {
+    public String createTeam(@PathVariable("teamTemplateId") int teamTemplateId, @RequestParam(name = "teamName") String teamName, @RequestParam(name="treasury", required = false) Integer treasury) {
         try {
             int coachId = authBO.getUserId();
+            teamName = teamName.replaceAll("%20", " ");
             TeamVO teamVO;
-            if (treasury >= 0) {
+            if (treasury != null && treasury >= 0) {
                 teamVO = tBO.createNewTeamFromTemplateId(teamName, coachId, teamTemplateId, treasury);
             } else {
                 teamVO = tBO.createNewTeamFromTemplateIdDefaultTreasury(teamName, coachId, teamTemplateId);
@@ -44,7 +45,20 @@ public class TeamController {
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not Found"
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
+            );
+        }
+    }
+
+    @RequestMapping(value = "/api/team/delete/{teamId}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteTeam(@PathVariable("teamId") int teamId) {
+        try {
+            tBO.deleteTeam(teamId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
             );
         }
     }

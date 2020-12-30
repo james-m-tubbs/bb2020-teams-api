@@ -18,6 +18,9 @@ public interface TeamsBO {
     //calculate updated TV and save
     public TeamVO updateTeamWithGeneratedTV(TeamVO tVO) throws Exception;
 
+    //delete team
+    public void deleteTeam(int teamId) throws Exception;
+
     //delete team methods
     //TODO
 }

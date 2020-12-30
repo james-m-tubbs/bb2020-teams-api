@@ -1,5 +1,7 @@
 package ca.gkworkbench.bb2020api.config;
 
+import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
+import ca.gkworkbench.bb2020api.auth.bo.impl.AuthBOImpl;
 import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
 import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
 import ca.gkworkbench.bb2020api.player.bo.impl.PlayerBOImpl;
@@ -48,6 +50,18 @@ public class bb2020TestConfig {
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:init-db-test.sql")
                 .build();
+    }
+
+    /**
+     ******************************
+     * Auth Beans
+     ******************************
+     */
+
+    @Bean
+    public AuthBO authBO() {
+        AuthBO authBO = new AuthBOImpl();
+        return authBO;
     }
 
     /**

@@ -45,6 +45,7 @@ public class TeamsBOImpl implements TeamsBO {
     public TeamVO createNewTeamFromTemplateId(String teamName, int coachId, int teamTemplateId, int treasury) throws Exception {
         //create the new team
         TeamVO tVO = new TeamVO(coachId, teamTemplateId, teamName, treasury);
+        tVO.setDedicatedFans(1);
         tVO = getTeamDetails(tVO);
         tDAO.insertTeamVO(tVO);
 
@@ -67,6 +68,11 @@ public class TeamsBOImpl implements TeamsBO {
         tDAO.updateTeamVO(tVO);
         System.out.println("Updating TeamVO:"+tVO);
         return getTeamById(tVO.getId(), false);
+    }
+
+    @Override
+    public void deleteTeam(int teamId) throws Exception {
+
     }
 
     @Override
