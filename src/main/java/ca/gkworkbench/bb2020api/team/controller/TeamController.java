@@ -1,6 +1,7 @@
 package ca.gkworkbench.bb2020api.team.controller;
 
 import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
+import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class TeamController {
                 teamVO = tBO.createNewTeamFromTemplateIdDefaultTreasury(teamName, coachId, teamTemplateId);
             }
             return tBO.getJsonTeam(teamVO);
+        } catch (WarnException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage()
+            );
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(

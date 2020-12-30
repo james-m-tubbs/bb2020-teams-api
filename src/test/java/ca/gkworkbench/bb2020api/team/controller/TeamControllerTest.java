@@ -1,6 +1,7 @@
 package ca.gkworkbench.bb2020api.team.controller;
 
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,10 +152,10 @@ public class TeamControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.teamTemplateId").value(1))
-                .andExpect(jsonPath("$.teamName").value("Create Team Custom Treasury"))
+                .andExpect(jsonPath("$.teamName").value("Double Troubles"))
                 .andExpect(jsonPath("$.totalCAS").value(0))
                 .andExpect(jsonPath("$.totalTouchdowns").value(0))
-                .andExpect(jsonPath("$.treasury").value(1))
+                .andExpect(jsonPath("$.treasury").value(1000000))
                 .andExpect(jsonPath("$.leaguePoints").value(0))
                 .andExpect(jsonPath("$.rerolls").value(0))
                 .andExpect(jsonPath("$.coaches").value(0))
@@ -171,7 +172,10 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true));
 
 
-        this.mockMvc.perform(post("/api/team/create/1?teamName=Double%20Troubles"))
-                .andExpect(status().is4xxClientError());
+        String error = this.mockMvc.perform(post("/api/team/create/1?teamName=Double%20Troubles"))
+                .andExpect(status().is4xxClientError())
+                .andReturn().getResolvedException().getMessage();
+
+        Assert.assertTrue(error.equalsIgnoreCase("400 BAD_REQUEST \"Team Name Exists: Double Troubles\""));
     }
 }

@@ -47,7 +47,12 @@ public class TeamsBOImpl implements TeamsBO {
         TeamVO tVO = new TeamVO(coachId, teamTemplateId, teamName, treasury);
         tVO.setDedicatedFans(1);
         tVO = getTeamDetails(tVO);
-        tDAO.insertTeamVO(tVO);
+        try {
+            tDAO.insertTeamVO(tVO);
+        } catch (Exception e) {
+            if (e.getMessage().contains("Unique index or primary key violation")) throw new WarnException("Team Name Exists: " +teamName);
+            throw e;
+        }
 
         //immediately query back
         return getTeamByName(teamName, true);
