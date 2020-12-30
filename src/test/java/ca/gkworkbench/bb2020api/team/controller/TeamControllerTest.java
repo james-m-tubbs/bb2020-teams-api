@@ -14,8 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -93,7 +92,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_success() throws Exception {
-        this.mockMvc.perform(put("/api/team/create/6?teamName=Create%20Team%20Success"))
+        this.mockMvc.perform(post("/api/team/create/6?teamName=Create%20Team%20Success"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -120,7 +119,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_with_custom_treasury() throws Exception {
-        this.mockMvc.perform(put("/api/team/create/2?teamName=Create%20Team%20Custom%20Treasury&treasury=1"))
+        this.mockMvc.perform(post("/api/team/create/2?teamName=Create%20Team%20Custom%20Treasury&treasury=1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -147,7 +146,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_twice_and_expect_a_failure() throws Exception {
-        this.mockMvc.perform(put("/api/team/create/1?teamName=Double%20Troubles"))
+        this.mockMvc.perform(post("/api/team/create/1?teamName=Double%20Troubles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -171,7 +170,8 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Old World Classic"))
                 .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true));
 
-        this.mockMvc.perform(put("/api/team/create/1?teamName=Double%20Troubles"))
+
+        this.mockMvc.perform(post("/api/team/create/1?teamName=Double%20Troubles"))
                 .andExpect(status().is4xxClientError());
     }
 }

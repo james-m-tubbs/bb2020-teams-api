@@ -30,7 +30,7 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/create/{teamTemplateId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/create/{teamTemplateId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String createTeam(@PathVariable("teamTemplateId") int teamTemplateId, @RequestParam(name = "teamName") String teamName, @RequestParam(name="treasury", required = false) Integer treasury) {
         try {
             int coachId = authBO.getUserId();
