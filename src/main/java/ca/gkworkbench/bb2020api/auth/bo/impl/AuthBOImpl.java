@@ -8,6 +8,10 @@ import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 public class AuthBOImpl implements AuthBO {
     TeamsBO tBO;
 
+    public AuthBOImpl(TeamsBO tBO) {
+        this.tBO = tBO;
+    }
+
     @Override
     public int getUserId() throws WarnException {
         //TODO derive this from auth object
@@ -17,7 +21,7 @@ public class AuthBOImpl implements AuthBO {
     @Override
     public boolean hasAccessToModifyTeam(int teamId) throws WarnException, Exception {
         TeamVO tVO = tBO.getTeamById(teamId, false);
-        if (tVO.getCoachId() == getUserId()) return true;
+        if (tVO != null && tVO.getCoachId() == getUserId()) return true;
         //if (admin) return true;
         return false;
     }

@@ -12,7 +12,9 @@ public interface TeamsDAO {
 
     public void insertTeamVO(TeamVO teamVO) throws Exception;
 
-    public void updateTeamVO(TeamVO teamVO) throws Exception;
+    public boolean updateTeamVO(TeamVO teamVO) throws Exception;
+
+    public boolean deleteTeamVO(int teamId) throws Exception;
 
     public List<TeamVO> getTeamVOsByCoachId(int coachId) throws Exception;
 }

@@ -81,12 +81,10 @@ public class TeamsBOTest {
     public void select_missing_team_by_id_and_fail() {
         try {
             TeamVO tVO = tBO.getTeamById(-1, false);
-            System.err.println(tVO);
-            Assert.fail();
+            Assert.assertNull(tVO);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
             e.printStackTrace();
-            //expected
+            Assert.fail();
         }
     }
 
@@ -94,12 +92,10 @@ public class TeamsBOTest {
     public void select_missing_team_by_name_and_fail() {
         try {
             TeamVO tVO = tBO.getTeamByName("The Norland Nobodies", false);
-            System.err.println(tVO);
-            Assert.fail();
+            Assert.assertNull(tVO);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
             e.printStackTrace();
-            //expected
+            Assert.fail();
         }
     }
 
@@ -173,11 +169,11 @@ public class TeamsBOTest {
             TeamVO tVO = tBO.getTeamById(1, false);
             tVO.setId(-1);
             tVO = tBO.updateTeamWithGeneratedTV(tVO);
-            Assert.fail();
+            Assert.assertNull(tVO);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
-            //expected
+            Assert.fail();
         }
     }
 

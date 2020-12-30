@@ -1,11 +1,11 @@
 package ca.gkworkbench.bb2020api.team.controller;
 
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
@@ -13,9 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -64,6 +66,7 @@ public class TeamControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.coachId").value(1))
                 .andExpect(jsonPath("$.teamTemplateId").value(1))
                 .andExpect(jsonPath("$.teamName").value("The Rookie Testers"))
                 .andExpect(jsonPath("$.totalCAS").value(0))
@@ -177,5 +180,57 @@ public class TeamControllerTest {
                 .andReturn().getResolvedException().getMessage();
 
         Assert.assertTrue(error.equalsIgnoreCase("400 BAD_REQUEST \"Team Name Exists: Double Troubles\""));
+    }
+
+    @Test
+    public void create_team_delete_team_query_and_fail() throws Exception {
+        MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.teamTemplateId").value(6))
+                .andExpect(jsonPath("$.teamName").value("Delete Me"))
+                .andReturn();
+
+        Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
+
+        this.mockMvc.perform(post("/api/team/delete/"+id))
+                .andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/api/team/"+id))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void create_team_delete_twice_get_404() throws Exception {
+        MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me%20Twice"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.teamTemplateId").value(6))
+                .andExpect(jsonPath("$.teamName").value("Delete Me Twice"))
+                .andReturn();
+
+        Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
+
+        this.mockMvc.perform(post("/api/team/delete/" + id))
+                .andExpect(status().isOk());
+
+        //delete is idempotent
+        this.mockMvc.perform(post("/api/team/delete/" + id))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void delete_team_no_auth() throws Exception {
+        this.mockMvc.perform(get("/api/team/2"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(2))
+                .andExpect(jsonPath("$.teamTemplateId").value(2))
+                .andExpect(jsonPath("$.coachId").value(2));
+
+        this.mockMvc.perform(post("/api/team/delete/2"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(status().is4xxClientError());
     }
 }

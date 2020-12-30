@@ -4,9 +4,11 @@ import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
 import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,13 +22,18 @@ public class TeamController {
     AuthBO authBO;
 
     @RequestMapping(value = "/api/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getTeamById(@PathVariable("teamId") int teamId) {
+    public ResponseEntity<?> getTeamById(@PathVariable("teamId") int teamId) {
         try {
-            return tBO.getJsonTeam(tBO.getTeamById(teamId, false));
+            TeamVO tVO = tBO.getTeamById(teamId, false);
+            if (tVO != null) {
+                return new ResponseEntity<>(tBO.getJsonTeam(tVO), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not Found"
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
             );
         }
     }
@@ -55,11 +62,16 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/delete/{teamId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/team/delete/{teamId}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTeam(@PathVariable("teamId") int teamId) {
+    public ResponseEntity<?> deleteTeam(@PathVariable("teamId") int teamId) {
         try {
-            tBO.deleteTeam(teamId);
+            if (authBO.hasAccessToModifyTeam(teamId)) {
+                tBO.deleteTeam(teamId);
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
@@ -69,13 +81,18 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/api/team/details/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getTeamByIdWithDetails(@PathVariable("teamId") int teamId) {
+    public ResponseEntity<?> getTeamByIdWithDetails(@PathVariable("teamId") int teamId) {
         try {
-            return tBO.getJsonTeam(tBO.getTeamById(teamId, true));
+            TeamVO tVO = tBO.getTeamById(teamId, true);
+            if (tVO != null) {
+                return new ResponseEntity<>(tBO.getJsonTeam(tVO), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Not Found"
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
             );
         }
     }

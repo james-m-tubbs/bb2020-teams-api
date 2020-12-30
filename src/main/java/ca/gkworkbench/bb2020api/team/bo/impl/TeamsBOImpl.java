@@ -30,7 +30,7 @@ public class TeamsBOImpl implements TeamsBO {
     @Override
     public TeamVO getTeamById(int teamId, boolean withDetails) throws Exception {
         TeamVO tVO = tDAO.getTeamById(teamId);
-        if (withDetails) tVO = getTeamDetails(tVO);
+        if (tVO != null && withDetails) tVO = getTeamDetails(tVO);
         return tVO;
     }
 
@@ -70,14 +70,13 @@ public class TeamsBOImpl implements TeamsBO {
             ttBO.getTeamTemplateByID(tVO.getTeamTemplateId(), false);
         }
         tVO = fillTeamValues(tVO);
-        tDAO.updateTeamVO(tVO);
-        System.out.println("Updating TeamVO:"+tVO);
+        if (!tDAO.updateTeamVO(tVO)) return null; // if there is no team to update return null
         return getTeamById(tVO.getId(), false);
     }
 
     @Override
     public void deleteTeam(int teamId) throws Exception {
-
+        tDAO.deleteTeamVO(teamId);
     }
 
     @Override

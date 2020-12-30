@@ -55,19 +55,6 @@ public class bb2020Config {
 
     /**
      ******************************
-     * Auth Beans
-     ******************************
-     */
-
-    @Bean
-    public AuthBO authBO() {
-        AuthBO authBO = new AuthBOImpl();
-        return authBO;
-    }
-
-
-    /**
-     ******************************
      * Skill Template Beans
      ******************************
      */
@@ -160,5 +147,17 @@ public class bb2020Config {
     public TeamGoodsBO teamGoodsBO() {
         return new TeamGoodsBOImpl(
                 teamsBO());
+    }
+
+    /**
+     ******************************
+     * Auth Beans
+     ******************************
+     */
+
+    @Bean
+    public AuthBO authBO() {
+        AuthBO authBO = new AuthBOImpl(teamsBO());
+        return authBO;
     }
 }
