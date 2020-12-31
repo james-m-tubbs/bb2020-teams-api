@@ -193,10 +193,10 @@ public class TeamControllerTest {
 
         Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
 
-        this.mockMvc.perform(post("/api/team/delete/"+id))
+        this.mockMvc.perform(post("/api/team/delete/" + id))
                 .andExpect(status().isOk());
 
-        this.mockMvc.perform(get("/api/team/"+id))
+        this.mockMvc.perform(get("/api/team/" + id))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
@@ -233,4 +233,22 @@ public class TeamControllerTest {
                 .andExpect(status().isUnauthorized())
                 .andExpect(status().is4xxClientError());
     }
+
+    @Test
+    public void get_all_teams_for_coach_id() throws Exception {
+        this.mockMvc.perform(get("/api/team/coach/2"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].id").value(2))
+                .andExpect(jsonPath("$[0].teamTemplateId").value(2))
+                .andExpect(jsonPath("$[0].coachId").value(2))
+                .andExpect(jsonPath("$[0].teamName").value("The Orcy Orcsters"))
+
+                .andExpect(jsonPath("$[0].id").value(3))
+                .andExpect(jsonPath("$[0].teamTemplateId").value(1))
+                .andExpect(jsonPath("$[0].coachId").value(2))
+                .andExpect(jsonPath("$[0].teamName").value("Da Hoomies"));
+
+    }
 }
+

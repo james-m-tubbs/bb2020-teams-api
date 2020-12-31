@@ -80,6 +80,11 @@ public class TeamsBOImpl implements TeamsBO {
     }
 
     @Override
+    public List<TeamVO> getTeamsForCoachId(int coachId) throws Exception {
+        return tDAO.getTeamVOsByCoachId(coachId);
+    }
+
+    @Override
     public TeamVO redraftTeamFromTeamId(int teamId, int treasury) throws Exception {
         TeamVO tVO = tDAO.getTeamById(teamId);
         //reset all players to "inactive" status
@@ -90,6 +95,11 @@ public class TeamsBOImpl implements TeamsBO {
     @Override
     public String getJsonTeam(TeamVO tVO) throws Exception {
         return gson.toJson(tVO);
+    }
+
+    @Override
+    public String getJsonTeamList(List<TeamVO> tVOs) throws Exception {
+        return gson.toJson(tVOs);
     }
 
     private TeamVO getTeamDetails(TeamVO teamVO) throws Exception {

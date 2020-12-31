@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 public class TeamController {
 
@@ -86,6 +88,23 @@ public class TeamController {
             TeamVO tVO = tBO.getTeamById(teamId, true);
             if (tVO != null) {
                 return new ResponseEntity<>(tBO.getJsonTeam(tVO), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
+            );
+        }
+    }
+
+    @RequestMapping(value = "/api/team/coach/{coachId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getTeamsByCoachId(@PathVariable("coachId") int coachId) {
+        try {
+            List<TeamVO> teamVOs = tBO.getTeamsForCoachId(coachId);
+            if (teamVOs != null) {
+                return new ResponseEntity<>(tBO.getJsonTeamList(teamVOs), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

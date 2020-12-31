@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= bb2020TestConfig.class)
 public class TeamsBOTest {
@@ -237,5 +239,31 @@ public class TeamsBOTest {
         }
     }
 
+    @Test
+    public void get_all_teams_for_user() {
+        try {
+            List<TeamVO> tVOs = tBO.getTeamsForCoachId(2);
+            Assert.assertTrue(tVOs.size() == 2);
+            for (int i=0; i<tVOs.size();i++) {
+                TeamVO tVO = tVOs.get(i);
+                Assert.assertTrue(tVO.getCoachId()==2);
+                Assert.assertNull(tVO.getTeamTemplateVO());
+                Assert.assertTrue(tVO.getPlayers().size() == 0);
+
+                if (tVO.getId() == 2) {
+                    Assert.assertTrue(tVO.getTeamName().equalsIgnoreCase("The Orcy Orcsters"));
+                    Assert.assertTrue(tVO.getTeamTemplateId() == 2);
+                }
+                if (tVO.getId() == 3) {
+                    Assert.assertTrue(tVO.getTeamName().equalsIgnoreCase("Da Hoomies"));
+                    Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }
 

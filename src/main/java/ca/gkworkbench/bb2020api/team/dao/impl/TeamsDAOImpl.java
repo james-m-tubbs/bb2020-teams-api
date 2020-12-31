@@ -37,7 +37,7 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
     @Override
     public List<TeamVO> getTeamVOsByCoachId(int coachId) throws Exception {
         try {
-            return (List<TeamVO>)getJdbcTemplate().queryForObject(SELECT_TEAMS_BY_COACH, new TeamsDAOImpl.TeamRowMapper(), new Object[]{coachId});
+            return (List<TeamVO>)getJdbcTemplate().query(SELECT_TEAMS_BY_COACH, new TeamsDAOImpl.TeamRowMapper(), new Object[]{coachId});
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
