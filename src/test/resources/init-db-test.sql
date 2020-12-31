@@ -3,6 +3,7 @@ SET MODE MYSQL;
 --user table
 CREATE TABLE IF NOT EXISTS coaches(id int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, adminFlag CHAR(1), validatedFlag CHAR(1), PRIMARY KEY(id));
 INSERT IGNORE INTO coaches (id,username, password, adminFlag, validatedFlag) values(1, 'admin', 'admin', 'Y', 'Y');
+INSERT IGNORE INTO coaches (id,username, password, adminFlag, validatedFlag) values(2, 'user', 'pass', 'N', 'N');
 
 --skill table
 CREATE TABLE IF NOT EXISTS Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255) NOT NULL, type CHAR(1) NOT NULL);
@@ -251,6 +252,8 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (12, select(i
 -- teams
 CREATE TABLE IF NOT EXISTS Teams(id int NOT NULL AUTO_INCREMENT, coachId int NOT NULL, teamTemplateId int NOT NULL, teamName varchar(255) NOT NULL, totalCas int NOT NULL DEFAULT 0, totalTouchdowns int NOT NULL DEFAULT 0, treasury int NOT NULL DEFAULT 1000000, leaguePoints int NOT NULL DEFAULT 0, rerolls int NOT NULL DEFAULT 0, coaches int NOT NULL DEFAULT 0, cheerleaders int NOT NULL DEFAULT 0, apothecaryFlag char(1) default 'N', teamValue int NOT NULL DEFAULT 0, currentTeamValue int NOT NULL DEFAULT 0, dedicatedFans int NOT NULL DEFAULT 1, PRIMARY KEY(id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id), FOREIGN KEY(coachId) REFERENCES coaches(id), UNIQUE(teamName));
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (1, 1, 1, 'The Rookie Testers');
+INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (2, 2, 2, 'The Orcy Orcsters');
+INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (3, 2, 1, 'Da Hoomies');
 --players
 CREATE TABLE IF NOT EXISTS Players(id int NOT NULL AUTO_INCREMENT, TeamId int NOT NULL, PlayerTemplateId int NOT NULL, name VARCHAR(255), spp int NOT NULL DEFAULT 0, hiringFee int NOT NULL default 0, currentValue int NOT NULL default 0, PRIMARY KEY(id), FOREIGN KEY (TeamId) REFERENCES Teams(id), FOREIGN KEY(PlayerTemplateId) REFERENCES PlayerTemplate(id));
 --player skill

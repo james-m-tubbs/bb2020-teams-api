@@ -293,13 +293,14 @@ public class TeamGoodsBOTest {
     @Test
     public void buy_6_dedicated_fans_success() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("buy dedicated fans and delete", 1, 1);
-            Assert.assertTrue(tVO.getTeamName().equals("buy dedicated fans and delete"));
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("buy dedicated fans", 1, 1);
+            Assert.assertTrue(tVO.getTeamName().equals("buy dedicated fans"));
             Assert.assertTrue(tVO.getId() > 1);
             Assert.assertTrue(tVO.getTeamTemplateId() == 1);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
-            for (int i = 0; i < 6; i++) {
+            Assert.assertTrue(tVO.getDedicatedFans() == 1);
+            for (int i = 0; i < 5; i++) {
                 tVO = tgBO.buyDedicatedFans(tVO.getId());
             }
             System.err.println(tVO);
@@ -307,11 +308,45 @@ public class TeamGoodsBOTest {
             Assert.assertTrue(tVO.getTeamValue()==0);
             Assert.assertTrue(tVO.getCurrentTeamValue()==0);
             Assert.assertTrue(tVO.getCurrentTeamValue()==0);
-            Assert.assertTrue(tVO.getTreasury()==940000);
+            Assert.assertTrue(tVO.getTreasury()==950000);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
             Assert.fail();
+        }
+    }
+
+    @Test
+    public void max_out_dedicated_fans() {
+        int teamId = 0;
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("max fans", 1, 1);
+            Assert.assertTrue(tVO.getTeamName().equals("max fans"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+            Assert.assertTrue(tVO.getDedicatedFans() == 1);
+            teamId = tVO.getId();
+            for (int i = 0; i < 5; i++) {
+                tVO = tgBO.buyDedicatedFans(teamId);
+            }
+            Assert.assertTrue(tVO.getDedicatedFans()==6);
+            Assert.assertTrue(tVO.getTeamValue()==0);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getTreasury()==950000);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+        try {
+            tgBO.buyDedicatedFans(teamId);
+            Assert.fail();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Fans at Max"));
         }
     }
 }

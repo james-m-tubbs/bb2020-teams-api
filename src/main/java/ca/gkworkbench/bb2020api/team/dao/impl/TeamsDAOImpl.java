@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.team.dao.impl;
 
 import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -15,21 +16,32 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
     private final String SELECT_ONE_SQL_BY_TEAM_ID = "SELECT * from Teams where id = ?";
     @Override
     public TeamVO getTeamById(int teamId) throws Exception {
-        return (TeamVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL_BY_TEAM_ID, new TeamsDAOImpl.TeamRowMapper(), new Object[]{teamId});
+        try {
+            return (TeamVO) getJdbcTemplate().queryForObject(SELECT_ONE_SQL_BY_TEAM_ID, new TeamsDAOImpl.TeamRowMapper(), new Object[]{teamId});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     private final String SELECT_ONE_SQL_BY_TEAMNAME = "SELECT * from Teams where teamName = ?";
     @Override
     public TeamVO getTeamByName(String teamName) throws Exception {
-        return (TeamVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL_BY_TEAMNAME, new TeamsDAOImpl.TeamRowMapper(), new Object[]{teamName});
+        try {
+            return (TeamVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL_BY_TEAMNAME, new TeamsDAOImpl.TeamRowMapper(), new Object[]{teamName});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     private final String SELECT_TEAMS_BY_COACH = "SELECT * FROM Teams where CoachId = ?";
     @Override
     public List<TeamVO> getTeamVOsByCoachId(int coachId) throws Exception {
-        return (List<TeamVO>)getJdbcTemplate().queryForObject(SELECT_TEAMS_BY_COACH, new TeamsDAOImpl.TeamRowMapper(), new Object[]{coachId});
+        try {
+            return (List<TeamVO>)getJdbcTemplate().query(SELECT_TEAMS_BY_COACH, new TeamsDAOImpl.TeamRowMapper(), new Object[]{coachId});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
-
     private final String INSERT_ONE_QUERY = "INSERT INTO Teams (coachId, teamTemplateId, teamName, totalCas, totalTouchdowns, treasury, leaguePoints, rerolls, coaches, cheerleaders, apothecaryFlag, teamValue, currentTeamValue, dedicatedFans) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     @Override
     public void insertTeamVO(TeamVO teamVO) throws Exception {
@@ -56,10 +68,10 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
 
     private final String UPDATE_ONE_QUERY = "UPDATE Teams set coachId = ?, teamTemplateId = ?, teamName = ?, totalCas = ?, totalTouchdowns = ?, treasury = ?, leaguePoints = ?, rerolls = ?, coaches = ?, cheerleaders = ?, apothecaryFlag = ?, teamValue= ?, currentTeamValue = ?, dedicatedFans = ? WHERE id = ?";
     @Override
-    public void updateTeamVO(TeamVO teamVO) throws Exception {
+    public boolean updateTeamVO(TeamVO teamVO) throws Exception {
         String apoth = "N";
         if (teamVO.hasApothecary()) apoth = "Y";
-        getJdbcTemplate().update(
+        return getJdbcTemplate().update(
                 UPDATE_ONE_QUERY,
                 teamVO.getCoachId(),
                 teamVO.getTeamTemplateId(),
@@ -76,7 +88,14 @@ public class TeamsDAOImpl extends JdbcDaoSupport implements TeamsDAO {
                 teamVO.getCurrentTeamValue(),
                 teamVO.getDedicatedFans(),
                 teamVO.getId()
-        );
+        ) == 1;
+    }
+
+    private final String DELETE_ONE_QUERY = "DELETE FROM Teams where id = ?";
+
+    @Override
+    public boolean deleteTeamVO(int teamId) throws Exception {
+        return getJdbcTemplate().update(DELETE_ONE_QUERY, teamId) == 1;
     }
 
     /***********************************
