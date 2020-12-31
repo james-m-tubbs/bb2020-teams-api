@@ -244,11 +244,10 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$[0].coachId").value(2))
                 .andExpect(jsonPath("$[0].teamName").value("The Orcy Orcsters"))
 
-                .andExpect(jsonPath("$[0].id").value(3))
-                .andExpect(jsonPath("$[0].teamTemplateId").value(1))
-                .andExpect(jsonPath("$[0].coachId").value(2))
-                .andExpect(jsonPath("$[0].teamName").value("Da Hoomies"));
-
+                .andExpect(jsonPath("$[1].id").value(3))
+                .andExpect(jsonPath("$[1].teamTemplateId").value(1))
+                .andExpect(jsonPath("$[1].coachId").value(2))
+                .andExpect(jsonPath("$[1].teamName").value("Da Hoomies"));
     }
 }
 
