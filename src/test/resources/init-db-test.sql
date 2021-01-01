@@ -264,5 +264,6 @@ INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (2, 1, 4, '
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (3, 1, 4, 'Bobby Blitzer 2');
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (4, 1, 4, 'Bobby Blitzer 3');
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (5, 1, 4, 'Bobby Blitzer 4');
+INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (6, 1, 1, 'Leino Lino 1');
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (2, 2, 2, 'The Orcy Orcsters');
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (3, 2, 1, 'Da Hoomies');

@@ -6,6 +6,7 @@ import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
+import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class PlayerBOImpl implements PlayerBO {
     private PlayerVO getPlayerDetails(PlayerVO pVO) throws Exception {
         //set base skills
         pVO.setBaseSkills(stDAO.getBaseSkillsByPlayerTemplateId(pVO.getPlayerTemplateId()));
-        //TODO set bought skills
+        pVO.setBoughtSkills(new ArrayList<SkillVO>());
         //TODO set injuries
         //TODO set stat upgrades
         return pVO;
