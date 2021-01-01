@@ -87,8 +87,10 @@ public class TeamsBOImpl implements TeamsBO {
     @Override
     public TeamVO redraftTeamFromTeamId(int teamId, int treasury) throws Exception {
         TeamVO tVO = tDAO.getTeamById(teamId);
-        //reset all players to "inactive" status
+        //reset all players to "temp retired" status
         //reset the treasury to the desired amount
+        //hire from the team template or from temp retired players
+        //remove injuries
         return tVO;
     }
 
@@ -130,7 +132,7 @@ public class TeamsBOImpl implements TeamsBO {
         for (int i=0; i<players.size(); i++) {
             PlayerVO player = players.get(i);
             totalValue = totalValue + player.getCurrentValue();
-            if (!player.isDrafted() || !player.isInjured()) {
+            if (!player.isFired() && !player.isInjured() && !player.isTempRetired()) {
                 ctvValue = ctvValue + player.getCurrentValue();
             }
         }

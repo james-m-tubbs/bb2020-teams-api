@@ -6,10 +6,12 @@ import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
 import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
 import ca.gkworkbench.bb2020api.player.bo.impl.PlayerBOImpl;
 import ca.gkworkbench.bb2020api.player.bo.impl.PlayerTemplateBOImpl;
+import ca.gkworkbench.bb2020api.player.dao.PlayerDAO;
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
+import ca.gkworkbench.bb2020api.player.dao.impl.PlayerDAOImpl;
 import ca.gkworkbench.bb2020api.player.dao.impl.PlayerTemplateDAOImpl;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
-import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAOImpl;
+import ca.gkworkbench.bb2020api.skill.dao.impl.SkillTemplateDAOImpl;
 import ca.gkworkbench.bb2020api.team.bo.TeamGoodsBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
@@ -109,16 +111,16 @@ public class bb2020TestConfig {
      ******************************
      */
 
-//    @Bean
-//    public PlayerDAO playerDAO() {
-//        PlayerDAOImpl pDAO = new PlayerDAOImpl();
-//        pDAO.setDataSource(dataSource());
-//        return pDAO;
-//    }
+    @Bean
+    public PlayerDAO playerDAO() {
+        PlayerDAOImpl pDAO = new PlayerDAOImpl();
+        pDAO.setDataSource(dataSource());
+        return pDAO;
+    }
 
     @Bean
     public PlayerBO playerBO() {
-        return new PlayerBOImpl();
+        return new PlayerBOImpl(playerDAO(), skillTemplateDAO());
     }
 
     /**

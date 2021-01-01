@@ -10,8 +10,4 @@ public interface PlayerBO {
     public List<PlayerVO> getPlayersByTeamId(int teamId) throws Exception;
 
     public PlayerVO getPlayerById(int playerId) throws Exception;
-
-    public List<PlayerTemplateVO> getAvailablePlayersForTeam(int playerTemplateId, boolean redraft) throws Exception;
-
-    public int createPlayerFromTemplate(int playerTemplateId) throws Exception;
 }

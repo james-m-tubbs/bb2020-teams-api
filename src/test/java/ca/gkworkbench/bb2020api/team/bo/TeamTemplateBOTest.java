@@ -68,8 +68,8 @@ public class TeamTemplateBOTest {
             Assert.assertTrue(ptVO.getCost()==45000);
 
             //check the goblin skills
-            Assert.assertTrue(ptVO.getSkills().size() == 4);
-            Assert.assertTrue(ptVO.getSkills().get(0).getSkill().equalsIgnoreCase("Dodge"));
+            Assert.assertTrue(ptVO.getBaseSkills().size() == 4);
+            Assert.assertTrue(ptVO.getBaseSkills().get(0).getSkill().equalsIgnoreCase("Dodge"));
         } catch (Exception e) {
             Assert.fail(e.getMessage());
         }

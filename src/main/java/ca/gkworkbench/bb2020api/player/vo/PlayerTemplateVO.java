@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PlayerTemplateVO {
 
-    int id;
+    int playerTemplateId;
     int teamTemplateId;
     String position;
     boolean linemanFlag;
@@ -17,12 +17,12 @@ public class PlayerTemplateVO {
     int AG;
     int PA;
     int AV;
-    List<SkillVO> skills;
+    List<SkillVO> baseSkills;
     String primary;
     String secondary;
 
-    public PlayerTemplateVO(int id, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> skills, String primary, String secondary) {
-        this.id = id;
+    public PlayerTemplateVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary) {
+        this.playerTemplateId = playerTemplateId;
         this.teamTemplateId = teamTemplateId;
         this.position = position;
         this.linemanFlag = linemanFlag;
@@ -33,17 +33,17 @@ public class PlayerTemplateVO {
         this.AG = AG;
         this.PA = PA;
         this.AV = AV;
-        this.skills = skills;
+        this.baseSkills = baseSkills;
         this.primary = primary;
         this.secondary = secondary;
     }
 
-    public int getId() {
-        return id;
+    public int getPlayerTemplateId() {
+        return playerTemplateId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPlayerTemplateId(int playerTemplateId) {
+        this.playerTemplateId = playerTemplateId;
     }
 
     public int getTeamTemplateId() {
@@ -134,18 +134,34 @@ public class PlayerTemplateVO {
         this.AV = AV;
     }
 
-    public List<SkillVO> getSkills() {
-        return skills;
+    public List<SkillVO> getBaseSkills() {
+        return baseSkills;
     }
 
-    public void setSkills(List<SkillVO> skills) {
-        this.skills = skills;
+    public void setBaseSkills(List<SkillVO> baseSkills) {
+        this.baseSkills = baseSkills;
+    }
+
+    public String getPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(String primary) {
+        this.primary = primary;
+    }
+
+    public String getSecondary() {
+        return secondary;
+    }
+
+    public void setSecondary(String secondary) {
+        this.secondary = secondary;
     }
 
     @Override
     public String toString() {
         return "PlayerTemplateVO{" +
-                "id=" + id +
+                "playerTemplateId=" + playerTemplateId +
                 ", teamTemplateId=" + teamTemplateId +
                 ", position='" + position + '\'' +
                 ", linemanFlag=" + linemanFlag +
@@ -156,9 +172,9 @@ public class PlayerTemplateVO {
                 ", AG=" + AG +
                 ", PA=" + PA +
                 ", AV=" + AV +
-                ", skills=" + skills +
-                ", primary=" + primary +
-                ", secondary=" + secondary +
+                ", baseSkills=" + baseSkills +
+                ", primary='" + primary + '\'' +
+                ", secondary='" + secondary + '\'' +
                 '}';
     }
 }

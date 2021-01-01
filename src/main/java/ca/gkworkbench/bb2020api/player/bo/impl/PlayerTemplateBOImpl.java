@@ -52,8 +52,8 @@ public class PlayerTemplateBOImpl implements PlayerTemplateBO {
     }
 
     private PlayerTemplateVO getSkillsForPlayerTemplateVO(PlayerTemplateVO ptVO) throws Exception{
-        List<SkillVO> skillVOs = stDAO.getBaseSkillsByPlayerTemplateId(ptVO.getId());
-        ptVO.setSkills(skillVOs);
+        List<SkillVO> skillVOs = stDAO.getBaseSkillsByPlayerTemplateId(ptVO.getPlayerTemplateId());
+        ptVO.setBaseSkills(skillVOs);
         return ptVO;
     }
 }

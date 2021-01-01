@@ -1,5 +1,6 @@
-package ca.gkworkbench.bb2020api.skill.dao;
+package ca.gkworkbench.bb2020api.skill.dao.impl;
 
+import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
 import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;

@@ -23,7 +23,7 @@ public class PlayerTemplateBOTest {
         try {
             PlayerTemplateVO ptVO = ptBO.getPlayerTemplateById(1);
             System.err.println(ptVO);
-            Assert.assertTrue(ptVO.getId() == 1);
+            Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
             Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
             Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
             Assert.assertTrue(ptVO.getMaxCount() == 16);
@@ -33,7 +33,7 @@ public class PlayerTemplateBOTest {
             Assert.assertTrue(ptVO.getAG() == 3);
             Assert.assertTrue(ptVO.getPA() == 4);
             Assert.assertTrue(ptVO.getAV() == 9);
-            Assert.assertTrue(ptVO.getSkills().size() == 0);
+            Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();;
@@ -64,9 +64,9 @@ public class PlayerTemplateBOTest {
             //checking for each player on the team
             for (int i=0; i<ptVOs.size(); i++) {
                 ptVO = ptVOs.get(i);
-                if (ptVO.getId()==1) {
+                if (ptVO.getPlayerTemplateId()==1) {
                     System.err.println(ptVO);
-                    Assert.assertTrue(ptVO.getId() == 1);
+                    Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
                     Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
                     Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
                     Assert.assertTrue(ptVO.getMaxCount() == 16);
@@ -76,7 +76,7 @@ public class PlayerTemplateBOTest {
                     Assert.assertTrue(ptVO.getAG() == 3);
                     Assert.assertTrue(ptVO.getPA() == 4);
                     Assert.assertTrue(ptVO.getAV() == 9);
-                    Assert.assertTrue(ptVO.getSkills().size() == 0);
+                    Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
                 }
             }
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class PlayerTemplateBOTest {
             for (int i=0; i<ptVOs.size(); i++) {
                 ptVO = ptVOs.get(i);
                 Assert.assertNotNull(ptVO);
-                Assert.assertNotNull(ptVO.getSkills());
+                Assert.assertNotNull(ptVO.getBaseSkills());
                 Assert.assertNotNull(ptVO.getMA());
                 Assert.assertNotNull(ptVO.getST());
                 Assert.assertNotNull(ptVO.getAG());
@@ -109,7 +109,7 @@ public class PlayerTemplateBOTest {
                 Assert.assertNotNull(ptVO.getPosition());
                 Assert.assertNotNull(ptVO.getMaxCount());
                 Assert.assertNotNull(ptVO.getTeamTemplateId());
-                Assert.assertNotNull(ptVO.getId());
+                Assert.assertNotNull(ptVO.getPlayerTemplateId());
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
