@@ -40,7 +40,7 @@ public class TeamTemplateControllerTest {
                 .andExpect(jsonPath("$.specialRules").value("Old World Classic"))
                 .andExpect(jsonPath("$.apothecary").value(true))
                 //human lineman
-                .andExpect(jsonPath("$.playerTemplates[0].id").value(1))
+                .andExpect(jsonPath("$.playerTemplates[0].playerTemplateId").value(1))
                 .andExpect(jsonPath("$.playerTemplates[0].teamTemplateId").value(1))
                 .andExpect(jsonPath("$.playerTemplates[0].position").value("Human Lineman"))
                 .andExpect(jsonPath("$.playerTemplates[0].linemanFlag").value(true))
@@ -54,7 +54,7 @@ public class TeamTemplateControllerTest {
                 .andExpect(jsonPath("$.playerTemplates[0].primary").value("G"))
                 .andExpect(jsonPath("$.playerTemplates[0].secondary").value("AS"))
                 //human thrower
-                .andExpect(jsonPath("$.playerTemplates[1].id").value(2))
+                .andExpect(jsonPath("$.playerTemplates[1].playerTemplateId").value(2))
                 .andExpect(jsonPath("$.playerTemplates[1].teamTemplateId").value(1))
                 .andExpect(jsonPath("$.playerTemplates[1].position").value("Human Thrower"))
                 .andExpect(jsonPath("$.playerTemplates[1].linemanFlag").value(false))
@@ -67,8 +67,8 @@ public class TeamTemplateControllerTest {
                 .andExpect(jsonPath("$.playerTemplates[1].AV").value(9))
                 .andExpect(jsonPath("$.playerTemplates[1].primary").value("GP"))
                 .andExpect(jsonPath("$.playerTemplates[1].secondary").value("AS"))
-                .andExpect(jsonPath("$.playerTemplates[1].skills[0].skill").value("Sure Hands"))
-                .andExpect(jsonPath("$.playerTemplates[1].skills[1].skill").value("Pass"));
+                .andExpect(jsonPath("$.playerTemplates[1].baseSkills[0].skill").value("Sure Hands"))
+                .andExpect(jsonPath("$.playerTemplates[1].baseSkills[1].skill").value("Pass"));
     }
 
     @Test

@@ -33,6 +33,7 @@ public class PlayerBOImpl implements PlayerBO {
     }
 
     private List<PlayerVO> getPlayerListDetails(List<PlayerVO> inPlayerVOs) throws Exception {
+        if (inPlayerVOs == null) return null;
         List<PlayerVO> outPlayerVOs = new ArrayList<PlayerVO>();
         for (int i=0;i<inPlayerVOs.size();i++) {
             PlayerVO pVO = inPlayerVOs.get(i);
