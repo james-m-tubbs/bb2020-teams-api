@@ -35,11 +35,11 @@ public class PlayerBOTest {
             PlayerVO pVO = pBO.getPlayerById(1);
             Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Human Thrower"));
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Tiberius Tosser"));
-            Assert.assertTrue(pVO.getSpp()==0);
-            Assert.assertTrue(pVO.getSpp()==0);
-            Assert.assertTrue(pVO.getPi()==0);
-            Assert.assertTrue(pVO.getCas()==0);
-            Assert.assertTrue(pVO.getMvp()==0);
+            Assert.assertTrue(pVO.getSpp()==15);
+            Assert.assertTrue(pVO.getTd()==4);
+            Assert.assertTrue(pVO.getPi()==3);
+            Assert.assertTrue(pVO.getCas()==1);
+            Assert.assertTrue(pVO.getMvp()==2);
             Assert.assertFalse(pVO.isInjured());
             Assert.assertFalse(pVO.isFired());
             Assert.assertFalse(pVO.isTempRetired());
@@ -71,6 +71,7 @@ public class PlayerBOTest {
             }
             Assert.assertTrue(pVO.getPrimary().equalsIgnoreCase("GP"));
             Assert.assertTrue(pVO.getSecondary().equalsIgnoreCase("AS"));
+            Assert.assertTrue(pVO.getGamesPlayed() == 6);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,11 +86,11 @@ public class PlayerBOTest {
             pVO = pBO.getPlayerDetails(pVO);
             Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Human Thrower"));
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Tiberius Tosser"));
-            Assert.assertTrue(pVO.getSpp()==0);
-            Assert.assertTrue(pVO.getSpp()==0);
-            Assert.assertTrue(pVO.getPi()==0);
-            Assert.assertTrue(pVO.getCas()==0);
-            Assert.assertTrue(pVO.getMvp()==0);
+            Assert.assertTrue(pVO.getSpp()==15);
+            Assert.assertTrue(pVO.getCas()==1);
+            Assert.assertTrue(pVO.getMvp()==2);
+            Assert.assertTrue(pVO.getPi()==3);
+            Assert.assertTrue(pVO.getTd()==4);
             Assert.assertFalse(pVO.isInjured());
             Assert.assertFalse(pVO.isFired());
             Assert.assertFalse(pVO.isTempRetired());
@@ -106,6 +107,7 @@ public class PlayerBOTest {
             Assert.assertTrue(pVO.getPA() == 2);
             Assert.assertTrue(pVO.getAV() == 9);
             Assert.assertNotNull(pVO.getBaseSkills());
+            Assert.assertTrue(pVO.getGamesPlayed() == 6);
             Assert.assertTrue(pVO.getBaseSkills().size() == 2);
             for (int i=0; i<pVO.getBaseSkills().size(); i++) {
                 SkillVO skillVO = pVO.getBaseSkills().get(i);
@@ -121,6 +123,7 @@ public class PlayerBOTest {
             }
             Assert.assertTrue(pVO.getPrimary().equalsIgnoreCase("GP"));
             Assert.assertTrue(pVO.getSecondary().equalsIgnoreCase("AS"));
+            Assert.assertTrue(pVO.getGamesPlayed() == 6);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +161,7 @@ public class PlayerBOTest {
             Assert.assertTrue(pVO.getBaseSkills().size() == 0);
             Assert.assertTrue(pVO.getPrimary().equalsIgnoreCase("G"));
             Assert.assertTrue(pVO.getSecondary().equalsIgnoreCase("AS"));
+            Assert.assertTrue(pVO.getGamesPlayed() == 0);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,6 +213,7 @@ public class PlayerBOTest {
                     Assert.assertTrue(pVO.getAV() == 9);
                     Assert.assertNotNull(pVO.getBaseSkills());
                     Assert.assertTrue(pVO.getBaseSkills().size() == 0);
+                    Assert.assertTrue(pVO.getGamesPlayed() == 0);
                     Assert.assertTrue(pVO.getPrimary().equalsIgnoreCase("G"));
                     Assert.assertTrue(pVO.getSecondary().equalsIgnoreCase("AS"));
                 }

@@ -136,7 +136,7 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (13, select(i
 --chosen blockers
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (14, 3, 'Chosen Blockers', 'N', 4, 100000, 5, 4, 3, 5, 10,'GMS','A');
 --chaos troll
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (15, 3, 'Chaos Troll', 'N', 1, 115000, 4, 5, 5, 5, 10,'MS','AG');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills, onePerTeamFlag ) values (15, 3, 'Chaos Troll', 'N', 1, 115000, 4, 5, 5, 5, 10,'MS','AG', 'Y');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Always Hungry');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (15, select(id) from Skills where skill = 'Loner','4+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (15, select(id) from Skills where skill = 'Mighty Blow','+1');
@@ -145,14 +145,14 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (15, select(i
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Regeneration');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (15, select(id) from Skills where skill = 'Throw Team-mate');
 --chaos ogre
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (16, 3, 'Chaos Ogre', 'N', 1, 140000, 5, 5, 4, 5, 10,'MS','AG');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills, onePerTeamFlag ) values (16, 3, 'Chaos Ogre', 'N', 1, 140000, 5, 5, 4, 5, 10,'MS','AG', 'Y');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Bone Head');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (16, select(id) from Skills where skill = 'Loner','4+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (16, select(id) from Skills where skill = 'Mighty Blow','+1');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Thick Skull');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (16, select(id) from Skills where skill = 'Throw Team-mate');
 --minotaur
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (17, 3, 'Minotaur', 'N', 1, 150000, 5, 5, 4, 0, 9,'MS','AG');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills, onePerTeamFlag ) values (17, 3, 'Minotaur', 'N', 1, 150000, 5, 5, 4, 0, 9,'MS','AG', 'Y');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (17, select(id) from Skills where skill = 'Loner','4+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Frenzy');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Horns');
@@ -253,13 +253,13 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (12, select(i
 CREATE TABLE IF NOT EXISTS Teams(id int NOT NULL AUTO_INCREMENT, coachId int NOT NULL, teamTemplateId int NOT NULL, teamName varchar(255) NOT NULL, totalCas int NOT NULL DEFAULT 0, totalTouchdowns int NOT NULL DEFAULT 0, treasury int NOT NULL DEFAULT 1000000, leaguePoints int NOT NULL DEFAULT 0, rerolls int NOT NULL DEFAULT 0, coaches int NOT NULL DEFAULT 0, cheerleaders int NOT NULL DEFAULT 0, apothecaryFlag char(1) default 'N', teamValue int NOT NULL DEFAULT 0, currentTeamValue int NOT NULL DEFAULT 0, dedicatedFans int NOT NULL DEFAULT 1, PRIMARY KEY(id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id), FOREIGN KEY(coachId) REFERENCES coaches(id), UNIQUE(teamName));
 
 --players
-CREATE TABLE IF NOT EXISTS Players(id int NOT NULL AUTO_INCREMENT, teamId int NOT NULL, playerTemplateId int NOT NULL, name VARCHAR(255), spp int NOT NULL DEFAULT 0, currentValue int NOT NULL default 0, cp int NOT NULL default 0, pi int NOT NULL default 0, cas int NOT NULL default 0, td int NOT NULL default 0, mvp int NOT NULL default 0, injuredFlag char(1) NOT NULL DEFAULT 'N', tempRetiredFlag char(1) NOT NULL DEFAULT 'N', firedFlag char(1) NOT NULL DEFAULT 'N', PRIMARY KEY(id), FOREIGN KEY (TeamId) REFERENCES Teams(id), FOREIGN KEY(PlayerTemplateId) REFERENCES PlayerTemplate(id), UNIQUE(name, teamId));
+CREATE TABLE IF NOT EXISTS Players(id int NOT NULL AUTO_INCREMENT, teamId int NOT NULL, playerTemplateId int NOT NULL, name VARCHAR(255), gamesPlayed int NOT NULL DEFAULT 0, spp int NOT NULL DEFAULT 0, currentValue int NOT NULL default 0, cp int NOT NULL default 0, pi int NOT NULL default 0, cas int NOT NULL default 0, td int NOT NULL default 0, mvp int NOT NULL default 0, injuredFlag char(1) NOT NULL DEFAULT 'N', tempRetiredFlag char(1) NOT NULL DEFAULT 'N', firedFlag char(1) NOT NULL DEFAULT 'N', PRIMARY KEY(id), FOREIGN KEY (TeamId) REFERENCES Teams(id), FOREIGN KEY(PlayerTemplateId) REFERENCES PlayerTemplate(id), UNIQUE(name, teamId));
 --player skill
 CREATE TABLE IF NOT EXISTS PlayerSkills(id int NOT NULL AUTO_INCREMENT, playerId int NOT NULL, skillValue int, PRIMARY KEY(id), FOREIGN KEY (playerId) REFERENCES Players(id));
 
 --test data
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (1, 1, 1, 'The Rookie Testers');
-INSERT IGNORE INTO Players(id, teamId, playerTemplateId, name) values (1, 1, 2, 'Tiberius Tosser');
+INSERT IGNORE INTO Players(id, teamId, playerTemplateId, name, gamesPlayed, spp, cas, mvp, pi, td, currentValue) values (1, 1, 2, 'Tiberius Tosser', 6, 15, 1, 2, 3 ,4, 80000);
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (2, 1, 4, 'Bobby Blitzer 1');
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (3, 1, 4, 'Bobby Blitzer 2');
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (4, 1, 4, 'Bobby Blitzer 3');
@@ -267,3 +267,6 @@ INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (5, 1, 4, '
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (6, 1, 1, 'Leino Lino 1');
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (2, 2, 2, 'The Orcy Orcsters');
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (3, 2, 1, 'Da Hoomies');
+
+INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (4, 1, 3, 'Chaos Chosen Test');
+INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name) values (7, 4, 16, 'Ogre?');

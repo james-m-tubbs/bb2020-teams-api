@@ -35,7 +35,18 @@ public class PlayerVO extends PlayerTemplateVO {
     //extra purchased skills
     private List<SkillVO> boughtSkills;
 
-    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills) {
+    //games played
+    private int gamesPlayed;
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills, int gamesPlayed) {
         super(playerTemplateId, teamTemplateId, position, linemanFlag, qty, cost, MA, ST, AG, PA, AV, baseSkills, primary, secondary, onePerTeam);
         this.playerId = playerId;
         this.teamId = teamId;
@@ -51,6 +62,7 @@ public class PlayerVO extends PlayerTemplateVO {
         this.tempRetired = tempRetired;
         this.fired = fired;
         this.boughtSkills = boughtSkills;
+        this.gamesPlayed = gamesPlayed;
     }
 
     public int getPlayerId() {

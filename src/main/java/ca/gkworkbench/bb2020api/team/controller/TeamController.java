@@ -2,6 +2,8 @@ package ca.gkworkbench.bb2020api.team.controller;
 
 import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
 import ca.gkworkbench.bb2020api.exception.WarnException;
+import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
+import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import io.swagger.models.Response;
@@ -22,6 +24,9 @@ public class TeamController {
 
     @Autowired
     AuthBO authBO;
+
+    @Autowired
+    PlayerBO pBO;
 
     @RequestMapping(value = "/api/team/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getTeamById(@PathVariable("teamId") int teamId) {
@@ -64,7 +69,7 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/delete/{teamId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/team/{teamId}/delete", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> deleteTeam(@PathVariable("teamId") int teamId) {
         try {
@@ -82,7 +87,7 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/details/{teamId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/{teamId}/details", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getTeamByIdWithDetails(@PathVariable("teamId") int teamId) {
         try {
             TeamVO tVO = tBO.getTeamById(teamId, true);
@@ -105,6 +110,25 @@ public class TeamController {
             List<TeamVO> teamVOs = tBO.getTeamsForCoachId(coachId);
             if (teamVOs != null) {
                 return new ResponseEntity<>(tBO.getJsonTeamList(teamVOs), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
+            );
+        }
+    }
+
+    @RequestMapping(value = "/api/team/{teamId}/players", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getPlayersByTeamId(@PathVariable("teamId") int teamId) {
+        try {
+            //check if team exists
+            TeamVO tVO = tBO.getTeamById(teamId, false);
+            if (tVO != null) {
+                List<PlayerVO> pVOs = pBO.getPlayersByTeamId(teamId);
+                return new ResponseEntity<>(pBO.getJsonPlayerList(pVOs), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

@@ -26,7 +26,7 @@ public class PlayerTemplateBOTest {
             Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
             Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
             Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
-            Assert.assertTrue(ptVO.getMaxCount() == 16);
+            Assert.assertTrue(ptVO.getQty() == 16);
             Assert.assertTrue(ptVO.getCost() == 50000);
             Assert.assertTrue(ptVO.getMA() == 6);
             Assert.assertTrue(ptVO.getST() == 3);
@@ -69,7 +69,7 @@ public class PlayerTemplateBOTest {
                     Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
                     Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
                     Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
-                    Assert.assertTrue(ptVO.getMaxCount() == 16);
+                    Assert.assertTrue(ptVO.getQty() == 16);
                     Assert.assertTrue(ptVO.getCost() == 50000);
                     Assert.assertTrue(ptVO.getMA() == 6);
                     Assert.assertTrue(ptVO.getST() == 3);
@@ -108,7 +108,7 @@ public class PlayerTemplateBOTest {
                 Assert.assertNotNull(ptVO.getCost());
                 Assert.assertNotNull(ptVO.getCost());
                 Assert.assertNotNull(ptVO.getPosition());
-                Assert.assertNotNull(ptVO.getMaxCount());
+                Assert.assertNotNull(ptVO.getQty());
                 Assert.assertNotNull(ptVO.getTeamTemplateId());
                 Assert.assertNotNull(ptVO.getPlayerTemplateId());
             }

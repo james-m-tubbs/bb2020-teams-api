@@ -12,6 +12,7 @@ import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
 import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +24,13 @@ public class PlayerBOImpl implements PlayerBO {
     private PlayerDAO pDAO;
     private PlayerTemplateDAO ptDAO;
     private SkillTemplateDAO stDAO;
+    private Gson gson;
 
     public PlayerBOImpl(PlayerDAO pDAO, SkillTemplateDAO stDAO, PlayerTemplateDAO ptDAO) {
         this.pDAO = pDAO;
         this.stDAO = stDAO;
         this.ptDAO = ptDAO;
+        this.gson = new Gson();
     }
 
     @Override
@@ -37,9 +40,19 @@ public class PlayerBOImpl implements PlayerBO {
     }
 
     @Override
+    public String getJsonPlayerList(List<PlayerVO> pVOs) throws Exception {
+        return gson.toJson(pVOs);
+    }
+
+    @Override
     public PlayerVO getPlayerById(int playerId) throws Exception {
         PlayerVO pVO = pDAO.getPlayerById(playerId);
         return getPlayerDetails(pVO);
+    }
+
+    @Override
+    public String getJsonPlayer(PlayerVO pVO) throws Exception {
+        return gson.toJson(pVO);
     }
 
     @Override
@@ -84,7 +97,8 @@ public class PlayerBOImpl implements PlayerBO {
                 false,
                 false,
                 false,
-                null);
+                null,
+                0);
         pDAO.createPlayer(pVO);
 
         //requery the player to make sure they've been created correctly
@@ -104,32 +118,32 @@ public class PlayerBOImpl implements PlayerBO {
         //Does the player templateId match the input templateId
         if (teamTemplateId != ptVO.getTeamTemplateId()) throw new WarnException("Player ("+ptVO.getPosition()+") cannot be hired by team");
 
+        boolean onePerTeam = false;
         //if the team is empty hiring is allowed
         if (players == null || players.size() == 0) return true;
         int currentCount = 0;
         for (int i=0;i<players.size();i++) {
             PlayerVO pVO = players.get(i);
+            if (pVO.isOnePerTeam()) onePerTeam = true;
             if (pVO.getPosition() == ptVO.getPosition()) currentCount++;
+
         }
         if (currentCount >= ptVO.getQty()) throw new WarnException("Positional Count Reached for:"+ptVO.getPosition());
+        if (onePerTeam && ptVO.isOnePerTeam()) throw new WarnException("Limit Reached for: "+ptVO.getPosition());
 
-        //TODO add a check if the team has more than one big guy
         return true;
     }
 
     @Override
-    public boolean unhireRookiePlayerById(int playerId) throws Exception {
-        return false;
+    public boolean firePlayerVO(PlayerVO pVO) throws Exception {
+        pVO.setFired(true);
+        return pDAO.updatePlayer(pVO);
     }
 
     @Override
-    public boolean firePlayerById(int playerId) throws Exception {
-        return false;
-    }
-
-    @Override
-    public boolean temporarilyRetirePlayerById(int playerId) throws Exception {
-        return false;
+    public boolean temporarilyRetirePlayerVO(PlayerVO pVO) throws Exception {
+        pVO.setTempRetired(true);
+        return pDAO.updatePlayer(pVO);
     }
 
     private List<PlayerVO> getPlayerListDetails(List<PlayerVO> inPlayerVOs) throws Exception {

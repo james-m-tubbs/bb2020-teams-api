@@ -40,132 +40,68 @@ public class PlayerTemplateVO {
         this.onePerTeam = onePerTeam;
     }
 
-    public int getPlayerTemplateId() {
-        return playerTemplateId;
+    public void setBaseSkills(List<SkillVO> baseSkills) {
+        this.baseSkills = baseSkills;
     }
 
-    public void setPlayerTemplateId(int playerTemplateId) {
-        this.playerTemplateId = playerTemplateId;
+    public int getPlayerTemplateId() {
+        return playerTemplateId;
     }
 
     public int getTeamTemplateId() {
         return teamTemplateId;
     }
 
-    public void setTeamTemplateId(int teamTemplateId) {
-        this.teamTemplateId = teamTemplateId;
-    }
-
     public String getPosition() {
         return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public boolean isLinemanFlag() {
         return linemanFlag;
     }
 
-    public void setLinemanFlag(boolean linemanFlag) {
-        this.linemanFlag = linemanFlag;
-    }
-
     public int getQty() {
         return qty;
-    }
-
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-
-    public int getMaxCount() {
-        return qty;
-    }
-
-    public void setMaxCount(int maxCount) {
-        this.qty = maxCount;
     }
 
     public int getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
     public int getMA() {
         return MA;
-    }
-
-    public void setMA(int MA) {
-        this.MA = MA;
     }
 
     public int getST() {
         return ST;
     }
 
-    public void setST(int ST) {
-        this.ST = ST;
-    }
-
     public int getAG() {
         return AG;
-    }
-
-    public void setAG(int AG) {
-        this.AG = AG;
     }
 
     public int getPA() {
         return PA;
     }
 
-    public void setPA(int PA) {
-        this.PA = PA;
-    }
-
     public int getAV() {
         return AV;
-    }
-
-    public void setAV(int AV) {
-        this.AV = AV;
     }
 
     public List<SkillVO> getBaseSkills() {
         return baseSkills;
     }
 
-    public void setBaseSkills(List<SkillVO> baseSkills) {
-        this.baseSkills = baseSkills;
-    }
-
     public String getPrimary() {
         return primary;
-    }
-
-    public void setPrimary(String primary) {
-        this.primary = primary;
     }
 
     public String getSecondary() {
         return secondary;
     }
 
-    public void setSecondary(String secondary) {
-        this.secondary = secondary;
-    }
-
     public boolean isOnePerTeam() {
         return onePerTeam;
-    }
-
-    public void setOnePerTeam(boolean onePerTeam) {
-        this.onePerTeam = onePerTeam;
     }
 
     @Override
