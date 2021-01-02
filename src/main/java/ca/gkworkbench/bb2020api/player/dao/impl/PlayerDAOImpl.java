@@ -4,6 +4,7 @@ import ca.gkworkbench.bb2020api.player.dao.PlayerDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -12,9 +13,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
+
+    public final String INSERT_NEW_PLAYER_SQL = "INSERT INTO Players(teamId, playerTemplateId, name) values (?, ?, ?);";
     @Override
-    public PlayerVO createPlayer(PlayerVO playerVO) throws Exception {
-        return null;
+    public void createPlayer(PlayerVO playerVO) throws Exception {
+        getJdbcTemplate().update(
+                INSERT_NEW_PLAYER_SQL,
+                playerVO.getTeamId(),
+                playerVO.getPlayerTemplateId(),
+                playerVO.getName()
+        );
     }
 
     //id int NOT NULL AUTO_INCREMENT, teamId int NOT NULL, PlayerTemplateId int NOT NULL, name VARCHAR(255), spp int NOT NULL DEFAULT 0, currentValue int NOT NULL default 0, cp int NOT NULL default 0, pi int NOT NULL default 0, cas int NOT NULL default 0, td int NOT NULL default 0, mvp cas int NOT NULL default 0, injuredFlag char(1) NOT NULL DEFAULT 'N', tempRetiredFlag char(1) NOT NULL DEFAULT 'N', firedFlag char(1) NOT NULL DEFAULT 'N', PRIMARY KEY(id), FOREIGN KEY (TeamId) REFERENCES Teams(id), FOREIGN KEY(PlayerTemplateId) REFERENCES PlayerTemplate(id));
@@ -22,7 +30,11 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
     private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primary_skills, pt.secondary_skills from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
     @Override
     public PlayerVO getPlayerById(int playerId) throws Exception {
-        return (PlayerVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerDAOImpl.PlayerRowMapper(), new Object[]{playerId});
+        try {
+            return (PlayerVO) getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerDAOImpl.PlayerRowMapper(), new Object[]{playerId});
+        } catch (EmptyResultDataAccessException e) {
+                return null;
+        }
     }
 
     @Override
@@ -35,9 +47,20 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
         return false;
     }
 
+    private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primary_skills, pt.secondary_skills from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";
     @Override
     public List<PlayerVO> getPlayersForTeamId(int teamId) throws Exception {
-        return null;
+        return (List<PlayerVO>)getJdbcTemplate().query(SELECT_BY_TEAM_SQL, new PlayerDAOImpl.PlayerRowMapper(), new Object[]{teamId});
+    }
+
+    private final String SELECT_BY_NAME_AND_TEAM = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primary_skills, pt.secondary_skills from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ? and p.name = ?";
+    @Override
+    public PlayerVO getPlayerForNameAndTeam(int teamId, String name) throws Exception {
+        try {
+            return (PlayerVO) getJdbcTemplate().queryForObject(SELECT_BY_NAME_AND_TEAM, new PlayerDAOImpl.PlayerRowMapper(), new Object[]{teamId, name});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public class PlayerRowMapper implements RowMapper

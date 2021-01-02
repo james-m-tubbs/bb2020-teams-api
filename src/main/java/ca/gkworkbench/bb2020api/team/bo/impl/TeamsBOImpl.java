@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.team.bo.impl;
 
 import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
+import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamTemplateBO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
@@ -80,6 +81,73 @@ public class TeamsBOImpl implements TeamsBO {
     }
 
     @Override
+    public PlayerVO hireRookiePlayerFromTemplateId(int teamId, int playerTemplateId, String playerName) throws Exception {
+
+
+//        //get the team plus details
+//        TeamVO tVO = getTeamById(teamId, false);
+//        if (tVO == null) throw new WarnException("Could not find team for id:"+teamId);
+//
+//        //validate we have the cash
+//        if (tVO.getTreasury() < ptVO.getCost()) throw new WarnException("Not enough funds");
+//
+//        //validate we have spots on the team
+//        if (!canHirePlayer(tVO, ptVO)) throw new WarnException("No More Positionals Available");
+//
+//        //validate if the player name is in use
+//        if (pDAO.getPlayerForNameAndTeam(teamId, playerName) != null) throw new WarnException("Player name in use");
+//
+//        //create the player
+//        PlayerVO pVO = new PlayerVO(
+//                ptVO.getPlayerTemplateId(),
+//                ptVO.getTeamTemplateId(),
+//                ptVO.getPosition(),
+//                ptVO.isLinemanFlag(),
+//                ptVO.getQty(),
+//                ptVO.getCost(),
+//                ptVO.getMA(),
+//                ptVO.getST(),
+//                ptVO.getAG(),
+//                ptVO.getPA(),
+//                ptVO.getAV(),
+//                ptVO.getBaseSkills(),
+//                ptVO.getPrimary(),
+//                ptVO.getSecondary(),
+//                -1,
+//                teamId,
+//                playerName,
+//                0,
+//                ptVO.getCost(),
+//                0,
+//                0,
+//                0,
+//                0,
+//                0,
+//                false,
+//                false,
+//                false,
+//                null);
+//        pDAO.createPlayer(pVO);
+//
+//        //requery the player to make sure they've been created correctly
+//        PlayerVO rookiePVO = pDAO.getPlayerForNameAndTeam(teamId, playerName);
+//        if (rookiePVO == null) throw new WarnException("Unable to query new player");
+//
+//        //update the treasury
+//        tVO.setTreasury(tVO.getTreasury() - ptVO.getCost());
+//        tBO.updateTeamWithGeneratedTV(tVO);
+//
+//        //return the new player
+//        return rookiePVO;
+        return null;
+    }
+
+    @Override
+    public PlayerVO getHireablePlayerList(int teamId) throws Exception {
+        return null;
+    }
+
+    @Override
     public List<TeamVO> getTeamsForCoachId(int coachId) throws Exception {
         return tDAO.getTeamVOsByCoachId(coachId);
     }
@@ -116,10 +184,8 @@ public class TeamsBOImpl implements TeamsBO {
             tVO.setTeamTemplateVO(ttBO.getTeamTemplateByID(tVO.getTeamTemplateId(), false));
         }
 
-        //need the players to calculate of it
-        if (tVO.getPlayers() == null) {
-            pBO.getPlayersByTeamId(tVO.getId());
-        }
+        //query players for the team in case we hired any new ones
+        tVO.setPlayers(pBO.getPlayersByTeamId(tVO.getId()));
 
         int totalValue = 0;
         totalValue = totalValue + (10000 * tVO.getCheerleaders());

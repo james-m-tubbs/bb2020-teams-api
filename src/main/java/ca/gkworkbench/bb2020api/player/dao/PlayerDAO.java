@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PlayerDAO {
 
-    public PlayerVO createPlayer(PlayerVO playerVO) throws Exception;
+    public void createPlayer(PlayerVO playerVO) throws Exception;
 
     public PlayerVO getPlayerById(int playerId) throws Exception;
 
@@ -15,4 +15,6 @@ public interface PlayerDAO {
     public boolean deletePlayer(int playerId) throws Exception;
 
     public List<PlayerVO> getPlayersForTeamId(int teamId) throws Exception;
+
+    public PlayerVO getPlayerForNameAndTeam(int teamId, String name) throws Exception;
 }

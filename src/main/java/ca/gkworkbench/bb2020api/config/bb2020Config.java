@@ -121,7 +121,10 @@ public class bb2020Config {
 
     @Bean
     public PlayerBO playerBO() {
-        return new PlayerBOImpl(playerDAO(), skillTemplateDAO());
+        return new PlayerBOImpl(
+                playerDAO(),
+                skillTemplateDAO(),
+                playerTemplateDAO());
     }
 
     /**

@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.player.dao.impl;
 
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -22,7 +23,11 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
 
     @Override
     public PlayerTemplateVO getPlayerTemplateVOById(int id) throws Exception {
-        return (PlayerTemplateVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerTemplateRowMapper(), new Object[]{id});
+        try {
+            return (PlayerTemplateVO) getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerTemplateRowMapper(), new Object[]{id});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     //teamTemplateId, position, linemanFlag, QTY, cost, MA, ST, AG, PA, AV
