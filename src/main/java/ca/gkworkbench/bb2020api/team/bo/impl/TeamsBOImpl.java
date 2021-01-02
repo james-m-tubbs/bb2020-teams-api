@@ -82,8 +82,6 @@ public class TeamsBOImpl implements TeamsBO {
 
     @Override
     public PlayerVO hireRookiePlayerFromTemplateId(int teamId, int playerTemplateId, String playerName) throws Exception {
-
-
 //        //get the team plus details
 //        TeamVO tVO = getTeamById(teamId, false);
 //        if (tVO == null) throw new WarnException("Could not find team for id:"+teamId);

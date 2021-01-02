@@ -20,8 +20,9 @@ public class PlayerTemplateVO {
     List<SkillVO> baseSkills;
     String primary;
     String secondary;
+    boolean onePerTeam;
 
-    public PlayerTemplateVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary) {
+    public PlayerTemplateVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam) {
         this.playerTemplateId = playerTemplateId;
         this.teamTemplateId = teamTemplateId;
         this.position = position;
@@ -36,6 +37,7 @@ public class PlayerTemplateVO {
         this.baseSkills = baseSkills;
         this.primary = primary;
         this.secondary = secondary;
+        this.onePerTeam = onePerTeam;
     }
 
     public int getPlayerTemplateId() {
@@ -158,6 +160,14 @@ public class PlayerTemplateVO {
         this.secondary = secondary;
     }
 
+    public boolean isOnePerTeam() {
+        return onePerTeam;
+    }
+
+    public void setOnePerTeam(boolean onePerTeam) {
+        this.onePerTeam = onePerTeam;
+    }
+
     @Override
     public String toString() {
         return "PlayerTemplateVO{" +
@@ -175,6 +185,7 @@ public class PlayerTemplateVO {
                 ", baseSkills=" + baseSkills +
                 ", primary='" + primary + '\'' +
                 ", secondary='" + secondary + '\'' +
+                ", onePerTeam=" + onePerTeam +
                 '}';
     }
 }

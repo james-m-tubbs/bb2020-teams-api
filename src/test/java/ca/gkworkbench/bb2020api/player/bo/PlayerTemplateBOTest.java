@@ -55,7 +55,7 @@ public class PlayerTemplateBOTest {
     }
 
     @Test
-    public void test_get_orc_players_by_team_id() {
+    public void test_get_human_players_by_team_id() {
         try {
             List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(1);
             System.err.println(ptVOs);
@@ -77,6 +77,7 @@ public class PlayerTemplateBOTest {
                     Assert.assertTrue(ptVO.getPA() == 4);
                     Assert.assertTrue(ptVO.getAV() == 9);
                     Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
+                    Assert.assertFalse(ptVO.isOnePerTeam());
                 }
             }
         } catch (Exception e) {
@@ -130,5 +131,4 @@ public class PlayerTemplateBOTest {
             //expected
         }
     }
-
 }

@@ -35,7 +35,9 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
     {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
             boolean linemanFlag = false;
-            if (rs.getString("linemanFLag").equalsIgnoreCase("Y")) linemanFlag = true;
+            if (rs.getString("linemanFlag").equalsIgnoreCase("Y")) linemanFlag = true;
+            boolean onePerTeamFlag = false;
+            if (rs.getString("onePerTeamFlag").equalsIgnoreCase("Y")) onePerTeamFlag = true;
 
             PlayerTemplateVO ptVO = new PlayerTemplateVO(
                     rs.getInt("id"),
@@ -50,8 +52,9 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
                     rs.getInt("pa"),
                     rs.getInt("av"),
                     null,
-                    rs.getString("primary_skills"),
-                    rs.getString("secondary_skills")
+                    rs.getString("primarySkills"),
+                    rs.getString("secondarySkills"),
+                    onePerTeamFlag
             );
             return ptVO;
         }

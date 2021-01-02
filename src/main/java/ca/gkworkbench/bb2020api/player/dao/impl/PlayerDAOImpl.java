@@ -1,9 +1,7 @@
 package ca.gkworkbench.bb2020api.player.dao.impl;
 
 import ca.gkworkbench.bb2020api.player.dao.PlayerDAO;
-import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
-import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -25,9 +23,7 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
         );
     }
 
-    //id int NOT NULL AUTO_INCREMENT, teamId int NOT NULL, PlayerTemplateId int NOT NULL, name VARCHAR(255), spp int NOT NULL DEFAULT 0, currentValue int NOT NULL default 0, cp int NOT NULL default 0, pi int NOT NULL default 0, cas int NOT NULL default 0, td int NOT NULL default 0, mvp cas int NOT NULL default 0, injuredFlag char(1) NOT NULL DEFAULT 'N', tempRetiredFlag char(1) NOT NULL DEFAULT 'N', firedFlag char(1) NOT NULL DEFAULT 'N', PRIMARY KEY(id), FOREIGN KEY (TeamId) REFERENCES Teams(id), FOREIGN KEY(PlayerTemplateId) REFERENCES PlayerTemplate(id));
-    //id int NOT NULL AUTO_INCREMENT, teamTemplateId int NOT NULL, position varchar(255) NOT NULL, linemanFlag char(1) NOT NULL, qty int NOT NULL, cost int NOT NULL, ma int NOT NULL, st int NOT NULL, ag int NOT NULL, pa int NOT NULL, av int NOT NULL, primary_skills VARCHAR(255), secondary_skills VARCHAR(255), PRIMARY KEY (id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id));
-    private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primary_skills, pt.secondary_skills from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
+    private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
     @Override
     public PlayerVO getPlayerById(int playerId) throws Exception {
         try {
@@ -47,13 +43,13 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
         return false;
     }
 
-    private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primary_skills, pt.secondary_skills from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";
+    private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";
     @Override
     public List<PlayerVO> getPlayersForTeamId(int teamId) throws Exception {
         return (List<PlayerVO>)getJdbcTemplate().query(SELECT_BY_TEAM_SQL, new PlayerDAOImpl.PlayerRowMapper(), new Object[]{teamId});
     }
 
-    private final String SELECT_BY_NAME_AND_TEAM = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primary_skills, pt.secondary_skills from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ? and p.name = ?";
+    private final String SELECT_BY_NAME_AND_TEAM = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ? and p.name = ?";
     @Override
     public PlayerVO getPlayerForNameAndTeam(int teamId, String name) throws Exception {
         try {
@@ -77,6 +73,10 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
 
             boolean firedFlag = false;
             if (rs.getString("firedFlag").equalsIgnoreCase("Y")) firedFlag = true;
+
+            boolean onePerTeam = false;
+            if (rs.getString("onePerTeamFlag").equalsIgnoreCase("Y")) onePerTeam = true;
+
 
             PlayerVO pVO = new PlayerVO(
                 //int playerTemplateId,
@@ -104,9 +104,11 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
                     // List<SkillVO > baseSkills,
                     null,
                     // String primary,
-                    rs.getString("primary_skills"),
+                    rs.getString("primarySkills"),
                     // String secondary,
-                    rs.getString("secondary_skills"),
+                    rs.getString("secondarySkills"),
+                    //onePerTeamFlag
+                    onePerTeam,
                     // int playerId,
                     rs.getInt("playerId"),
                     // int teamId,

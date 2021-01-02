@@ -35,8 +35,8 @@ public class PlayerVO extends PlayerTemplateVO {
     //extra purchased skills
     private List<SkillVO> boughtSkills;
 
-    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills) {
-        super(playerTemplateId, teamTemplateId, position, linemanFlag, qty, cost, MA, ST, AG, PA, AV, baseSkills, primary, secondary);
+    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills) {
+        super(playerTemplateId, teamTemplateId, position, linemanFlag, qty, cost, MA, ST, AG, PA, AV, baseSkills, primary, secondary, onePerTeam);
         this.playerId = playerId;
         this.teamId = teamId;
         this.name = name;
@@ -196,6 +196,7 @@ public class PlayerVO extends PlayerTemplateVO {
                 ", baseSkills=" + baseSkills +
                 ", primary='" + primary + '\'' +
                 ", secondary='" + secondary + '\'' +
+                ", onePerTeam=" + onePerTeam +
                 '}';
     }
 }

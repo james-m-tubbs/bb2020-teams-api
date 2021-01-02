@@ -70,6 +70,7 @@ public class PlayerBOImpl implements PlayerBO {
                 ptVO.getBaseSkills(),
                 ptVO.getPrimary(),
                 ptVO.getSecondary(),
+                ptVO.isOnePerTeam(),
                 -1,
                 teamId,
                 playerName,
