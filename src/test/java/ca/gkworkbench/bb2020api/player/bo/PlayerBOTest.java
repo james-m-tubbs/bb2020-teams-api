@@ -248,11 +248,12 @@ public class PlayerBOTest {
                 if (pVO != null && pVO.getName().equalsIgnoreCase("Leino Lino 2")) {
                     Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Human Lineman"));
                     Assert.assertTrue(pVO.getName().equalsIgnoreCase("Leino Lino 2"));
-                    Assert.assertTrue(pVO.getSpp() == 0);
+                    Assert.assertTrue(pVO.getCp() == 0);
                     Assert.assertTrue(pVO.getSpp() == 0);
                     Assert.assertTrue(pVO.getPi() == 0);
                     Assert.assertTrue(pVO.getCas() == 0);
                     Assert.assertTrue(pVO.getMvp() == 0);
+                    Assert.assertTrue(pVO.getCurrentValue()==50000);
                     Assert.assertFalse(pVO.isInjured());
                     Assert.assertFalse(pVO.isFired());
                     Assert.assertFalse(pVO.isTempRetired());
@@ -291,6 +292,7 @@ public class PlayerBOTest {
             Assert.assertTrue(pVO.getPi() == 0);
             Assert.assertTrue(pVO.getCas() == 0);
             Assert.assertTrue(pVO.getMvp() == 0);
+            Assert.assertTrue(pVO.getCurrentValue()==50000);
             Assert.assertFalse(pVO.isInjured());
             Assert.assertFalse(pVO.isFired());
             Assert.assertFalse(pVO.isTempRetired());
@@ -330,6 +332,7 @@ public class PlayerBOTest {
             Assert.assertTrue(pVO.getPi() == 0);
             Assert.assertTrue(pVO.getCas() == 0);
             Assert.assertTrue(pVO.getMvp() == 0);
+            Assert.assertTrue(pVO.getCurrentValue()==50000);
             Assert.assertFalse(pVO.isInjured());
             Assert.assertFalse(pVO.isFired());
             Assert.assertFalse(pVO.isTempRetired());

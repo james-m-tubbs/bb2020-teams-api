@@ -12,14 +12,15 @@ import java.util.List;
 
 public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
 
-    private final String INSERT_NEW_PLAYER_SQL = "INSERT INTO Players(teamId, playerTemplateId, name) values (?, ?, ?);";
+    private final String INSERT_NEW_PLAYER_SQL = "INSERT INTO Players(teamId, playerTemplateId, name, currentValue) values (?, ?, ?, ?);";
     @Override
     public void createPlayer(PlayerVO playerVO) throws Exception {
         getJdbcTemplate().update(
                 INSERT_NEW_PLAYER_SQL,
                 playerVO.getTeamId(),
                 playerVO.getPlayerTemplateId(),
-                playerVO.getName()
+                playerVO.getName(),
+                playerVO.getCurrentValue()
         );
     }
 

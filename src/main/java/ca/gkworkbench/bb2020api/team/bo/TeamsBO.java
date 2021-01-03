@@ -25,8 +25,8 @@ public interface TeamsBO {
     //delete team
     public void deleteTeam(int teamId) throws Exception;
 
-    //hire/fire players
-    public PlayerVO hireRookiePlayerFromTemplateId(int teamId, int playerTemplateId, String playerName) throws Exception;
-    public PlayerVO getHireablePlayerList(int teamId) throws Exception;
+    //hire/fire/unhire/players
+    public TeamVO hireRookiePlayerFromTemplateId(TeamVO tVO, int playerTemplateId, String playerName) throws Exception;
+    public boolean firePlayerByPlayerId(TeamVO tVO, int playerId) throws Exception;
 
 }

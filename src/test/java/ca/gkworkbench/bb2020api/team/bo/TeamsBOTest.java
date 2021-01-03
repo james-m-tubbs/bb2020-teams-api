@@ -265,5 +265,37 @@ public class TeamsBOTest {
             Assert.fail();
         }
     }
+
+    @Test
+    public void create_chaos_chosen_team_and_hire_players_then_validate_result() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("1milTV Chaos Team", 1, 3);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("1milTV Chaos Team"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+            Assert.assertFalse(tVO.hasApothecary());
+
+            for (int i=0;i<7;i++) {
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 13, "Bestman:"+(i+1));
+            }
+
+            for (int i=0;i<4;i++) {
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 14, "Chaos Warrior:"+(i+1));
+            }
+
+            Assert.assertTrue(tVO.getTreasury()==180000);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==820000);
+            Assert.assertTrue(tVO.getPlayers().size()==11);
+            System.err.println(tVO);
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }
 

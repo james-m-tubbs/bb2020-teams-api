@@ -145,7 +145,8 @@ public class bb2020Config {
         return new TeamsBOImpl(
                 teamsDAO(),
                 teamTemplateBO(),
-                playerBO());
+                playerBO(),
+                playerTemplateDAO());
     }
 
     @Bean
