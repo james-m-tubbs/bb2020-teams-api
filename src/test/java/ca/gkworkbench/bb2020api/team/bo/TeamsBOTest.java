@@ -267,6 +267,32 @@ public class TeamsBOTest {
     }
 
     @Test
+    public void create_orc_team_and_hire_one_player() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Orc Team for Hiring", 1, 2);
+            System.err.println(tVO);
+            Assert.assertTrue(tVO.getTeamName().equals("Orc Team for Hiring"));
+            Assert.assertTrue(tVO.getId() > 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 2);
+            Assert.assertTrue(tVO.getCoachId() == 1);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+            Assert.assertFalse(tVO.hasApothecary());
+
+            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 12, "Orc Troll");
+
+            Assert.assertTrue(tVO.getTreasury()==885000);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==115000);
+            Assert.assertTrue(tVO.getPlayers().size()==1);
+            System.err.println(tVO);
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
     public void create_chaos_chosen_team_and_hire_players_then_validate_result() {
         try {
             TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("1milTV Chaos Team", 1, 3);
@@ -291,6 +317,21 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getPlayers().size()==11);
             System.err.println(tVO);
 
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void create_new_team_hire_from_wrong_team() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Cant hire humans chaos", 1, 3);
+            tBO.hireRookiePlayerFromTemplateId(tVO, 1, "No Lineman 4 u!");
+            Assert.fail("Expected a failure here");
+        } catch (WarnException e) {
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Player (Human Lineman) cannot be hired by team"));
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
