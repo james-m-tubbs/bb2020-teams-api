@@ -309,12 +309,12 @@ public class TeamControllerTest {
     }
 
     /**
-     * Hiring and Firing Players
+     * Hiring Players
      */
 
     @Test
-    public void hire_player_to_chaos_team_and_validate_success() throws Exception {
-        this.mockMvc.perform(get("/api/team/7/players/hire/14?name=Mr%20Chaos%20Chosen"))
+    public void hire_and_fire_player_to_chaos_team_and_validate_success() throws Exception {
+        MvcResult result = this.mockMvc.perform(get("/api/team/7/players/hire/14?name=Mr%20Chaos%20Chosen"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -329,9 +329,37 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.teamTemplateVO.rerollCost").value(60000))
                 .andExpect(jsonPath("$.teamTemplateVO.tier").value(2))
                 .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeench"))
-                .andExpect(jsonPath("$.players[0].name").value("Mr Chaos Chosen"))
+                .andExpect(jsonPath("$.players[0].name").value("Fired Chaos Linemen"))
                 .andExpect(jsonPath("$.players[0].currentValue").value("100000"))
-                .andExpect(jsonPath("$.players[0].cost").value("100000"));
+                .andExpect(jsonPath("$.players[0].cost").value("100000"))
+                .andExpect(jsonPath("$.players[0].fired").value(true))
+                .andExpect(jsonPath("$.players[1].name").value("Mr Chaos Chosen"))
+                .andExpect(jsonPath("$.players[1].currentValue").value("100000"))
+                .andExpect(jsonPath("$.players[1].cost").value("100000"))
+                .andExpect(jsonPath("$.players[1].fired").value(false))
+                .andReturn();
+
+        Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.players[1].playerId");
+
+        this.mockMvc.perform(get("/api/team/7/players/fire/"+id))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.teamTemplateId").value(3))
+                .andExpect(jsonPath("$.teamName").value("Chaos Chosen Test 4"))
+                .andExpect(jsonPath("$.treasury").value(1000000))
+                .andExpect(jsonPath("$.cheerleaders").value(0))
+                .andExpect(jsonPath("$.hasApothecary").value(false))
+                .andExpect(jsonPath("$.teamValue").value(0))
+                .andExpect(jsonPath("$.teamTemplateVO.id").value(3))
+                .andExpect(jsonPath("$.teamTemplateVO.teamType").value("Chaos Chosen"))
+                .andExpect(jsonPath("$.teamTemplateVO.rerollCost").value(60000))
+                .andExpect(jsonPath("$.teamTemplateVO.tier").value(2))
+                .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeench"))
+                .andExpect(jsonPath("$.players[1].name").value("Mr Chaos Chosen"))
+                .andExpect(jsonPath("$.players[1].currentValue").value("100000"))
+                .andExpect(jsonPath("$.players[1].cost").value("100000"))
+                .andExpect(jsonPath("$.players[1].fired").value(true));
     }
 
     @Test
@@ -344,6 +372,27 @@ public class TeamControllerTest {
     @Test
     public void hire_player_for_missing_team_id() throws Exception {
         this.mockMvc.perform(get("/api/team/99999999/players/hire/14?name=Mr%20Chaos%20Chosen"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void fire_player_from_missing_team_id() throws Exception {
+        this.mockMvc.perform(get("/api/team/999999/players/fire/1"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void fire_player_from_wrong_team() throws Exception {
+        this.mockMvc.perform(get("/api/team/7/players/fire/1"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void fire_missing_player_from_team() throws Exception {
+        this.mockMvc.perform(get("/api/team/7/players/fire/999999"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }

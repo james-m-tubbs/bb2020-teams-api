@@ -36,3 +36,4 @@ INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name, currentValue) valu
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (6, 1, 3, 'Chaos Chosen Test 3');
 
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName, treasury) values (7, 1, 3, 'Chaos Chosen Test 4', 1000000);
+INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name, currentValue, firedFlag) values (25, 7, 14, 'Fired Chaos Linemen', 100000, 'Y');

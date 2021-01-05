@@ -104,6 +104,7 @@ public class TeamsBOImpl implements TeamsBO {
     public TeamVO firePlayerByPlayerId(TeamVO tVO, int playerId) throws Exception {
         PlayerVO pVO = pBO.getPlayerById(playerId);
         if (pVO == null || pVO.getTeamId() != tVO.getId()) throw new WarnException("Player ID not found");
+        if (pVO.isFired()) return updateTeamWithGeneratedTV(tVO);
 
         //fire the player
         if (!pBO.firePlayerVO(pVO)) throw new Exception("Can't fire player: " + pVO);

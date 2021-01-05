@@ -420,5 +420,23 @@ public class TeamsBOTest {
             Assert.fail();
         }
     }
+
+    @Test
+    public void fire_player_who_is_already_fired() {
+        try {
+            TeamVO tVO = tBO.getTeamById(7, true);
+            int treasury = tVO.getTreasury();
+            tVO = tBO.firePlayerByPlayerId(tVO, 25);
+            Assert.assertTrue(treasury==tVO.getTreasury());
+            for (int i=0; i<tVO.getPlayers().size(); i++) {
+                if (tVO.getPlayers().get(i).getPlayerId()==25) {
+                    Assert.assertTrue(tVO.getPlayers().get(i).isFired()==true);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }
 
