@@ -30,7 +30,7 @@ public class PlayerTemplateControllerTest {
         this.mockMvc.perform(get("/api/player/template/4"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(4))
+                .andExpect(jsonPath("$.playerTemplateId").value(4))
                 .andExpect(jsonPath("$.teamTemplateId").value(1))
                 .andExpect(jsonPath("$.position").value("Human Blitzer"))
                 .andExpect(jsonPath("$.linemanFlag").value(false))
@@ -41,8 +41,8 @@ public class PlayerTemplateControllerTest {
                 .andExpect(jsonPath("$.AG").value(3))
                 .andExpect(jsonPath("$.PA").value(4))
                 .andExpect(jsonPath("$.AV").value(9))
-                .andExpect(jsonPath("$.skills[0].skill").value("Block"))
-                .andExpect(jsonPath("$.skills[0].type").value("G"))
+                .andExpect(jsonPath("$.baseSkills[0].skill").value("Block"))
+                .andExpect(jsonPath("$.baseSkills[0].type").value("G"))
                 .andExpect(jsonPath("$.primary").value("GS"))
                 .andExpect(jsonPath("$.secondary").value("AP"));
     }
@@ -58,7 +58,7 @@ public class PlayerTemplateControllerTest {
         this.mockMvc.perform(get("/api/player/template/team/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[3].id").value(4))
+                .andExpect(jsonPath("$[3].playerTemplateId").value(4))
                 .andExpect(jsonPath("$[3].teamTemplateId").value(1))
                 .andExpect(jsonPath("$[3].position").value("Human Blitzer"))
                 .andExpect(jsonPath("$[3].linemanFlag").value(false))
@@ -69,8 +69,8 @@ public class PlayerTemplateControllerTest {
                 .andExpect(jsonPath("$[3].AG").value(3))
                 .andExpect(jsonPath("$[3].PA").value(4))
                 .andExpect(jsonPath("$[3].AV").value(9))
-                .andExpect(jsonPath("$[3].skills[0].skill").value("Block"))
-                .andExpect(jsonPath("$[3].skills[0].type").value("G"))
+                .andExpect(jsonPath("$[3].baseSkills[0].skill").value("Block"))
+                .andExpect(jsonPath("$[3].baseSkills[0].type").value("G"))
                 .andExpect(jsonPath("$[3].primary").value("GS"))
                 .andExpect(jsonPath("$[3].secondary").value("AP"));
     }

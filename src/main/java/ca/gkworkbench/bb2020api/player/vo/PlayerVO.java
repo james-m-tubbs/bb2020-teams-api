@@ -4,75 +4,81 @@ import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 
 import java.util.List;
 
-public class PlayerVO {
-    //CREATE TABLE Players(id int NOT NULL AUTO_INCREMENT,
-    private int id;
+public class PlayerVO extends PlayerTemplateVO {
+    //id int NOT NULL AUTO_INCREMENT,
+    private int playerId;
+    // TeamId int NOT NULL,
+    private int teamId;
     // name VARCHAR(255),
     private String name;
-    //position
-    private String position;
     // spp int NOT NULL DEFAULT 0,
     private int spp;
-    // hiringFee int NOT NULL default 0,
-    private int hiringFee;
     // currentValue int NOT NULL default 0,
     private int currentValue;
-    // MA
-    private int MA;
-    // ST
-    private int ST;
-    // AG
-    private int AG;
-    // PA
-    private int PA;
-    // AV
-    private int AV;
-    //drafted
-    private boolean drafted;
-    //injured
+    // cp int NOT NULL default 0,
+    private int cp;
+    // pi int NOT NULL default 0,
+    private int pi;
+    // cas int NOT NULL default 0,
+    private int cas;
+    // td int NOT NULL default 0.
+    private int td;
+    // mvp cas intOT NULL default 0,
+    private int mvp;
+    //injuredFlag char(1) NOT NULL DEFAULT 'N',
     private boolean injured;
-    // Skills
-    private List<SkillVO> skills;
+    // tempRetiredFlag char(1) NOT NULL DEFAULT 'N',
+    private boolean tempRetired;
+    // firedFlag char(1) NOT NULL DEFAULT 'N'
+    private boolean fired;
 
-    public PlayerVO(int id, String name, String position, int spp, int hiringFee, int currentValue, int MA, int ST, int AG, int PA, int AV, boolean drafted, boolean injured, List<SkillVO> skills) {
-        this.id = id;
+    //extra purchased skills
+    private List<SkillVO> boughtSkills;
+
+    //games played
+    private int gamesPlayed;
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills, int gamesPlayed) {
+        super(playerTemplateId, teamTemplateId, position, linemanFlag, qty, cost, MA, ST, AG, PA, AV, baseSkills, primary, secondary, onePerTeam);
+        this.playerId = playerId;
+        this.teamId = teamId;
         this.name = name;
-        this.position = position;
         this.spp = spp;
-        this.hiringFee = hiringFee;
         this.currentValue = currentValue;
-        this.MA = MA;
-        this.ST = ST;
-        this.AG = AG;
-        this.PA = PA;
-        this.AV = AV;
-        this.drafted = drafted;
+        this.cp = cp;
+        this.pi = pi;
+        this.cas = cas;
+        this.td = td;
+        this.mvp = mvp;
         this.injured = injured;
-        this.skills = skills;
+        this.tempRetired = tempRetired;
+        this.fired = fired;
+        this.boughtSkills = boughtSkills;
+        this.gamesPlayed = gamesPlayed;
     }
 
-    public boolean isDrafted() {
-        return drafted;
+    public int getPlayerId() {
+        return playerId;
     }
 
-    public void setDrafted(boolean drafted) {
-        this.drafted = drafted;
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
-    public boolean isInjured() {
-        return injured;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public void setInjured(boolean injured) {
-        this.injured = injured;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
     public String getName() {
@@ -83,28 +89,12 @@ public class PlayerVO {
         this.name = name;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     public int getSpp() {
         return spp;
     }
 
     public void setSpp(int spp) {
         this.spp = spp;
-    }
-
-    public int getHiringFee() {
-        return hiringFee;
-    }
-
-    public void setHiringFee(int hiringFee) {
-        this.hiringFee = hiringFee;
     }
 
     public int getCurrentValue() {
@@ -115,71 +105,110 @@ public class PlayerVO {
         this.currentValue = currentValue;
     }
 
-    public int getMA() {
-        return MA;
+    public int getCp() {
+        return cp;
     }
 
-    public void setMA(int MA) {
-        this.MA = MA;
+    public void setCp(int cp) {
+        this.cp = cp;
     }
 
-    public int getST() {
-        return ST;
+    public int getPi() {
+        return pi;
     }
 
-    public void setST(int ST) {
-        this.ST = ST;
+    public void setPi(int pi) {
+        this.pi = pi;
     }
 
-    public int getAG() {
-        return AG;
+    public int getCas() {
+        return cas;
     }
 
-    public void setAG(int AG) {
-        this.AG = AG;
+    public void setCas(int cas) {
+        this.cas = cas;
     }
 
-    public int getPA() {
-        return PA;
+    public int getTd() {
+        return td;
     }
 
-    public void setPA(int PA) {
-        this.PA = PA;
+    public void setTd(int td) {
+        this.td = td;
     }
 
-    public int getAV() {
-        return AV;
+    public int getMvp() {
+        return mvp;
     }
 
-    public void setAV(int AV) {
-        this.AV = AV;
+    public void setMvp(int mvp) {
+        this.mvp = mvp;
     }
 
-    public List<SkillVO> getSkills() {
-        return skills;
+    public boolean isInjured() {
+        return injured;
     }
 
-    public void setSkills(List<SkillVO> skills) {
-        this.skills = skills;
+    public void setInjured(boolean injured) {
+        this.injured = injured;
+    }
+
+    public boolean isTempRetired() {
+        return tempRetired;
+    }
+
+    public void setTempRetired(boolean tempRetired) {
+        this.tempRetired = tempRetired;
+    }
+
+    public boolean isFired() {
+        return fired;
+    }
+
+    public void setFired(boolean fired) {
+        this.fired = fired;
+    }
+
+    public List<SkillVO> getBoughtSkills() {
+        return boughtSkills;
+    }
+
+    public void setBoughtSkills(List<SkillVO> boughtSkills) {
+        this.boughtSkills = boughtSkills;
     }
 
     @Override
     public String toString() {
         return "PlayerVO{" +
-                "id=" + id +
+                "playerId=" + playerId +
+                ", teamId=" + teamId +
                 ", name='" + name + '\'' +
-                ", position='" + position + '\'' +
                 ", spp=" + spp +
-                ", hiringFee=" + hiringFee +
                 ", currentValue=" + currentValue +
+                ", cp=" + cp +
+                ", pi=" + pi +
+                ", cas=" + cas +
+                ", td=" + td +
+                ", mvp=" + mvp +
+                ", injured=" + injured +
+                ", tempRetired=" + tempRetired +
+                ", fired=" + fired +
+                ", boughtSkills=" + boughtSkills +
+                ", playerTemplateId=" + playerTemplateId +
+                ", teamTemplateId=" + teamTemplateId +
+                ", position='" + position + '\'' +
+                ", linemanFlag=" + linemanFlag +
+                ", qty=" + qty +
+                ", cost=" + cost +
                 ", MA=" + MA +
                 ", ST=" + ST +
                 ", AG=" + AG +
                 ", PA=" + PA +
                 ", AV=" + AV +
-                ", drafted=" + drafted +
-                ", injured=" + injured +
-                ", skills=" + skills +
+                ", baseSkills=" + baseSkills +
+                ", primary='" + primary + '\'' +
+                ", secondary='" + secondary + '\'' +
+                ", onePerTeam=" + onePerTeam +
                 '}';
     }
 }

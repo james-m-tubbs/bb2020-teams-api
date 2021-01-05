@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.player.dao.impl;
 
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -22,7 +23,11 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
 
     @Override
     public PlayerTemplateVO getPlayerTemplateVOById(int id) throws Exception {
-        return (PlayerTemplateVO)getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerTemplateRowMapper(), new Object[]{id});
+        try {
+            return (PlayerTemplateVO) getJdbcTemplate().queryForObject(SELECT_ONE_SQL, new PlayerTemplateRowMapper(), new Object[]{id});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     //teamTemplateId, position, linemanFlag, QTY, cost, MA, ST, AG, PA, AV
@@ -30,7 +35,9 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
     {
         public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
             boolean linemanFlag = false;
-            if (rs.getString("linemanFLag").equalsIgnoreCase("Y")) linemanFlag = true;
+            if (rs.getString("linemanFlag").equalsIgnoreCase("Y")) linemanFlag = true;
+            boolean onePerTeamFlag = false;
+            if (rs.getString("onePerTeamFlag").equalsIgnoreCase("Y")) onePerTeamFlag = true;
 
             PlayerTemplateVO ptVO = new PlayerTemplateVO(
                     rs.getInt("id"),
@@ -45,8 +52,9 @@ public class PlayerTemplateDAOImpl extends JdbcDaoSupport implements PlayerTempl
                     rs.getInt("pa"),
                     rs.getInt("av"),
                     null,
-                    rs.getString("primary_skills"),
-                    rs.getString("secondary_skills")
+                    rs.getString("primarySkills"),
+                    rs.getString("secondarySkills"),
+                    onePerTeamFlag
             );
             return ptVO;
         }

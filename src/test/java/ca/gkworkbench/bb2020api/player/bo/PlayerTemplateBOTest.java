@@ -23,17 +23,17 @@ public class PlayerTemplateBOTest {
         try {
             PlayerTemplateVO ptVO = ptBO.getPlayerTemplateById(1);
             System.err.println(ptVO);
-            Assert.assertTrue(ptVO.getId() == 1);
+            Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
             Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
             Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
-            Assert.assertTrue(ptVO.getMaxCount() == 16);
+            Assert.assertTrue(ptVO.getQty() == 16);
             Assert.assertTrue(ptVO.getCost() == 50000);
             Assert.assertTrue(ptVO.getMA() == 6);
             Assert.assertTrue(ptVO.getST() == 3);
             Assert.assertTrue(ptVO.getAG() == 3);
             Assert.assertTrue(ptVO.getPA() == 4);
             Assert.assertTrue(ptVO.getAV() == 9);
-            Assert.assertTrue(ptVO.getSkills().size() == 0);
+            Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();;
@@ -55,7 +55,7 @@ public class PlayerTemplateBOTest {
     }
 
     @Test
-    public void test_get_orc_players_by_team_id() {
+    public void test_get_human_players_by_team_id() {
         try {
             List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(1);
             System.err.println(ptVOs);
@@ -64,19 +64,20 @@ public class PlayerTemplateBOTest {
             //checking for each player on the team
             for (int i=0; i<ptVOs.size(); i++) {
                 ptVO = ptVOs.get(i);
-                if (ptVO.getId()==1) {
+                if (ptVO.getPlayerTemplateId()==1) {
                     System.err.println(ptVO);
-                    Assert.assertTrue(ptVO.getId() == 1);
+                    Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
                     Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
                     Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
-                    Assert.assertTrue(ptVO.getMaxCount() == 16);
+                    Assert.assertTrue(ptVO.getQty() == 16);
                     Assert.assertTrue(ptVO.getCost() == 50000);
                     Assert.assertTrue(ptVO.getMA() == 6);
                     Assert.assertTrue(ptVO.getST() == 3);
                     Assert.assertTrue(ptVO.getAG() == 3);
                     Assert.assertTrue(ptVO.getPA() == 4);
                     Assert.assertTrue(ptVO.getAV() == 9);
-                    Assert.assertTrue(ptVO.getSkills().size() == 0);
+                    Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
+                    Assert.assertFalse(ptVO.isOnePerTeam());
                 }
             }
         } catch (Exception e) {
@@ -98,7 +99,7 @@ public class PlayerTemplateBOTest {
             for (int i=0; i<ptVOs.size(); i++) {
                 ptVO = ptVOs.get(i);
                 Assert.assertNotNull(ptVO);
-                Assert.assertNotNull(ptVO.getSkills());
+                Assert.assertNotNull(ptVO.getBaseSkills());
                 Assert.assertNotNull(ptVO.getMA());
                 Assert.assertNotNull(ptVO.getST());
                 Assert.assertNotNull(ptVO.getAG());
@@ -107,9 +108,9 @@ public class PlayerTemplateBOTest {
                 Assert.assertNotNull(ptVO.getCost());
                 Assert.assertNotNull(ptVO.getCost());
                 Assert.assertNotNull(ptVO.getPosition());
-                Assert.assertNotNull(ptVO.getMaxCount());
+                Assert.assertNotNull(ptVO.getQty());
                 Assert.assertNotNull(ptVO.getTeamTemplateId());
-                Assert.assertNotNull(ptVO.getId());
+                Assert.assertNotNull(ptVO.getPlayerTemplateId());
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -130,5 +131,4 @@ public class PlayerTemplateBOTest {
             //expected
         }
     }
-
 }
