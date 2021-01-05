@@ -239,26 +239,26 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (23, (select 
 -- dwarf
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (5, 'Dwarf', 50000, 1, 'Old World Classic, Worlds Edge League', 'Y');
 -- dwarf blocker lineman
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (24, 5, 'Dwarf Blocker Lineman', 'Y', 12, 70000, 4, 3, 4, 5, 10,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (24, 5, 'Dwarf Blocker Lineman', 'Y', 12, 70000, 4, 3, 4, 5, 10,'GS','A');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (24, (select id from Skills where skill = 'Block'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (24, (select id from Skills where skill = 'Tackle'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (24, (select id from Skills where skill = 'Thick Skull'));
 -- runner
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (25, 5, 'Runner', 'N', 2, 85000, 6, 3, 3, 4, 9,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (25, 5, 'Runner', 'N', 2, 85000, 6, 3, 3, 4, 9,'GP','AS');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (25, (select id from Skills where skill = 'Sure Hands'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (25, (select id from Skills where skill = 'Thick Skull'));
 -- blitzer
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (26, 5, 'Blitzer', 'N', 2, 80000, 5, 3, 3, 4, 10,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (26, 5, 'Blitzer', 'N', 2, 80000, 5, 3, 3, 4, 10,'GS','AP');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (26, (select id from Skills where skill = 'Block'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (26, (select id from Skills where skill = 'Thick Skull'));
 -- troll slayer
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (27, 5, 'Troll Slayer', 'N', 2, 95000, 5, 3, 4, 0, 9,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (27, 5, 'Troll Slayer', 'N', 2, 95000, 5, 3, 4, 0, 9,'GS','A');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (27, (select id from Skills where skill = 'Block'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (27, (select id from Skills where skill = 'Dauntless'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (27, (select id from Skills where skill = 'Frenzy'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (27, (select id from Skills where skill = 'Thick Skull'));
 -- deathroller
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (28, 5, 'Deathroller', 'N', 'Y', 1, 170000, 4, 7, 5, 0, 11,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (28, 5, 'Deathroller', 'N', 'Y', 1, 170000, 4, 7, 5, 0, 11,'S','AG');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (28, (select id from Skills where skill = 'Break Tackle'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (28, (select id from Skills where skill = 'Dirty Player'),'+2');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (28, (select id from Skills where skill = 'Juggernaut'));
@@ -454,23 +454,23 @@ INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (75, (select id from Skills where skill = 'Animosity'), 'all Dwarf and Halfling team-mates');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (75, (select id from Skills where skill = 'Block') );
 -- old world dwarf blocker
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (76, 15, 'Old World Dwarf Blocker', 'Y', 12, 70000, 4, 3, 4, 5, 10,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (76, 15, 'Old World Dwarf Blocker', 'Y', 12, 70000, 4, 3, 4, 5, 10,'GS','A');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (76, (select id from Skills where skill = 'Arm Bar'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (76, (select id from Skills where skill = 'Brawler'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (76, (select id from Skills where skill = 'Loner'),'3+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (76, (select id from Skills where skill = 'Thick Skull'));
 -- old world dwarf runner
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (77, 15, 'Old World Dwarf Runner', 'N', 2, 85000, 6, 3, 3, 4, 9,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (77, 15, 'Old World Dwarf Runner', 'N', 2, 85000, 6, 3, 3, 4, 9,'GP','AS');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (77, (select id from Skills where skill = 'Loner'),'3+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (77, (select id from Skills where skill = 'Sure Hands'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (77, (select id from Skills where skill = 'Thick Skull'));
 -- old world dwarf blitzer
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (78, 15, 'Old World Dwarf Blitzer', 'N', 2, 80000, 5, 3, 3, 4, 10,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (78, 15, 'Old World Dwarf Blitzer', 'N', 2, 80000, 5, 3, 3, 4, 10,'GS','A');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (78, (select id from Skills where skill = 'Block'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (78, (select id from Skills where skill = 'Loner'),'3+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (78, (select id from Skills where skill = 'Thick Skull'));
 -- old world dwarf troll slayer
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (79, 15, 'Old World Dwarf Troll Slayer', 'N', 2, 95000, 5, 3, 4, 0, 9,'','');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (79, 15, 'Old World Dwarf Troll Slayer', 'N', 2, 95000, 5, 3, 4, 0, 9,'GS','A');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (79, (select id from Skills where skill = 'Block'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (79, (select id from Skills where skill = 'Dauntless'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (79, (select id from Skills where skill = 'Frenzy'));
@@ -550,27 +550,27 @@ INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, special
 
 -- TEAMS OF LEGEND
 -- amazons
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (22, 'Amazons', 70000, 1, 'Classic', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (22, 'Amazons', 50000, 1, 'Lustrian Superleague', 'Y');
 
 
 -- chaos dwarf
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (23, 'Chaos Dwarf', 70000, 1, 'Classic', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (23, 'Chaos Dwarf', 70000, 1, 'Badlands Brawl, Favoured of..., Worlds Edge Superleague, ', 'Y');
 
 
 -- high elf
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (24, 'High Elf', 70000, 1, 'Classic', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (24, 'High Elf', 50000, 2, 'Elven Kingdoms League', 'Y');
 
 
 -- norse
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (25, 'Norse', 70000, 1, 'Classic', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (25, 'Norse', 60000, 1, 'Lustrian Superleague, Old World Classic', 'Y');
 
 
 -- tomb kings
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (26, 'Tomb Kings', 70000, 1, 'Classic', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (26, 'Tomb Kings', 70000, 2, 'Sylvanian Spotlight', 'Y');
 
 
 -- vampire
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (27, 'Vampire', 70000, 1, 'Classic', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (27, 'Vampire', 70000, 2, 'Sylvanian Spotlight', 'Y');
 
 
 
