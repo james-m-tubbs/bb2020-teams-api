@@ -338,5 +338,87 @@ public class TeamsBOTest {
             Assert.fail();
         }
     }
+
+    @Test
+    public void fire_player_no_games_played_get_refund_success() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Firing Humans", 1, 1);
+            Assert.assertTrue(tVO.getPlayers().size() == 0);
+            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 1, "Fired Lineman");
+            System.err.println("Initial TeamVO:"+tVO);
+            Assert.assertTrue(tVO.getTreasury() == 950000);
+            Assert.assertTrue(tVO.getTeamValue() == 50000);
+            Assert.assertTrue(tVO.getPlayers().size() == 1);
+
+            tVO = tBO.firePlayerByPlayerId(tVO, tVO.getPlayers().get(0).getPlayerId());
+            System.err.println("Fire TeamVO:"+tVO);
+            Assert.assertTrue(tVO.getTreasury() == 1000000);
+            Assert.assertTrue(tVO.getPlayers().size() == 1);
+            Assert.assertTrue(tVO.getTeamValue() == 0);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void fire_player_with_games_played_no_refund_success() {
+        try {
+            TeamVO tVO = tBO.getTeamById(4, true);
+            System.err.println("initialTeamVO:"+tVO);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==260000);
+            Assert.assertTrue(tVO.getTreasury()==50000);
+            Assert.assertTrue(tVO.getPlayers().size() == 2);
+
+            //fire the guy with games
+            tVO = tBO.firePlayerByPlayerId(tVO, 24);
+            System.err.println("FireOne:"+tVO);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==140000);
+            Assert.assertTrue(tVO.getTreasury()==50000);
+            Assert.assertTrue(tVO.getPlayers().size() == 2);
+
+            //fire the ogre for a refund
+            tVO = tBO.firePlayerByPlayerId(tVO, 7);
+            System.err.println("FireTwo:"+tVO);
+            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
+            Assert.assertTrue(tVO.getTreasury()==190000);
+            Assert.assertTrue(tVO.getPlayers().size() == 2);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void fire_player_on_another_team_fail() {
+        try {
+            TeamVO tVO = tBO.getTeamById(4, true);
+            tBO.firePlayerByPlayerId(tVO, 1);
+            Assert.fail("Expected a failure here");
+        } catch (WarnException e) {
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Player ID Not Found"));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void fire_missing_player_fail() {
+        try {
+            TeamVO tVO = tBO.getTeamById(4, true);
+            tBO.firePlayerByPlayerId(tVO, 999999);
+            Assert.fail("Expected a failure here");
+        } catch (WarnException e) {
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Player ID Not Found"));
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }
 

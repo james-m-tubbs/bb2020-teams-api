@@ -50,7 +50,8 @@ public class bb2020TestConfig {
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("classpath:init-db-test.sql")
+                .addScript("classpath:init-db-test-schema.sql")
+                .addScript("classpath:init-db-test-data.sql")
                 .build();
     }
 

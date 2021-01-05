@@ -1,6 +1,5 @@
 package ca.gkworkbench.bb2020api.team.bo;
 
-import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 
 import java.util.List;
@@ -27,6 +26,6 @@ public interface TeamsBO {
 
     //hire/fire/unhire/players
     public TeamVO hireRookiePlayerFromTemplateId(TeamVO tVO, int playerTemplateId, String playerName) throws Exception;
-    public boolean firePlayerByPlayerId(TeamVO tVO, int playerId) throws Exception;
+    public TeamVO firePlayerByPlayerId(TeamVO tVO, int playerId) throws Exception;
 
 }

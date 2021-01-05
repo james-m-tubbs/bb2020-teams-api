@@ -11,9 +11,7 @@ import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import com.google.gson.Gson;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TeamsBOImpl implements TeamsBO {
 
@@ -75,7 +73,7 @@ public class TeamsBOImpl implements TeamsBO {
         }
         tVO = fillTeamValues(tVO);
         if (!tDAO.updateTeamVO(tVO)) return null; // if there is no team to update return null
-        return getTeamById(tVO.getId(), false);
+        return getTeamById(tVO.getId(), true);
     }
 
     @Override
@@ -103,8 +101,18 @@ public class TeamsBOImpl implements TeamsBO {
     }
 
     @Override
-    public boolean firePlayerByPlayerId(TeamVO tVO, int playerId) throws Exception {
-        return false;
+    public TeamVO firePlayerByPlayerId(TeamVO tVO, int playerId) throws Exception {
+        PlayerVO pVO = pBO.getPlayerById(playerId);
+        if (pVO == null || pVO.getTeamId() != tVO.getId()) throw new WarnException("Player ID not found");
+
+        //fire the player
+        if (!pBO.firePlayerVO(pVO)) throw new Exception("Can't fire player: " + pVO);
+
+        //check if they get a refund
+        if (pVO.getGamesPlayed() < 1) {
+            tVO.setTreasury(tVO.getTreasury() + pVO.getCost());
+        }
+        return updateTeamWithGeneratedTV(tVO);
     }
 
     @Override
@@ -156,9 +164,11 @@ public class TeamsBOImpl implements TeamsBO {
         int ctvValue = totalValue;
         for (int i=0; i<players.size(); i++) {
             PlayerVO player = players.get(i);
-            totalValue = totalValue + player.getCurrentValue();
-            if (!player.isFired() && !player.isInjured() && !player.isTempRetired()) {
-                ctvValue = ctvValue + player.getCurrentValue();
+            if (!player.isFired()) {
+                totalValue = totalValue + player.getCurrentValue();
+                if (!player.isInjured() && !player.isTempRetired()) {
+                    ctvValue = ctvValue + player.getCurrentValue();
+                }
             }
         }
 
