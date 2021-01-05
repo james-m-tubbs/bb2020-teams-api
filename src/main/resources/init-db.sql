@@ -35,7 +35,7 @@ INSERT IGNORE INTO Skills (id,skill, type) values(23, 'Diving Catch', 'A');
 --mutations
 INSERT IGNORE INTO Skills (id,skill, type) values(24, 'Big Hand', 'M');
 INSERT IGNORE INTO Skills (id,skill, type) values(25, 'Claws', 'M');
-INSERT IGNORE INTO Skills (id,skill, type) values(26, 'Distubring Presence', 'M');
+INSERT IGNORE INTO Skills (id,skill, type) values(26, 'Disturbing Presence', 'M');
 INSERT IGNORE INTO Skills (id,skill, type) values(27, 'Extra Arms', 'M');
 INSERT IGNORE INTO Skills (id,skill, type) values(28, 'Foul Appearance', 'M');
 INSERT IGNORE INTO Skills (id,skill, type) values(29, 'Horns', 'M');
@@ -49,7 +49,7 @@ INSERT IGNORE INTO Skills (id,skill, type) values(35, 'Very Long Legs', 'M');
 INSERT IGNORE INTO Skills (id,skill, type) values(36, 'Accurate', 'P');
 INSERT IGNORE INTO Skills (id,skill, type) values(37, 'Cannoneer', 'P');
 INSERT IGNORE INTO Skills (id,skill, type) values(38, 'Cloud Burster', 'P');
-INSERT IGNORE INTO Skills (id,skill, type) values(39, 'Dump-Off', 'P');
+INSERT IGNORE INTO Skills (id,skill, type) values(39, 'Dump-off', 'P');
 INSERT IGNORE INTO Skills (id,skill, type) values(40, 'Fumblerooskie', 'P');
 INSERT IGNORE INTO Skills (id,skill, type) values(41, 'Hail Mary Pass', 'P');
 INSERT IGNORE INTO Skills (id,skill, type) values(42, 'Leader', 'P');
@@ -98,7 +98,7 @@ INSERT IGNORE INTO Skills (id,skill, type) values(82, 'Swoop', 'T');
 INSERT IGNORE INTO Skills (id,skill, type) values(83, 'Take Root', 'T');
 INSERT IGNORE INTO Skills (id,skill, type) values(84, 'Titchy', 'T');
 INSERT IGNORE INTO Skills (id,skill, type) values(85, 'Throw Team-mate', 'T');
-INSERT IGNORE INTO Skills (id,skill, type) values(86, 'Timm-ber!', 'T');
+INSERT IGNORE INTO Skills (id,skill, type) values(86, 'Timmm-ber!', 'T');
 INSERT IGNORE INTO Skills (id,skill, type) values(87, 'Unchannelled Fury', 'T');
 
 CREATE TABLE IF NOT EXISTS TeamTemplate (id int NOT NULL, teamTemplateName varchar(255) NOT NULL, rerollCost int NOT NULL, tier int NOT NULL, specialRules varchar(255), apothecary char(1) NOT NULL, PRIMARY KEY (id));
@@ -129,7 +129,7 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (40, select(i
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (40, select(id) from Skills where skill = 'Throw Team-mate');
 
 -- chaos chosen
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (3, 'Chaos Chosen', 60000, 2, 'Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeench', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (3, 'Chaos Chosen', 60000, 2, 'Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeentch', 'Y');
 --beastmen
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (13, 3, 'Beastmen', 'Y', 16, 60000, 6, 3, 3, 4, 9,'GMS','AP');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (13, select(id) from Skills where skill = 'Horns');
@@ -161,7 +161,7 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (17, select(i
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (17, select(id) from Skills where skill = 'Unchannelled Fury');
 
 -- chaos renegades
-INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (4, 'Chaos Renegades', 70000, 1, 'Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeench', 'Y');
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (4, 'Chaos Renegades', 70000, 1, 'Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeentch', 'Y');
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (18, 4, 'Renegade Human', 'Y', 12, 50000, 6, 3, 3, 4, 9,'GM','AS');
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (19, 4, 'Renegade Thrower', 'N', 1, 75000, 6, 3, 3, 3, 9,'GMP','AS');
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (20, 4, 'Renegade Goblin', 'N', 1, 40000, 6, 2, 3, 4, 8,'AM','GP');
