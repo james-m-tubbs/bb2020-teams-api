@@ -122,14 +122,18 @@ public class PlayerBOImpl implements PlayerBO {
         //if the team is empty hiring is allowed
         if (players == null || players.size() == 0) return true;
         int currentCount = 0;
+        int totalCount = 0;
         for (int i=0;i<players.size();i++) {
             PlayerVO pVO = players.get(i);
-            if (pVO.isOnePerTeam()) onePerTeam = true;
-            if (pVO.getPosition() == ptVO.getPosition()) currentCount++;
-
+            if (!pVO.isFired()) {
+                if (pVO.isOnePerTeam()) onePerTeam = true;
+                if (pVO.getPosition() == ptVO.getPosition()) currentCount++;
+                totalCount++;
+            }
         }
-        if (currentCount >= ptVO.getQty()) throw new WarnException("Positional Count Reached for:"+ptVO.getPosition());
-        if (onePerTeam && ptVO.isOnePerTeam()) throw new WarnException("Limit Reached for: "+ptVO.getPosition());
+        if (totalCount >= 16) throw new WarnException("Can't Hire Player - Full Roster");
+        if (currentCount >= ptVO.getQty()) throw new WarnException("Positional Count Reached for "+ptVO.getPosition());
+        if (onePerTeam && ptVO.isOnePerTeam()) throw new WarnException("Big Guy Limit Reached for "+ptVO.getPosition());
 
         return true;
     }

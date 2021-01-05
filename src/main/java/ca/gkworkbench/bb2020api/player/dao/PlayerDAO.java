@@ -12,8 +12,6 @@ public interface PlayerDAO {
 
     public boolean updatePlayer(PlayerVO playerVO) throws Exception;
 
-    public boolean deletePlayer(int playerId) throws Exception;
-
     public List<PlayerVO> getPlayersForTeamId(int teamId) throws Exception;
 
     public PlayerVO getPlayerForNameAndTeam(int teamId, String name) throws Exception;

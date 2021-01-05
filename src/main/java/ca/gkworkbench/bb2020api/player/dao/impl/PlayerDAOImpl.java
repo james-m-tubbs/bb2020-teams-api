@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.player.dao.impl;
 
 import ca.gkworkbench.bb2020api.player.dao.PlayerDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
+import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -24,7 +25,7 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
         );
     }
 
-    private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
+    private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
     @Override
     public PlayerVO getPlayerById(int playerId) throws Exception {
         try {
@@ -34,15 +35,35 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
         }
     }
 
-    private final String UPDATE_PLAYER_SQL = "INSERT INTO Players(teamId, playerTemplateId, name) values (?, ?, ?);";
+    //p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag
+    private final String UPDATE_ONE_QUERY = "UPDATE Players set teamId = ?, name = ?, spp = ?, currentValue = ?, cp = ?, pi = ?, cas = ?, td = ?, mvp = ?, injuredFlag = ?, tempRetiredFlag = ?, firedFlag= ?, gamesPlayed = ? WHERE id = ?";
     @Override
     public boolean updatePlayer(PlayerVO playerVO) throws Exception {
-        return false;
-    }
+        String injuredFlag = "N";
+        if (playerVO.isInjured()) injuredFlag = "Y";
+        String tempRetiredFlag = "N";
+        if (playerVO.isTempRetired()) tempRetiredFlag = "Y";
+        String firedFlag = "N";
+        if (playerVO.isFired()) firedFlag = "Y";
 
-    @Override
-    public boolean deletePlayer(int playerId) throws Exception {
-        return false;
+        return getJdbcTemplate().update(
+                UPDATE_ONE_QUERY,
+                playerVO.getTeamId(),
+                playerVO.getName(),
+                playerVO.getSpp(),
+                playerVO.getCurrentValue(),
+                playerVO.getCp(),
+                playerVO.getPi(),
+                playerVO.getCas(),
+                playerVO.getTd(),
+                playerVO.getMvp(),
+                injuredFlag,
+                tempRetiredFlag,
+                firedFlag,
+                playerVO.getGamesPlayed(),
+                playerVO.getPlayerId()
+        ) == 1;
+
     }
 
     private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";

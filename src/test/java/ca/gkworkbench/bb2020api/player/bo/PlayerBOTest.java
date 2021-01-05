@@ -390,7 +390,7 @@ public class PlayerBOTest {
         try {
             PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, 4, "5th Blitzer Fail");
         } catch (WarnException e) {
-            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for:Human Blitzer"));
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Human Blitzer"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -416,7 +416,7 @@ public class PlayerBOTest {
             pBO.checkForHiringExceptions(1, 1, ptVO);
             Assert.fail("Exception expected");
         } catch (WarnException e) {
-            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for:Human Blitzer"));
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Human Blitzer"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -451,51 +451,227 @@ public class PlayerBOTest {
         }
     }
 
-//    @Test
-//    public void create_too_many_big_guys_for_chaos_and_fail() {
-////        try {
-//            Assert.fail();
-////        } catch (WarnException e) {
-////            Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////            Assert.fail();
-////        }
-//    }
-//
-//    @Test
-//    public void create_one_big_guy_for_chaos_and_pass() {
-////        try {
-//            Assert.fail();
-////        } catch (WarnException e) {
-////            Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////            Assert.fail();
-////        }
-//    }
-//
-//    @Test
-//    public void create_big_guy_remove_big_guy_and_create_big_guy_pass() {
-////        try {
-//            Assert.fail();
-////        } catch (WarnException e) {
-////            Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////            Assert.fail();
-////        }
-//    }
-//
-//    @Test
-//    public void unhire_and_rehire_positional_and_pass() {
-////        try {
-//            Assert.fail();
-////        } catch (WarnException e) {
-////            Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////            Assert.fail();
-////        }
-//    }
+    @Test
+    public void check_for_too_many_players_fail() {
+        try {
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(1);
+            pBO.checkForHiringExceptions(5, 1, ptVO); // human lineman
+            Assert.fail();
+        } catch (WarnException e) {
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Can't Hire Player - Full Roster"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+
+    @Test
+    public void create_one_big_guy_for_chaos_and_pass() {
+        try {
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(16); //chaos ogre
+            pBO.checkForHiringExceptions(3, 3, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(3, 3, ptVO.getPlayerTemplateId(), "Mr New Ogre");
+            Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr New Ogre"));
+            Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Chaos Ogre")));
+            Assert.assertTrue(pVO.getPlayerId() > 1);
+        } catch (WarnException e) {
+            Assert.fail(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void unhire_and_rehire_positional_and_pass() {
+        int playerId = 0;
+
+        try {
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(6); //human ogre
+            pBO.checkForHiringExceptions(1, 1, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, ptVO.getPlayerTemplateId(), "Mr New Ogre 1");
+            playerId = pVO.getPlayerId();
+            Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr New Ogre 1"));
+            Assert.assertTrue(pVO.getPlayerId() > 1);
+            Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Ogre")));
+
+            pVO = pBO.createPlayerFromTemplateId(1, 1, ptVO.getPlayerTemplateId(), "Mr New Ogre 2");
+            Assert.fail();
+        } catch (WarnException e) {
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Ogre"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+
+        try {
+            PlayerVO firedPVO = pBO.getPlayerById(playerId);
+            if (!pBO.firePlayerVO(firedPVO)) throw new Exception("Firing ogre failed");
+            PlayerVO checkFiredPVO = pBO.getPlayerById(playerId);
+            Assert.assertTrue(checkFiredPVO.getName().equalsIgnoreCase("Mr New Ogre 1"));
+            Assert.assertTrue(checkFiredPVO.getPlayerId() > 1);
+            Assert.assertTrue((checkFiredPVO.getPosition().equalsIgnoreCase("Ogre")));
+            Assert.assertTrue(checkFiredPVO.getSpp() == 0);
+            Assert.assertTrue(checkFiredPVO.getSpp() == 0);
+            Assert.assertTrue(checkFiredPVO.getPi() == 0);
+            Assert.assertTrue(checkFiredPVO.getCas() == 0);
+            Assert.assertTrue(checkFiredPVO.getMvp() == 0);
+            Assert.assertTrue(checkFiredPVO.getCurrentValue()==140000);
+            Assert.assertFalse(checkFiredPVO.isInjured());
+            Assert.assertTrue(checkFiredPVO.isFired());
+            Assert.assertFalse(checkFiredPVO.isTempRetired());
+            Assert.assertFalse(checkFiredPVO.isLinemanFlag());
+            Assert.assertNotNull(checkFiredPVO.getBoughtSkills());
+            Assert.assertTrue(checkFiredPVO.getPlayerTemplateId() == 6);
+            Assert.assertTrue(checkFiredPVO.getTeamId() == 1);
+            Assert.assertTrue(checkFiredPVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(checkFiredPVO.getQty() == 1);
+            Assert.assertTrue(checkFiredPVO.getCost() == 140000);
+            Assert.assertTrue(checkFiredPVO.getMA() == 5);
+            Assert.assertTrue(checkFiredPVO.getST() == 5);
+            Assert.assertTrue(checkFiredPVO.getAG() == 4);
+            Assert.assertTrue(checkFiredPVO.getPA() == 5);
+            Assert.assertTrue(checkFiredPVO.getAV() == 10);
+            Assert.assertNotNull(checkFiredPVO.getBaseSkills());
+            Assert.assertTrue(checkFiredPVO.getBaseSkills().size() == 5);
+            Assert.assertTrue(checkFiredPVO.getPrimary().equalsIgnoreCase("S"));
+            Assert.assertTrue(checkFiredPVO.getSecondary().contains("A"));
+            Assert.assertTrue(checkFiredPVO.getSecondary().contains("G"));
+
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(6); //human ogre
+            pBO.checkForHiringExceptions(1, 1, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, ptVO.getPlayerTemplateId(), "Mr New Ogre 2");
+            Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr New Ogre 2"));
+            Assert.assertTrue(pVO.getPlayerId() > 1);
+            Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Ogre")));
+            Assert.assertTrue(pVO.getSpp() == 0);
+            Assert.assertTrue(pVO.getSpp() == 0);
+            Assert.assertTrue(pVO.getPi() == 0);
+            Assert.assertTrue(pVO.getCas() == 0);
+            Assert.assertTrue(pVO.getMvp() == 0);
+            Assert.assertTrue(pVO.getCurrentValue()==140000);
+            Assert.assertFalse(pVO.isInjured());
+            Assert.assertFalse(pVO.isFired());
+            Assert.assertFalse(pVO.isTempRetired());
+            Assert.assertFalse(pVO.isLinemanFlag());
+            Assert.assertNotNull(pVO.getBoughtSkills());
+            Assert.assertTrue(pVO.getPlayerTemplateId() == 6);
+            Assert.assertTrue(pVO.getTeamId() == 1);
+            Assert.assertTrue(pVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(pVO.getQty() == 1);
+            Assert.assertTrue(pVO.getCost() == 140000);
+            Assert.assertTrue(pVO.getMA() == 5);
+            Assert.assertTrue(pVO.getST() == 5);
+            Assert.assertTrue(pVO.getAG() == 4);
+            Assert.assertTrue(pVO.getPA() == 5);
+            Assert.assertTrue(pVO.getAV() == 10);
+            Assert.assertNotNull(pVO.getBaseSkills());
+            Assert.assertTrue(pVO.getBaseSkills().size() == 5);
+            Assert.assertTrue(checkFiredPVO.getSecondary().contains("A"));
+            Assert.assertTrue(checkFiredPVO.getSecondary().contains("G"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void hire_big_guy_unhire_big_guy_hire_a_different_big_guy_pass() {
+        int playerId = 0;
+
+        try {
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(17); //human ogre
+            pBO.checkForHiringExceptions(6, 3, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(6, 3, ptVO.getPlayerTemplateId(), "Mr Minotaur");
+            playerId = pVO.getPlayerId();
+            Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr Minotaur"));
+            Assert.assertTrue(pVO.getPlayerId() > 1);
+            Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Minotaur")));
+
+            pVO = pBO.createPlayerFromTemplateId(6, 3, 16, "Mr Chaos Ogre");
+            Assert.fail();
+        } catch (WarnException e) {
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Big Guy Limit Reached for Chaos Ogre"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+
+        try {
+            PlayerVO firedPVO = pBO.getPlayerById(playerId);
+            if (!pBO.firePlayerVO(firedPVO)) throw new Exception("Firing minotaur failed");
+            PlayerVO checkFiredPVO = pBO.getPlayerById(playerId);
+            Assert.assertTrue(checkFiredPVO.getName().equalsIgnoreCase("Mr Minotaur"));
+            Assert.assertTrue(checkFiredPVO.getPlayerId() > 1);
+            Assert.assertTrue((checkFiredPVO.getPosition().equalsIgnoreCase("Minotaur")));
+            Assert.assertTrue(checkFiredPVO.getSpp() == 0);
+            Assert.assertTrue(checkFiredPVO.getSpp() == 0);
+            Assert.assertTrue(checkFiredPVO.getPi() == 0);
+            Assert.assertTrue(checkFiredPVO.getCas() == 0);
+            Assert.assertTrue(checkFiredPVO.getMvp() == 0);
+            Assert.assertTrue(checkFiredPVO.getCurrentValue()==150000);
+            Assert.assertFalse(checkFiredPVO.isInjured());
+            Assert.assertTrue(checkFiredPVO.isFired());
+            Assert.assertFalse(checkFiredPVO.isTempRetired());
+            Assert.assertFalse(checkFiredPVO.isLinemanFlag());
+            Assert.assertNotNull(checkFiredPVO.getBoughtSkills());
+            Assert.assertTrue(checkFiredPVO.getPlayerTemplateId() == 17);
+            Assert.assertTrue(checkFiredPVO.getTeamId() == 6);
+            Assert.assertTrue(checkFiredPVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(checkFiredPVO.getQty() == 1);
+            Assert.assertTrue(checkFiredPVO.getCost() == 150000);
+            Assert.assertTrue(checkFiredPVO.getMA() == 5);
+            Assert.assertTrue(checkFiredPVO.getST() == 5);
+            Assert.assertTrue(checkFiredPVO.getAG() == 4);
+            Assert.assertTrue(checkFiredPVO.getPA() == 0);
+            Assert.assertTrue(checkFiredPVO.getAV() == 9);
+            Assert.assertNotNull(checkFiredPVO.getBaseSkills());
+            Assert.assertTrue(checkFiredPVO.getBaseSkills().size() == 6);
+            Assert.assertTrue(checkFiredPVO.getPrimary().contains("S"));
+            Assert.assertTrue(checkFiredPVO.getPrimary().contains("M"));
+            Assert.assertTrue(checkFiredPVO.getSecondary().contains("A"));
+            Assert.assertTrue(checkFiredPVO.getSecondary().contains("G"));
+            Assert.assertTrue(checkFiredPVO.isOnePerTeam());
+
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(15); //human ogre
+            pBO.checkForHiringExceptions(6, 3, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(6, 3, ptVO.getPlayerTemplateId(), "Mr Troll");
+            Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr Troll"));
+            Assert.assertTrue(pVO.getPlayerId() > 1);
+            Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Chaos Troll")));
+            Assert.assertTrue(pVO.getSpp() == 0);
+            Assert.assertTrue(pVO.getSpp() == 0);
+            Assert.assertTrue(pVO.getPi() == 0);
+            Assert.assertTrue(pVO.getCas() == 0);
+            Assert.assertTrue(pVO.getMvp() == 0);
+            Assert.assertTrue(pVO.getCurrentValue()==115000);
+            Assert.assertFalse(pVO.isInjured());
+            Assert.assertFalse(pVO.isFired());
+            Assert.assertFalse(pVO.isTempRetired());
+            Assert.assertFalse(pVO.isLinemanFlag());
+            Assert.assertNotNull(pVO.getBoughtSkills());
+            Assert.assertTrue(pVO.getPlayerTemplateId() == 15);
+            Assert.assertTrue(pVO.getTeamId() == 6);
+            Assert.assertTrue(pVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(pVO.getQty() == 1);
+            Assert.assertTrue(pVO.getCost() == 115000);
+            Assert.assertTrue(pVO.getMA() == 4);
+            Assert.assertTrue(pVO.getST() == 5);
+            Assert.assertTrue(pVO.getAG() == 5);
+            Assert.assertTrue(pVO.getPA() == 5);
+            Assert.assertTrue(pVO.getAV() == 10);
+            Assert.assertNotNull(pVO.getBaseSkills());
+            Assert.assertTrue(pVO.getBaseSkills().size() == 7);
+            Assert.assertTrue(pVO.getPrimary().contains("S"));
+            Assert.assertTrue(pVO.getPrimary().contains("M"));
+            Assert.assertTrue(pVO.getSecondary().contains("A"));
+            Assert.assertTrue(pVO.getSecondary().contains("G"));
+            Assert.assertTrue(pVO.isOnePerTeam());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 }
+
