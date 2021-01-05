@@ -23,7 +23,7 @@ public class TeamTemplateBOTest {
     public void query_human_team_no_details() {
         try {
             TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(1, false);
-            System.err.println(ttVO.toString());
+            //System.err.println(ttVO.toString());
             Assert.assertTrue(ttVO.getTeamType().equals("Human"));
             Assert.assertTrue(ttVO.getRerollCost()==50000);
             Assert.assertTrue(ttVO.getTier()==1);
@@ -41,7 +41,7 @@ public class TeamTemplateBOTest {
         try {
             //check the base template
             TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(2, true);
-            System.err.println(ttVO.toString());
+            //System.err.println(ttVO.toString());
             Assert.assertTrue(ttVO.getTeamType().equals("Orc"));
             Assert.assertTrue(ttVO.getRerollCost()==60000);
             Assert.assertTrue(ttVO.getTier()==1);
@@ -58,12 +58,12 @@ public class TeamTemplateBOTest {
         try {
             //get the detailed template
             TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(7, true);
-            System.err.println(ttVO.toString());
+            //System.err.println(ttVO.toString());
             Assert.assertTrue(ttVO.getPtVOs().size() == 3);
 
             //check the goblin stats
             PlayerTemplateVO ptVO = ttVO.getPtVOs().get(0);
-            System.err.println(ptVO.toString());
+            //System.err.println(ptVO.toString());
             Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Goblin Bruiser"));
             Assert.assertTrue(ptVO.getCost()==45000);
 
@@ -79,10 +79,10 @@ public class TeamTemplateBOTest {
     public void query_missing_team() {
         try {
             TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(-1, false);
-            System.err.println(ttVO.toString());
+            //System.err.println(ttVO.toString());
             Assert.fail();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            //System.err.println(e.getMessage());
             e.printStackTrace();
             //expected!
         }

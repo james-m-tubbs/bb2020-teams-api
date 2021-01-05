@@ -140,7 +140,7 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/{teamId}/players/hire/{playerTemplateId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/{teamId}/players/hire/{playerTemplateId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> hirePlayerByTemplateId(@PathVariable("teamId") int teamId, @PathVariable("playerTemplateId") int playerTemplateId, @RequestParam("name") String playerName) {
         try {
             //check if team exists
@@ -164,7 +164,7 @@ public class TeamController {
         }
     }
 
-    @RequestMapping(value = "/api/team/{teamId}/players/fire/{playerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/team/{teamId}/players/fire/{playerId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> firePlayerById(@PathVariable("teamId") int teamId, @PathVariable("playerId") int playerId) {
         try {
             //check if team exists

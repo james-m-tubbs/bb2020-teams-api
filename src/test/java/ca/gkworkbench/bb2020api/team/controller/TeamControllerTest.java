@@ -314,7 +314,7 @@ public class TeamControllerTest {
 
     @Test
     public void hire_and_fire_player_to_chaos_team_and_validate_success() throws Exception {
-        MvcResult result = this.mockMvc.perform(get("/api/team/7/players/hire/14?name=Mr%20Chaos%20Chosen"))
+        MvcResult result = this.mockMvc.perform(post("/api/team/7/players/hire/14?name=Mr%20Chaos%20Chosen"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -341,7 +341,7 @@ public class TeamControllerTest {
 
         Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.players[1].playerId");
 
-        this.mockMvc.perform(get("/api/team/7/players/fire/"+id))
+        this.mockMvc.perform(post("/api/team/7/players/fire/"+id))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -364,35 +364,35 @@ public class TeamControllerTest {
 
     @Test
     public void hire_player_for_wrong_team_id() throws Exception {
-        this.mockMvc.perform(get("/api/team/1/players/hire/14?name=Mr%20Chaos%20Chosen"))
+        this.mockMvc.perform(post("/api/team/1/players/hire/14?name=Mr%20Chaos%20Chosen"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void hire_player_for_missing_team_id() throws Exception {
-        this.mockMvc.perform(get("/api/team/99999999/players/hire/14?name=Mr%20Chaos%20Chosen"))
+        this.mockMvc.perform(post("/api/team/99999999/players/hire/14?name=Mr%20Chaos%20Chosen"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void fire_player_from_missing_team_id() throws Exception {
-        this.mockMvc.perform(get("/api/team/999999/players/fire/1"))
+        this.mockMvc.perform(post("/api/team/999999/players/fire/1"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void fire_player_from_wrong_team() throws Exception {
-        this.mockMvc.perform(get("/api/team/7/players/fire/1"))
+        this.mockMvc.perform(post("/api/team/7/players/fire/1"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void fire_missing_player_from_team() throws Exception {
-        this.mockMvc.perform(get("/api/team/7/players/fire/999999"))
+        this.mockMvc.perform(post("/api/team/7/players/fire/999999"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
