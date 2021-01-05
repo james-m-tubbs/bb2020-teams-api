@@ -251,6 +251,10 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$[1].teamName").value("Da Hoomies"));
     }
 
+    /***********
+     * Get Players
+     */
+
     @Test
     public void get_all_players_for_team_id() throws Exception {
         this.mockMvc.perform(get("/api/team/1/players"))
@@ -304,9 +308,42 @@ public class TeamControllerTest {
                 .andExpect(content().json("[]"));
     }
 
+    /**
+     * Hiring and Firing Players
+     */
+
     @Test
-    public void get_all_players_team_that_is_missing() throws Exception {
-        this.mockMvc.perform(get("/api/team/999999/players"))
+    public void hire_player_to_chaos_team_and_validate_success() throws Exception {
+        this.mockMvc.perform(get("/api/team/7/players/hire/14?name=Mr%20Chaos%20Chosen"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.teamTemplateId").value(3))
+                .andExpect(jsonPath("$.teamName").value("Chaos Chosen Test 4"))
+                .andExpect(jsonPath("$.treasury").value(900000))
+                .andExpect(jsonPath("$.cheerleaders").value(0))
+                .andExpect(jsonPath("$.hasApothecary").value(false))
+                .andExpect(jsonPath("$.teamValue").value(100000))
+                .andExpect(jsonPath("$.teamTemplateVO.id").value(3))
+                .andExpect(jsonPath("$.teamTemplateVO.teamType").value("Chaos Chosen"))
+                .andExpect(jsonPath("$.teamTemplateVO.rerollCost").value(60000))
+                .andExpect(jsonPath("$.teamTemplateVO.tier").value(2))
+                .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Favoured of... Undivided, Khorne, Nurgle, Slannesh, or Tzeench"))
+                .andExpect(jsonPath("$.players[0].name").value("Mr Chaos Chosen"))
+                .andExpect(jsonPath("$.players[0].currentValue").value("100000"))
+                .andExpect(jsonPath("$.players[0].cost").value("100000"));
+    }
+
+    @Test
+    public void hire_player_for_wrong_team_id() throws Exception {
+        this.mockMvc.perform(get("/api/team/1/players/hire/14?name=Mr%20Chaos%20Chosen"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void hire_player_for_missing_team_id() throws Exception {
+        this.mockMvc.perform(get("/api/team/99999999/players/hire/14?name=Mr%20Chaos%20Chosen"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }

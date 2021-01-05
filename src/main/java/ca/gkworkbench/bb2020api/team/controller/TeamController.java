@@ -139,4 +139,51 @@ public class TeamController {
             );
         }
     }
+
+    @RequestMapping(value = "/api/team/{teamId}/players/hire/{playerTemplateId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> hirePlayerByTemplateId(@PathVariable("teamId") int teamId, @PathVariable("playerTemplateId") int playerTemplateId, @RequestParam("name") String playerName) {
+        try {
+            //check if team exists
+            TeamVO tVO = tBO.getTeamById(teamId, true);
+            if (tVO != null) {
+                playerName = playerName.replaceAll("%20", " ");
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, playerTemplateId, playerName);
+                return new ResponseEntity<>(tBO.getJsonTeam(tVO), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (WarnException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
+            );
+        }
+    }
+
+    @RequestMapping(value = "/api/team/{teamId}/players/fire/{playerId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> firePlayerById(@PathVariable("teamId") int teamId, @PathVariable("playerId") int playerId) {
+        try {
+            //check if team exists
+            TeamVO tVO = tBO.getTeamById(teamId, true);
+            if (tVO != null) {
+                tVO = tBO.firePlayerByPlayerId(tVO, playerId);
+                return new ResponseEntity<>(tBO.getJsonTeam(tVO), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (WarnException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "An Error Occurred" + e.getMessage()
+            );
+        }
+    }
 }
