@@ -549,6 +549,7 @@ INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, special
 
 
 -- TEAMS OF LEGEND
+-- https://www.warhammer-community.com/wp-content/uploads/2020/11/lFZy1SIuNmWvxPj1.pdf
 -- amazons
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (22, 'Amazons', 50000, 1, 'Lustrian Superleague', 'Y');
 
@@ -572,7 +573,14 @@ INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, special
 -- vampire
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (27, 'Vampire', 70000, 2, 'Sylvanian Spotlight', 'Y');
 
+-- NAF RULES FOR TOURNAMENTS 2021
+-- https://www.thenaf.net/wp-content/uploads/2020/12/NAF-Rules-for-Tournaments-2021.pdf
+-- daemons of khorne
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (28, 'Daemons of Khorne', 70000, 2, 'Favored of Khorne', 'Y');
 
+
+-- slann
+INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (28, 'Slann', 50000, 2, 'Lustria Superleague', 'Y');
 
 
 -- teams
