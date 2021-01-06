@@ -25,7 +25,7 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
         );
     }
 
-    private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
+    private final String SELECT_ONE_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.bigGuyFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.id = ?";
     @Override
     public PlayerVO getPlayerById(int playerId) throws Exception {
         try {
@@ -66,13 +66,13 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
 
     }
 
-    private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";
+    private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.bigGuyFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";
     @Override
     public List<PlayerVO> getPlayersForTeamId(int teamId) throws Exception {
         return (List<PlayerVO>)getJdbcTemplate().query(SELECT_BY_TEAM_SQL, new PlayerDAOImpl.PlayerRowMapper(), new Object[]{teamId});
     }
 
-    private final String SELECT_BY_NAME_AND_TEAM = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, pt.onePerTeamFlag, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ? and p.name = ?";
+    private final String SELECT_BY_NAME_AND_TEAM = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.bigGuyFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ? and p.name = ?";
     @Override
     public PlayerVO getPlayerForNameAndTeam(int teamId, String name) throws Exception {
         try {
@@ -88,6 +88,9 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
             boolean linemanFlag = false;
             if (rs.getString("linemanFlag").equalsIgnoreCase("Y")) linemanFlag = true;
 
+            boolean bigGuyFlag = false;
+            if (rs.getString("bigGuyFlag").equalsIgnoreCase("Y")) bigGuyFlag = true;
+
             boolean injuredFlag = false;
             if (rs.getString("injuredFlag").equalsIgnoreCase("Y")) injuredFlag = true;
 
@@ -96,10 +99,6 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
 
             boolean firedFlag = false;
             if (rs.getString("firedFlag").equalsIgnoreCase("Y")) firedFlag = true;
-
-            boolean onePerTeam = false;
-            if (rs.getString("onePerTeamFlag").equalsIgnoreCase("Y")) onePerTeam = true;
-
 
             PlayerVO pVO = new PlayerVO(
                 //int playerTemplateId,
@@ -110,6 +109,8 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
                     rs.getString("position"),
                     // boolean linemanFlag,
                     linemanFlag,
+                    // boolean bigGuyFlag,
+                    bigGuyFlag,
                     // int qty,
                     rs.getInt("qty"),
                     // int cost,
@@ -130,8 +131,6 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
                     rs.getString("primarySkills"),
                     // String secondary,
                     rs.getString("secondarySkills"),
-                    //onePerTeamFlag
-                    onePerTeam,
                     // int playerId,
                     rs.getInt("playerId"),
                     // int teamId,

@@ -27,13 +27,14 @@ public class PlayerTemplateControllerTest {
 
     @Test
     public void get_team_endpoint_success() throws Exception {
-        this.mockMvc.perform(get("/api/player/template/4"))
+        this.mockMvc.perform(get("/api/player/template/48"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.playerTemplateId").value(4))
-                .andExpect(jsonPath("$.teamTemplateId").value(1))
-                .andExpect(jsonPath("$.position").value("Human Blitzer"))
+                .andExpect(jsonPath("$.playerTemplateId").value(48))
+                .andExpect(jsonPath("$.teamTemplateId").value(9))
+                .andExpect(jsonPath("$.position").value("Blitzer"))
                 .andExpect(jsonPath("$.linemanFlag").value(false))
+                .andExpect(jsonPath("$.bigGuyFlag").value(false))
                 .andExpect(jsonPath("$.qty").value(4))
                 .andExpect(jsonPath("$.cost").value(85000))
                 .andExpect(jsonPath("$.MA").value(7))
@@ -55,13 +56,14 @@ public class PlayerTemplateControllerTest {
 
     @Test
     public void get_templates_by_team_success() throws Exception {
-        this.mockMvc.perform(get("/api/player/template/team/1"))
+        this.mockMvc.perform(get("/api/player/template/team/9"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[3].playerTemplateId").value(4))
-                .andExpect(jsonPath("$[3].teamTemplateId").value(1))
-                .andExpect(jsonPath("$[3].position").value("Human Blitzer"))
+                .andExpect(jsonPath("$[3].playerTemplateId").value(48))
+                .andExpect(jsonPath("$[3].teamTemplateId").value(9))
+                .andExpect(jsonPath("$[3].position").value("Blitzer"))
                 .andExpect(jsonPath("$[3].linemanFlag").value(false))
+                .andExpect(jsonPath("$[3].bigGuyFlag").value(false))
                 .andExpect(jsonPath("$[3].qty").value(4))
                 .andExpect(jsonPath("$[3].cost").value(85000))
                 .andExpect(jsonPath("$[3].MA").value(7))

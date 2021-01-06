@@ -44,6 +44,7 @@ public class TeamTemplateDAOImpl extends JdbcDaoSupport implements TeamTemplateD
                     rs.getInt("tier"),
                     rs.getString("specialRules"),
                     apothecary,
+                    rs.getInt("bigGuyMax"),
                     null
             );
             return ttVO;

@@ -10,6 +10,8 @@ import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
 import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
+import ca.gkworkbench.bb2020api.team.dao.TeamTemplateDAO;
+import ca.gkworkbench.bb2020api.team.vo.TeamTemplateVO;
 import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import com.google.gson.Gson;
@@ -24,12 +26,14 @@ public class PlayerBOImpl implements PlayerBO {
     private PlayerDAO pDAO;
     private PlayerTemplateDAO ptDAO;
     private SkillTemplateDAO stDAO;
+    private TeamTemplateDAO ttDAO;
     private Gson gson;
 
-    public PlayerBOImpl(PlayerDAO pDAO, SkillTemplateDAO stDAO, PlayerTemplateDAO ptDAO) {
+    public PlayerBOImpl(PlayerDAO pDAO, SkillTemplateDAO stDAO, PlayerTemplateDAO ptDAO, TeamTemplateDAO ttDAO) {
         this.pDAO = pDAO;
         this.stDAO = stDAO;
         this.ptDAO = ptDAO;
+        this.ttDAO = ttDAO;
         this.gson = new Gson();
     }
 
@@ -73,6 +77,7 @@ public class PlayerBOImpl implements PlayerBO {
                 ptVO.getTeamTemplateId(),
                 ptVO.getPosition(),
                 ptVO.isLinemanFlag(),
+                ptVO.isBigGuyFlag(),
                 ptVO.getQty(),
                 ptVO.getCost(),
                 ptVO.getMA(),
@@ -83,7 +88,6 @@ public class PlayerBOImpl implements PlayerBO {
                 ptVO.getBaseSkills(),
                 ptVO.getPrimary(),
                 ptVO.getSecondary(),
-                ptVO.isOnePerTeam(),
                 -1,
                 teamId,
                 playerName,
@@ -118,22 +122,24 @@ public class PlayerBOImpl implements PlayerBO {
         //Does the player templateId match the input templateId
         if (teamTemplateId != ptVO.getTeamTemplateId()) throw new WarnException("Player ("+ptVO.getPosition()+") cannot be hired by team");
 
-        boolean onePerTeam = false;
+        TeamTemplateVO team = ttDAO.getTeamTemplateByID(teamTemplateId);
+
         //if the team is empty hiring is allowed
         if (players == null || players.size() == 0) return true;
         int currentCount = 0;
         int totalCount = 0;
+        int bigGuyCount = 0;
         for (int i=0;i<players.size();i++) {
             PlayerVO pVO = players.get(i);
             if (!pVO.isFired()) {
-                if (pVO.isOnePerTeam()) onePerTeam = true;
+                if (pVO.isBigGuyFlag() && team.getBigGuyMax() > 0) bigGuyCount++;
                 if (pVO.getPosition() == ptVO.getPosition()) currentCount++;
                 totalCount++;
             }
         }
         if (totalCount >= 16) throw new WarnException("Can't Hire Player - Full Roster");
         if (currentCount >= ptVO.getQty()) throw new WarnException("Positional Count Reached for "+ptVO.getPosition());
-        if (onePerTeam && ptVO.isOnePerTeam()) throw new WarnException("Big Guy Limit Reached for "+ptVO.getPosition());
+        if (bigGuyCount > 0 && bigGuyCount >= team.getBigGuyMax() && team.getBigGuyMax() > 0) throw new WarnException("Big Guy Limit Reached for "+ptVO.getPosition());
 
         return true;
     }

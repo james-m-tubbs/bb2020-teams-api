@@ -124,7 +124,8 @@ public class bb2020TestConfig {
         return new PlayerBOImpl(
                 playerDAO(),
                 skillTemplateDAO(),
-                playerTemplateDAO());
+                playerTemplateDAO(),
+                teamTemplateDAO());
     }
     /**
      ******************************
