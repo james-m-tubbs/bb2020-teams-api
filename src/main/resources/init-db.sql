@@ -536,6 +536,16 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select 
 
 -- shambling undead
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (17, 'Shambling Undead', 70000, 1, 'Masters of Undeath, Sylvanian Spotlight', 'N');
+-- skeleton lineman
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (89, 17, 'Skeleton Lineman', 'Y', 12, 40000, 5, 3, 4, 6, 8,'G','AS');
+-- zombie lineman
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (90, 17, 'Zombie Lineman', 'Y', 12, 40000, 4, 3, 4, 0, 9,'G','AS');
+-- ghoul runner
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (91, 17, 'Ghoul Runner', 'N', 4, 75000, 7, 3, 3, 4, 8,'AG','PS');
+-- wight blitzer
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (92, 17, 'Wight Blitzer', 'N', 2, 90000, 6, 3, 3, 5, 9,'GS','AP');
+-- mummies
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (93, 17, 'Mummy', 'N', 2, 125000, 3, 5, 5, 0, 10,'S','AG');
 
 -- skaven
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (18, 'Skaven', 50000, 1, 'Underworld Challenge', 'Y');
