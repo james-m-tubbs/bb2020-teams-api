@@ -1,7 +1,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+@page { size: A4 landscape;}
+</style>
+</head>
 <body>
-<h3 style="text-align: center; color: green">
-    <span th:text="'TeamId ' + ${teamId} + '!'"></span>
-</h3>
+<table style="width:100%; background-color:#C0C0C0; font-size: 24px;border: 2px solid black;text-align:center;border-radius: 10px;padding:10px">
+    <tr>
+        <td style="font-weight: bold;text-align:left"><span th:text="${teamName}"></span></td>
+        <td style="text-align:center"><span th:text="'Race: ' + ${teamRace}"></span></td>
+        <td style="text-align:right"><span th:text="'Head Coach: ' + ${coachName}"></span></td>
+    </tr>
+</table>
+<br/>
+<table style="width:100%; background-color:#C0C0C0; border: 1px solid black;">
+    <tr style="font-weight: bold;">
+        <th style="border-width: 1px dotted #999999;">Nr</th>
+        <th style="border-width: 1px dotted #999999;">Name</th>
+        <th style="border-width: 1px dotted #999999;">Position</th>
+        <th style="border-width: 1px dotted #999999;">MA</th>
+        <th style="border-width: 1px dotted #999999;">ST</th>
+        <th style="border-width: 1px dotted #999999;">AG</th>
+        <th style="border-width: 1px dotted #999999;">AV</th>
+        <th style="border-width: 1px dotted #999999;">PA</th>
+        <th style="border-width: 1px dotted #999999;">Skills and Injuries</th>
+        <th style="border-width: 1px dotted #999999;">MNG</th>
+        <th style="border-width: 1px dotted #999999;">CP</th>
+        <th style="border-width: 1px dotted #999999;">TD</th>
+        <th style="border-width: 1px dotted #999999;">PI</th>
+        <th style="border-width: 1px dotted #999999;">CAS</th>
+        <th style="border-width: 1px dotted #999999;">MVP</th>
+        <th style="border-width: 1px dotted #999999;">SPP</th>
+        <th style="border-width: 1px dotted #999999;">Value</th>
+    </tr>
+</table>
 </body>
 </html>
