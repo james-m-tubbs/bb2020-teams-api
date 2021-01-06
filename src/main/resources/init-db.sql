@@ -479,7 +479,7 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (79, (select 
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (79, (select id from Skills where skill = 'Loner'),'3+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (79, (select id from Skills where skill = 'Thick Skull'));
 -- old world halfling hopeful
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (80, 15, 'Old World Halfling Hopeful Lineman', 'Y', 16, 30000, 5, 2, 3, 4, 7,'A','GS');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (80, 15, 'Old World Halfling Hopeful', 'Y', 16, 30000, 5, 2, 3, 4, 7,'A','GS');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (80, (select id from Skills where skill = 'Animosity'), 'all Dwarf and Human team-mates');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (80, (select id from Skills where skill = 'Dodge'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (80, (select id from Skills where skill = 'Right Stuff'));
@@ -518,7 +518,7 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (85, (select id from Skills where skill = 'Block'));
 -- big-un blocker
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (86, 16, 'Big Un Blocker', 'N', 4, 90000, 5, 4, 4, 0, 10,'GS','A');
-INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (86, (select id from Skills where skill = 'Animosity'), 'Big-Un Blockers');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (86, (select id from Skills where skill = 'Animosity'), 'Big Un Blockers');
 -- goblin
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (87, 16, 'Goblin', 'N', 4, 40000, 6, 2, 3, 4, 8,'A','GS');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (87, (select id from Skills where skill = 'Dodge'));
