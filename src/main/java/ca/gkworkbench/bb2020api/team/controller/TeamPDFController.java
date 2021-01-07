@@ -63,10 +63,12 @@ public class TeamPDFController {
         templateEngine.setTemplateResolver(templateResolver);
 
         Context context = new Context();
+        context.setVariable("team", tVO);
         context.setVariable("teamId", tVO.getId());
         context.setVariable("teamName", tVO.getTeamName());
         context.setVariable("teamRace", tVO.getTeamTemplateVO().getTeamType());
         context.setVariable("coachName", tVO.getCoachId());
+        context.setVariable("players", tVO.getPlayers());
 
         return templateEngine.process("pdfRoster", context);
     }
