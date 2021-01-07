@@ -30,18 +30,18 @@ public class TeamTemplateControllerTest {
 
     @Test
     public void get_team_template_endpoint_success() throws Exception {
-        this.mockMvc.perform(get("/api/team/template/1"))
+        this.mockMvc.perform(get("/api/team/template/9"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.id").value(9))
                 .andExpect(jsonPath("$.teamType").value("Human"))
                 .andExpect(jsonPath("$.rerollCost").value(50000))
                 .andExpect(jsonPath("$.tier").value(1))
                 .andExpect(jsonPath("$.specialRules").value("Old World Classic"))
                 .andExpect(jsonPath("$.apothecary").value(true))
                 //human lineman
-                .andExpect(jsonPath("$.playerTemplates[0].playerTemplateId").value(1))
-                .andExpect(jsonPath("$.playerTemplates[0].teamTemplateId").value(1))
+                .andExpect(jsonPath("$.playerTemplates[0].playerTemplateId").value(45))
+                .andExpect(jsonPath("$.playerTemplates[0].teamTemplateId").value(9))
                 .andExpect(jsonPath("$.playerTemplates[0].position").value("Human Lineman"))
                 .andExpect(jsonPath("$.playerTemplates[0].linemanFlag").value(true))
                 .andExpect(jsonPath("$.playerTemplates[0].qty").value(16))
@@ -54,9 +54,9 @@ public class TeamTemplateControllerTest {
                 .andExpect(jsonPath("$.playerTemplates[0].primary").value("G"))
                 .andExpect(jsonPath("$.playerTemplates[0].secondary").value("AS"))
                 //human thrower
-                .andExpect(jsonPath("$.playerTemplates[1].playerTemplateId").value(2))
-                .andExpect(jsonPath("$.playerTemplates[1].teamTemplateId").value(1))
-                .andExpect(jsonPath("$.playerTemplates[1].position").value("Human Thrower"))
+                .andExpect(jsonPath("$.playerTemplates[1].playerTemplateId").value(46))
+                .andExpect(jsonPath("$.playerTemplates[1].teamTemplateId").value(9))
+                .andExpect(jsonPath("$.playerTemplates[1].position").value("Thrower"))
                 .andExpect(jsonPath("$.playerTemplates[1].linemanFlag").value(false))
                 .andExpect(jsonPath("$.playerTemplates[1].qty").value(2))
                 .andExpect(jsonPath("$.playerTemplates[1].cost").value(80000))

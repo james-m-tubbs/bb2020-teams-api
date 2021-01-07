@@ -11,10 +11,11 @@ public class TeamTemplateVO {
     private int rerollCost;
     private int tier;
     private String specialRules;
-    private boolean apothecary = false;
+    private boolean apothecary;
+    private int bigGuyMax;
     private List<PlayerTemplateVO> playerTemplates;
 
-    public TeamTemplateVO(long teamTemplateId, String teamType, int rerollCost, int tier, String specialRules, boolean apothecary, List<PlayerTemplateVO> ptVOs) {
+    public TeamTemplateVO(long teamTemplateId, String teamType, int rerollCost, int tier, String specialRules, boolean apothecary, int bigGuyMax, List<PlayerTemplateVO> ptVOs) {
         this.id = teamTemplateId;
         this.teamType = teamType;
         this.rerollCost = rerollCost;
@@ -22,6 +23,7 @@ public class TeamTemplateVO {
         this.specialRules = specialRules;
         this.apothecary = apothecary;
         this.playerTemplates = ptVOs;
+        this.bigGuyMax = bigGuyMax;
     }
 
     public long getTeamTemplateId() {
@@ -75,6 +77,10 @@ public class TeamTemplateVO {
     public void setApothecary(boolean apothecary) {
         this.apothecary = apothecary;
     }
+
+    public int getBigGuyMax() { return bigGuyMax; }
+
+    public void setBigGuyMax(int bigGuyMax) { this.bigGuyMax = bigGuyMax; }
 
     public void setPtVOs(List<PlayerTemplateVO> ptVOs) {
         this.playerTemplates = ptVOs;

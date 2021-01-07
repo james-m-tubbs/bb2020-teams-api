@@ -46,10 +46,11 @@ public class PlayerControllerTest {
                 .andExpect(jsonPath("$.fired").value(false))
                 .andExpect(jsonPath("$.boughtSkills").isEmpty())
                 .andExpect(jsonPath("$.gamesPlayed").value(6))
-                .andExpect(jsonPath("$.playerTemplateId").value(2))
-                .andExpect(jsonPath("$.teamTemplateId").value(1))
-                .andExpect(jsonPath("$.position").value("Human Thrower"))
+                .andExpect(jsonPath("$.playerTemplateId").value(46))
+                .andExpect(jsonPath("$.teamTemplateId").value(9))
+                .andExpect(jsonPath("$.position").value("Thrower"))
                 .andExpect(jsonPath("$.linemanFlag").value(false))
+                .andExpect(jsonPath("$.bigGuyFlag").value(false))
                 .andExpect(jsonPath("$.qty").value(2))
                 .andExpect(jsonPath("$.cost").value(80000))
                 .andExpect(jsonPath("$.MA").value(6))
@@ -61,8 +62,7 @@ public class PlayerControllerTest {
                 .andExpect(jsonPath("$.baseSkills[0]").isNotEmpty())
                 .andExpect(jsonPath("$.baseSkills[1]").isNotEmpty())
                 .andExpect(jsonPath("$.primary").value("GP"))
-                .andExpect(jsonPath("$.secondary").value("AS"))
-                .andExpect(jsonPath("$.onePerTeam").value(false));
+                .andExpect(jsonPath("$.secondary").value("AS"));
     }
 
     @Test

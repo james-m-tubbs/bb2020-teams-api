@@ -124,7 +124,8 @@ public class bb2020Config {
         return new PlayerBOImpl(
                 playerDAO(),
                 skillTemplateDAO(),
-                playerTemplateDAO());
+                playerTemplateDAO(),
+                teamTemplateDAO());
     }
 
     /**

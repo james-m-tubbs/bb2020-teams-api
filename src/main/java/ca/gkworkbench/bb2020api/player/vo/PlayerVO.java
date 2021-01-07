@@ -46,8 +46,8 @@ public class PlayerVO extends PlayerTemplateVO {
         this.gamesPlayed = gamesPlayed;
     }
 
-    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills, int gamesPlayed) {
-        super(playerTemplateId, teamTemplateId, position, linemanFlag, qty, cost, MA, ST, AG, PA, AV, baseSkills, primary, secondary, onePerTeam);
+    public PlayerVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, boolean bigGuyFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, int playerId, int teamId, String name, int spp, int currentValue, int cp, int pi, int cas, int td, int mvp, boolean injured, boolean tempRetired, boolean fired, List<SkillVO> boughtSkills, int gamesPlayed) {
+        super(playerTemplateId, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, MA, ST, AG, PA, AV, baseSkills, primary, secondary);
         this.playerId = playerId;
         this.teamId = teamId;
         this.name = name;
@@ -198,6 +198,7 @@ public class PlayerVO extends PlayerTemplateVO {
                 ", teamTemplateId=" + teamTemplateId +
                 ", position='" + position + '\'' +
                 ", linemanFlag=" + linemanFlag +
+                ", bigGuyFlag=" + bigGuyFlag +
                 ", qty=" + qty +
                 ", cost=" + cost +
                 ", MA=" + MA +
@@ -208,7 +209,6 @@ public class PlayerVO extends PlayerTemplateVO {
                 ", baseSkills=" + baseSkills +
                 ", primary='" + primary + '\'' +
                 ", secondary='" + secondary + '\'' +
-                ", onePerTeam=" + onePerTeam +
                 '}';
     }
 }
