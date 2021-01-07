@@ -290,30 +290,72 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (32, (select 
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (7, 'Goblin', 60000, 3, 'Badlands Brawl, Bribery and Corruption, Underworld Challenge', 'Y');
 -- goblin lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (33, 7, 'Goblin Lineman', 'Y', 16, 40000, 6, 2, 3, 4, 8,'A','GPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (33, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (33, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (33, (select id from Skills where skill = 'Stunty') );
 -- bomma
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (34, 7, 'Bomma', 'N', 1, 45000, 6, 2, 3, 4, 8,'A','GPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Bombardier') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Secret Weapon') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Stunty') );
 -- looney
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (35, 7, 'Looney', 'N', 1, 40000, 6, 2, 3, 0, 8,'A','GS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (35, (select id from Skills where skill = 'Chainsaw') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (35, (select id from Skills where skill = 'Secret Weapon') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (35, (select id from Skills where skill = 'Stunty') );
 -- fanatic
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (36, 7, 'Fanatic', 'N', 1, 70000, 3, 7, 3, 0, 8,'S','AG');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Ball & Chain') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'No Hands') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Secret Weapon') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Stunty') );
 -- pogoer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (37, 7, 'Pogoer', 'N', 1, 75000, 7, 2, 3, 5, 8,'A','GPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Pogo Stick') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (34, (select id from Skills where skill = 'Stunty') );
 -- 'ooligan
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (38, 7, '''Ooligan', 'N', 1, 65000, 6, 2, 3, 6, 8,'A','GPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (38, (select id from Skills where skill = 'Dirty Player'),'+1');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Disturbing Presence') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Stunty') );
 -- doom diver
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (39, 7, 'Doom Diver', 'N', 1, 60000, 6, 2, 3, 6, 8,'A','GS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Stunty') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (38, (select id from Skills where skill = 'Swoop') );
 -- trained troll
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (40, 7, 'Trained Troll', 'N', 'Y', 2, 115000, 4, 5, 5, 5, 10,'S','AGP');
-
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select id from Skills where skill = 'Always Hungry'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (88, (select id from Skills where skill = 'Loner'),'3+');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (88, (select id from Skills where skill = 'Mighty Blow'),'+1');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select id from Skills where skill = 'Projectile Vomit'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select id from Skills where skill = 'Really Stupid'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select id from Skills where skill = 'Regeneration'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select id from Skills where skill = 'Throw Team-mate'));
 
 -- halflings
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (8, 'Halfling', 60000, 3, 'Halfling Thimble Cup, Old World Classic', 'Y');
 -- halfling hopeful lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (41, 8, 'Halfling Hopeful Lineman', 'Y', 16, 30000, 5, 2, 3, 4, 7,'A','GS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (41, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (41, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (41, (select id from Skills where skill = 'Stunty') );
 -- halfling hefty
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (42, 8, 'Halfling Hefty', 'Y', 2, 50000, 5, 2, 3, 3, 8,'AP','GS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (42, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (42, (select id from Skills where skill = 'Fend') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (42, (select id from Skills where skill = 'Stunty') );
 -- halfling catcher
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (43, 8, 'Halfling Catcher', 'Y', 2, 55000, 5, 2, 3, 5, 7,'A','GS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (43, (select id from Skills where skill = 'Catch') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (43, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (43, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (43, (select id from Skills where skill = 'Sprint') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (43, (select id from Skills where skill = 'Stunty') );
 -- altern forest treeman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (44, 8, 'Altern Forest Treeman', 'N', 'Y', 2, 120000, 2, 6, 5, 5, 11,'S','AGP');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (44, (select id from Skills where skill = 'Mighty Blow'), '+1' );
@@ -357,12 +399,19 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (50, (select 
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (10, 'Imperial Nobility', 70000, 2, 'Old World Classic', 'Y');
 -- imperial retainer lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (51, 10, 'Imperial Retainer Lineman', 'Y', 16, 45000, 6, 3, 4, 4, 8, 'G', 'AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (51, (select id from Skills where skill = 'Fend') );
 -- imperial thrower
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (52, 10, 'Imperial Thrower', 'N', 2, 75000, 6, 3, 3, 3, 9, 'GP', 'AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (52, (select id from Skills where skill = 'Pass') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (52, (select id from Skills where skill = 'Running Pass') );
 -- noble blitzer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (53, 10, 'Noble Blitzer', 'N', 2, 105000, 7, 3, 3, 4, 9, 'AG', 'PS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (53, (select id from Skills where skill = 'Block') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (53, (select id from Skills where skill = 'Catch') );
 -- bodyguard
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (54, 10, 'Bodyguard', 'N', 4, 90000, 6, 3, 3, 5, 9, 'GS', 'A');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (54, (select id from Skills where skill = 'Stand Firm') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (54, (select id from Skills where skill = 'Wrestle') );
 -- ogre
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (55, 10, 'Ogre', 'N', 'Y', 1, 140000, 5, 5, 4, 5, 10,'S','AG');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (55, (select id from Skills where skill = 'Bone Head'));
@@ -375,8 +424,14 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (55, (select 
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (11, 'Lizardman', 70000, 1, 'Lustrian Superleague', 'Y');
 -- skink runner lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (56, 11, 'Skink Runner Lineman', 'Y', 12, 60000, 8, 2, 3, 4, 8,'A','GPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (56, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (56, (select id from Skills where skill = 'Stunty') );
 -- chameleon skink
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (57, 11, 'Chameleon Skink', 'N', 2, 70000, 7, 2, 3, 3, 8,'A','GPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (57, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (57, (select id from Skills where skill = 'On the Ball') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (57, (select id from Skills where skill = 'Shadowing') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (57, (select id from Skills where skill = 'Stunty') );
 -- saurus blocker
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (58, 11, 'Saurus Blocker', 'N', 6, 85000, 7, 2, 3, 3, 8,'GS','A');
 -- kroxigor
@@ -391,26 +446,47 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (59, (select 
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (12, 'Necromantic Horror', 70000, 2, 'Masters of Undeath, Sylvanian Spotlight', 'N');
 -- zombie lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (60, 12, 'Zombie Lineman', 'Y', 16, 60000, 4, 3, 4, 0, 9,'G','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (60, (select id from Skills where skill = 'Regeneration') );
 -- ghoul runners
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (61, 12, 'Ghoul Runner', 'N', 2, 75000, 7, 3, 3, 4, 8,'AG','PS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (61, (select id from Skills where skill = 'Dodge') );
 -- wraiths
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (62, 12, 'Wraith', 'N', 2, 95000, 6, 3, 3, 0, 9,'GS','A');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (62, (select id from Skills where skill = 'Block') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (62, (select id from Skills where skill = 'Foul Appearance') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (62, (select id from Skills where skill = 'No Hands') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (62, (select id from Skills where skill = 'Regeneration') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (62, (select id from Skills where skill = 'Side Step') );
 -- werewolves
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (63, 12, 'Werewolf', 'N', 2, 125000, 8, 3, 3, 4, 9,'AG','PS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (63, (select id from Skills where skill = 'Claws') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (63, (select id from Skills where skill = 'Frenzy') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (63, (select id from Skills where skill = 'Regeneration') );
 -- flesh golems
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (64, 12, 'Flesh Golem', 'N', 2, 115000, 4, 4, 4, 0, 10,'GS','A');
-
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (64, (select id from Skills where skill = 'Regeneration') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (64, (select id from Skills where skill = 'Stand Firm') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (64, (select id from Skills where skill = 'Thick Skull') );
 
 -- nurgle
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (13, 'Nurgle', 70000, 2, 'Favoured of Nurgle', 'N');
 -- rotter lineman
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (65, 12, 'Rotter Lineman', 'Y', 12, 35000, 5, 3, 4, 6, 9,'GM','AS');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (65, 13, 'Rotter Lineman', 'Y', 12, 35000, 5, 3, 4, 6, 9,'GM','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (65, (select id from Skills where skill = 'Decay') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (65, (select id from Skills where skill = 'Plague Ridden') );
 -- pestigor
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (66, 12, 'Pestigor', 'N', 4, 75000, 6, 3, 3, 4, 9,'GMS','AP');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (66, 13, 'Pestigor', 'N', 4, 75000, 6, 3, 3, 4, 9,'GMS','AP');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (66, (select id from Skills where skill = 'Horns') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (66, (select id from Skills where skill = 'Plague Ridden') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (66, (select id from Skills where skill = 'Regeneration') );
 -- bloater
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (67, 12, 'Bloater', 'N', 4, 115000, 4, 4, 4, 6, 10,'GMS','A');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (67, 13, 'Bloater', 'N', 4, 115000, 4, 4, 4, 6, 10,'GMS','A');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (67, (select id from Skills where skill = 'Disturbing Presence') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (67, (select id from Skills where skill = 'Foul Appearance') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (67, (select id from Skills where skill = 'Plague Ridden') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (67, (select id from Skills where skill = 'Regeneration') );
 -- rotspawn
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (68, 11, 'Rotspawn', 'N', 'Y', 1, 140000, 4, 5, 5, 0, 10,'S','AGM');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (68, 13, 'Rotspawn', 'N', 'Y', 1, 140000, 4, 5, 5, 0, 10,'S','AGM');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (68, (select id from Skills where skill = 'Disturbing Presence'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (68, (select id from Skills where skill = 'Foul Appearance'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (68, (select id from Skills where skill = 'Loner'),'4+');
@@ -424,6 +500,11 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (68, (select 
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (14, 'Ogre', 70000, 3, 'Badlands Brawl, Low Cost Linemen, Old World Classic', 'Y');
 -- gnoblar lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (69, 14, 'Gnoblar Lineman', 'Y', 16, 15000, 5, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (69, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (69, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (69, (select id from Skills where skill = 'Side Step') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (69, (select id from Skills where skill = 'Stunty') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (69, (select id from Skills where skill = 'Titchy') );
 -- ogre runt punter
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (70, 14, 'Ogre Runt Punter', 'N', 'Y', 1, 145000, 5, 5, 4, 4, 10,'PS','AG');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (70, (select id from Skills where skill = 'Bone Head') );
@@ -538,14 +619,22 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (88, (select 
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (17, 'Shambling Undead', 70000, 1, 'Masters of Undeath, Sylvanian Spotlight', 'N');
 -- skeleton lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (89, 17, 'Skeleton Lineman', 'Y', 12, 40000, 5, 3, 4, 6, 8,'G','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (89, (select id from Skills where skill = 'Regeneration'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (89, (select id from Skills where skill = 'Thick Skull'));
 -- zombie lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (90, 17, 'Zombie Lineman', 'Y', 12, 40000, 4, 3, 4, 0, 9,'G','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (90, (select id from Skills where skill = 'Regeneration'));
 -- ghoul runner
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (91, 17, 'Ghoul Runner', 'N', 4, 75000, 7, 3, 3, 4, 8,'AG','PS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (91, (select id from Skills where skill = 'Dodge'));
 -- wight blitzer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (92, 17, 'Wight Blitzer', 'N', 2, 90000, 6, 3, 3, 5, 9,'GS','AP');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (92, (select id from Skills where skill = 'Block'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (92, (select id from Skills where skill = 'Regeneration'));
 -- mummies
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (93, 17, 'Mummy', 'N', 2, 125000, 3, 5, 5, 0, 10,'S','AG');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (93, (select id from Skills where skill = 'Mighty Blow'),'+1');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (93, (select id from Skills where skill = 'Regeneration'));
 
 -- skaven
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (18, 'Skaven', 50000, 1, 'Underworld Challenge', 'Y');
@@ -553,10 +642,14 @@ INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, special
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (94, 18, 'Skaven Clanrat Lineman', 'Y', 16, 50000, 7, 3, 3, 4, 8,'G','AMS');
 -- thrower
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (95, 18, 'Thrower', 'N', 2, 85000, 7, 3, 3, 2, 8,'GP','AMS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (95, (select id from Skills where skill = 'Pass'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (95, (select id from Skills where skill = 'Sure Hands'));
 -- gutter runner
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (96, 18, 'Gutter Runner', 'N', 4, 85000, 9, 2, 2, 4, 8,'AG','MPS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (96, (select id from Skills where skill = 'Dodge'));
 -- blitzer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (97, 18, 'Blitzer', 'N', 2, 90000, 7, 3, 3, 5, 9,'GS','AMP');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (97, (select id from Skills where skill = 'Block'));
 -- rat ogre
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (98, 18, 'Rat Ogre', 'N', 'Y', 1, 150000, 6, 5, 4, 0, 9,'S','AGM');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (98, (select id from Skills where skill = 'Animal Savagery'));
@@ -569,17 +662,45 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (98, (select 
 -- snotling
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (19, 'Snotling', 60000, 3, 'Bribery and Corruption, Low Cost Linemen, Underworld Challenge', 'Y');
 -- snotling lineman
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (99, 18, 'Snotling Lineman', 'Y', 16, 15000, 5, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (99, 19, 'Snotling Lineman', 'Y', 16, 15000, 5, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (99, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (99, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (99, (select id from Skills where skill = 'Side Step') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (99, (select id from Skills where skill = 'Stunty') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (99, (select id from Skills where skill = 'Swarming') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (99, (select id from Skills where skill = 'Titchy') );
 -- fungus flinga
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (100, 18, 'Fungus Flinga', 'N', 2, 30000, 5, 1, 3, 4, 6,'AP','G');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (100, 19, 'Fungus Flinga', 'N', 2, 30000, 5, 1, 3, 4, 6,'AP','G');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (100, (select id from Skills where skill = 'Bombardier') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (100, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (100, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (100, (select id from Skills where skill = 'Secret Weapon') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (100, (select id from Skills where skill = 'Side Step') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (100, (select id from Skills where skill = 'Stunty') );
 -- fun-hoppa
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (101, 18, 'Fun-Hoppa', 'N', 2, 20000, 6, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (101, 19, 'Fun-Hoppa', 'N', 2, 20000, 6, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (101, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (101, (select id from Skills where skill = 'Pogo Stick') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (101, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (101, (select id from Skills where skill = 'Side Step') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (101, (select id from Skills where skill = 'Stunty') );
 -- stilty runna
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (102, 18, 'Stilty Runna', 'N', 2, 20000, 6, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (102, 19, 'Stilty Runna', 'N', 2, 20000, 6, 1, 3, 5, 6,'A','G');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (102, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (102, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (102, (select id from Skills where skill = 'Side Step') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (102, (select id from Skills where skill = 'Sprint') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (102, (select id from Skills where skill = 'Stunty') );
 -- pump wagon
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (103, 18, 'Pump Wagon', 'N', 2, 105000, 4, 5, 5, 0, 9,'S','AG');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (103, 19, 'Pump Wagon', 'N', 2, 105000, 4, 5, 5, 0, 9,'S','AG');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (103, (select id from Skills where skill = 'Dirty Player'),'+1');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (103, (select id from Skills where skill = 'Juggernaut'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (103, (select id from Skills where skill = 'Mighty Blow'),'+1');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (103, (select id from Skills where skill = 'Really Stupid'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (103, (select id from Skills where skill = 'Secret Weapon'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (103, (select id from Skills where skill = 'Stand Firm'));
 -- trained troll
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (104, 18, 'Trained Troll', 'N', 'Y', 2, 115000, 4, 5, 5, 5, 10,'S','AGP');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (104, 19, 'Trained Troll', 'N', 'Y', 2, 115000, 4, 5, 5, 5, 10,'S','AGP');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (104, (select id from Skills where skill = 'Always Hungry'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (104, (select id from Skills where skill = 'Loner'),'3+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (104, (select id from Skills where skill = 'Mighty Blow'),'+1');
@@ -591,19 +712,36 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (104, (select
 -- underworld denizens
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary, bigGuyMax) VALUES (20, 'Underworld Denizens', 70000, 2, 'Bribery and Corruption, Underworld Challenge', 'Y', 1);
 -- underworld goblin lineman
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (105, 7, 'Goblin Lineman', 'Y', 16, 40000, 6, 2, 3, 4, 8,'AM','GS');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (105, 20, 'Goblin Lineman', 'Y', 16, 40000, 6, 2, 3, 4, 8,'AM','GS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (105, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (105, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (105, (select id from Skills where skill = 'Stunty') );
 -- underworld snotling
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (106, 18, 'Snotling Lineman', 'Y', 16, 15000, 5, 1, 3, 5, 6,'AM','G');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (106, 20, 'Snotling Lineman', 'Y', 16, 15000, 5, 1, 3, 5, 6,'AM','G');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (106, (select id from Skills where skill = 'Dodge') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (106, (select id from Skills where skill = 'Right Stuff') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (106, (select id from Skills where skill = 'Side Step') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (106, (select id from Skills where skill = 'Stunty') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (106, (select id from Skills where skill = 'Swarming') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (106, (select id from Skills where skill = 'Titchy') );
 -- skaven clanrat
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (107, 18, 'Skaven Clanrat', 'Y', 16, 50000, 7, 3, 3, 4, 8,'GM','AS');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (107, 20, 'Skaven Clanrat', 'Y', 16, 50000, 7, 3, 3, 4, 8,'GM','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (107, (select id from Skills where skill = 'Animosity'), 'Underworld Goblin Linemen');
 -- thrower
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (108, 18, 'Skaven Thrower', 'N', 2, 85000, 7, 3, 3, 2, 8,'GMP','AS');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (108, 20, 'Skaven Thrower', 'N', 2, 85000, 7, 3, 3, 2, 8,'GMP','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (108, (select id from Skills where skill = 'Animosity'), 'Underworld Goblin Linemen');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (108, (select id from Skills where skill = 'Pass') );
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (108, (select id from Skills where skill = 'Sure Hands') );
 -- gutter runner
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (109, 18, 'Gutter Runner', 'N', 4, 85000, 9, 2, 2, 4, 8,'AGM','PS');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (109, 20, 'Gutter Runner', 'N', 4, 85000, 9, 2, 2, 4, 8,'AGM','PS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (109, (select id from Skills where skill = 'Animosity'), 'Underworld Goblin Linemen');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (109, (select id from Skills where skill = 'Dodge') );
 -- blitzer
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (110, 18, 'Skaven Blitzer', 'N', 2, 90000, 7, 3, 3, 5, 9,'GMS','AP');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (110, 20, 'Skaven Blitzer', 'N', 2, 90000, 7, 3, 3, 5, 9,'GMS','AP');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (110, (select id from Skills where skill = 'Animosity'), 'Underworld Goblin Linemen');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (110, (select id from Skills where skill = 'Block') );
 -- underworld troll
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (111, 18, 'Underworld Troll', 'N', 'Y', 1, 115000, 4, 5, 5, 5, 10,'MS','AGP');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (111, 20, 'Underworld Troll', 'N', 'Y', 1, 115000, 4, 5, 5, 5, 10,'MS','AGP');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (111, (select id from Skills where skill = 'Always Hungry'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (111, (select id from Skills where skill = 'Loner'),'4+');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (111, (select id from Skills where skill = 'Mighty Blow'),'+1');
@@ -612,7 +750,7 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (111, (select
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (111, (select id from Skills where skill = 'Regeneration'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (111, (select id from Skills where skill = 'Throw Team-mate'));
 -- mutant rat ogre
-INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (112, 18, 'Mutant Rat Ogre', 'N', 'Y', 1, 150000, 6, 5, 4, 0, 9,'MS','AG');
+INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (112, 20, 'Mutant Rat Ogre', 'N', 'Y', 1, 150000, 6, 5, 4, 0, 9,'MS','AG');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (112, (select id from Skills where skill = 'Animal Savagery'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (112, (select id from Skills where skill = 'Frenzy'));
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (112, (select id from Skills where skill = 'Loner'),'4+');
@@ -651,12 +789,19 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (117, (select
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (22, 'Amazons', 50000, 1, 'Lustrian Superleague', 'Y');
 -- tribal linewoman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (118, 22, 'Tribal Linewoman', 'Y', 16, 50000, 6, 3, 3, 4, 8,'G','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (118, (select id from Skills where skill = 'Dodge'));
 -- eagle warrior thrower
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (119, 22, 'Eagle Warrior Thrower', 'N', 2, 75000, 6, 3, 3, 3, 8,'GP','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (119, (select id from Skills where skill = 'Dodge'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (119, (select id from Skills where skill = 'Pass'));
 -- piranha warrior catcher
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (120, 22, 'Piranha Warrior Catcher', 'N', 2, 75000, 6, 3, 3, 5, 8,'AG','S');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (120, (select id from Skills where skill = 'Catch'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (120, (select id from Skills where skill = 'Dodge'));
 -- koka kalim blitzer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (121, 22, 'Koka Kalim Blitzer', 'N', 2, 90000, 6, 3, 3, 5, 8,'GS','A');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (122, (select id from Skills where skill = 'Block'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (122, (select id from Skills where skill = 'Dodge'));
 
 -- chaos dwarf
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (23, 'Chaos Dwarf', 70000, 1, 'Badlands Brawl, Favoured of..., Worlds Edge Superleague', 'Y');
@@ -664,8 +809,14 @@ INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, special
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (122, 23, 'Hobgoblin Lineman', 'Y', 16, 50000, 6, 3, 3, 4, 8,'G','AS');
 -- chaos dwarf blocker
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (123, 23, 'Chaos Dwarf Blocker', 'N', 6, 90000, 6, 3, 3, 5, 8,'GS','AM');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (123, (select id from Skills where skill = 'Block'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (123, (select id from Skills where skill = 'Tackle'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (123, (select id from Skills where skill = 'Thick Skull'));
 -- bull centaur blitzer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (124, 23, 'Bull Centaur Blitzer', 'N', 2, 90000, 6, 3, 3, 5, 8,'GS','A');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (124, (select id from Skills where skill = 'Sprint'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (124, (select id from Skills where skill = 'Sure Feet'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (124, (select id from Skills where skill = 'Thick Skull'));
 -- enslaved minotaur
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (125, 23, 'Enslaved Minotaur', 'N', 'Y', 1, 150000, 5, 5, 4, 0, 9,'S','AGM');
 INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (125, (select id from Skills where skill = 'Animal Savagery'));
@@ -785,17 +936,26 @@ INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (145, (select
 INSERT IGNORE INTO TeamTemplate (id, teamTemplateName, rerollCost, tier, specialRules, apothecary) VALUES (28, 'Slann', 50000, 2, 'Lustria Superleague', 'Y');
 -- lineman
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (146, 28, 'Lineman', 'Y', 16, 60000, 6, 3, 3, 4, 9,'G','AS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (146, (select id from Skills where skill = 'Pogo Stick'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (146, (select id from Skills where skill = 'Very Long Legs'));
 -- catcher
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (147, 28, 'Catcher', 'N', 2, 70000, 7, 2, 2, 4, 8,'GA','PS');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (147, (select id from Skills where skill = 'Diving Catch'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (147, (select id from Skills where skill = 'Pogo Stick'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (147, (select id from Skills where skill = 'Very Long Legs'));
 -- blitzer
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (148, 28, 'Blitzer', 'N', 6, 85000, 7, 3, 3, 4, 9,'AGS','P');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (148, (select id from Skills where skill = 'Diving Tackle'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (148, (select id from Skills where skill = 'Jump Up'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (148, (select id from Skills where skill = 'Pogo Stick'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (148, (select id from Skills where skill = 'Very Long Legs'));
 -- kroxigor
 INSERT IGNORE INTO PlayerTemplate(id, teamTemplateId, position, linemanFlag, bigGuyFlag, qty, cost, ma, st, ag, pa, av, primarySkills, secondarySkills ) values (149, 28, 'Kroxigor', 'N', 'Y', 1, 140000, 5, 5, 4, 5, 10,'S','AG');
-INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (59, (select id from Skills where skill = 'Bone Head'));
-INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (59, (select id from Skills where skill = 'Loner'),'4+');
-INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (59, (select id from Skills where skill = 'Mighty Blow'),'+1');
-INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (59, (select id from Skills where skill = 'Prehensile Tail'));
-INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (59, (select id from Skills where skill = 'Thick Skull'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (149, (select id from Skills where skill = 'Bone Head'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (149, (select id from Skills where skill = 'Loner'),'4+');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId, skillValue) values (149, (select id from Skills where skill = 'Mighty Blow'),'+1');
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (149, (select id from Skills where skill = 'Prehensile Tail'));
+INSERT IGNORE INTO SkillTemplate(playerTemplateId, skillId) values (149, (select id from Skills where skill = 'Thick Skull'));
 
 -- teams
 CREATE TABLE IF NOT EXISTS Teams(id int NOT NULL AUTO_INCREMENT, coachId int NOT NULL, teamTemplateId int NOT NULL, teamName varchar(255) NOT NULL, totalCas int NOT NULL DEFAULT 0, totalTouchdowns int NOT NULL DEFAULT 0, treasury int NOT NULL DEFAULT 1000000, leaguePoints int NOT NULL DEFAULT 0, rerolls int NOT NULL DEFAULT 0, coaches int NOT NULL DEFAULT 0, cheerleaders int NOT NULL DEFAULT 0, apothecaryFlag char(1) default 'N', teamValue int NOT NULL DEFAULT 0, currentTeamValue int NOT NULL DEFAULT 0, dedicatedFans int NOT NULL DEFAULT 1, PRIMARY KEY(id), FOREIGN KEY(teamTemplateId) REFERENCES TeamTemplate(id), FOREIGN KEY(coachId) REFERENCES coaches(id), UNIQUE(teamName));
