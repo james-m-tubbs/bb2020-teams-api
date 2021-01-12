@@ -1,38 +1,180 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style>
-@page { size: A4 landscape;}
+@page {
+  size: A4 landscape;
+  margin: 0.15in 0.25in;
+}
+body {
+  font-family: sans-serif;
+  font-size: 8pt;
+}
 </style>
 </head>
 <body>
-    <table style="width:100%; background-color:#C0C0C0; font-size: 24px;border: 2px solid black;text-align:center;border-radius: 10px;padding:10px">
-        <tr>
-            <td style="font-weight: bold;text-align:left"><span th:text="${teamName}"></span></td>
-            <td style="text-align:center"><span th:text="'Race: ' + ${teamRace}"></span></td>
-            <td style="text-align:right"><span th:text="'Head Coach: ' + ${coachName}"></span></td>
-        </tr>
-    </table>
-    <br/>
-    <table style="width:100%; background-color:#C0C0C0; border: 1px solid black;">
-        <tr style="font-weight: bold;">
-            <th style="border-width: 1px dotted #999999;">Nr</th>
-            <th style="border-width: 1px dotted #999999;">Name</th>
-            <th style="border-width: 1px dotted #999999;">Position</th>
-            <th style="border-width: 1px dotted #999999;">MA</th>
-            <th style="border-width: 1px dotted #999999;">ST</th>
-            <th style="border-width: 1px dotted #999999;">AG</th>
-            <th style="border-width: 1px dotted #999999;">AV</th>
-            <th style="border-width: 1px dotted #999999;">PA</th>
-            <th style="border-width: 1px dotted #999999;">Skills and Injuries</th>
-            <th style="border-width: 1px dotted #999999;">MNG</th>
-            <th style="border-width: 1px dotted #999999;">CP</th>
-            <th style="border-width: 1px dotted #999999;">TD</th>
-            <th style="border-width: 1px dotted #999999;">PI</th>
-            <th style="border-width: 1px dotted #999999;">CAS</th>
-            <th style="border-width: 1px dotted #999999;">MVP</th>
-            <th style="border-width: 1px dotted #999999;">SPP</th>
-            <th style="border-width: 1px dotted #999999;">Value</th>
-        </tr>
-    </table>
+<table style="width:100%; background-color:#C0C0C0; font-size: 24px;border: 2px solid black;text-align:center;border-radius: 10px;padding:10px">
+    <tr>
+        <td style="font-weight: bold;text-align:left"><span th:text="${teamName}"></span></td>
+        <td style="text-align:center"><span th:text="'Race: ' + ${teamRace}"></span></td>
+        <td style="text-align:right"><span th:text="'Head Coach: ' + ${coachName}"></span></td>
+    </tr>
+</table>
+<br/>
+<table style="width:100%; background-color:#C0C0C0; border: 1px solid black;">
+    <tr style="font-weight: bold;">
+        <th style="border-width: 1px dotted #999999;">Nr</th>
+        <th style="border-width: 1px dotted #999999;">Name</th>
+        <th style="border-width: 1px dotted #999999;">Position</th>
+        <th style="border-width: 1px dotted #999999;">MA</th>
+        <th style="border-width: 1px dotted #999999;">ST</th>
+        <th style="border-width: 1px dotted #999999;">AG</th>
+        <th style="border-width: 1px dotted #999999;">PA</th>
+        <th style="border-width: 1px dotted #999999;">AV</th>
+        <th style="border-width: 1px dotted #999999;">Skills and Injuries</th>
+        <th style="border-width: 1px dotted #999999;">MNG</th>
+        <th style="border-width: 1px dotted #999999;">CP</th>
+        <th style="border-width: 1px dotted #999999;">TD</th>
+        <th style="border-width: 1px dotted #999999;">PI</th>
+        <th style="border-width: 1px dotted #999999;">CAS</th>
+        <th style="border-width: 1px dotted #999999;">MVP</th>
+        <th style="border-width: 1px dotted #999999;">SPP</th>
+        <th style="border-width: 1px dotted #999999;">Value</th>
+    </tr>
+    <tr th:each="player : ${players}">
+        <td th:text="${player.playerId}"></td>
+        <td th:text="${player.name}"></td>
+        <td th:text="${player.position}"></td>
+        <td th:text="${player.ma}"></td>
+        <td th:text="${player.st}"></td>
+        <td th:text="${player.ag + '+'}"></td>
+        <td th:text="${player.pa + '+'}"></td>
+        <td th:text="${player.av + '+'}"></td>
+        <td>
+            <span th:each="s : ${player.baseSkills}">
+                <span th:text="${s.skill + ', '}"></span>
+            </span>
+        </td>
+        <td><!-- TODO: ADD MNG --></td>
+        <td th:text="${player.cp}"></td>
+        <td th:text="${player.td}"></td>
+        <td th:text="${player.pi}"></td>
+        <td th:text="${player.cas}"></td>
+        <td th:text="${player.mvp}"></td>
+        <td th:text="${player.spp}"></td>
+        <td th:text="${player.currentValue}"></td>
+    </tr>
+    <tr>
+        <td colspan="3">Total number of players next game:</td>
+        <td colspan="2">
+            <span th:text="${players.size() + '/' + players.size()}"></span>
+        </td>
+        <td colspan="4">Totals (excl TV for MNG players):</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td th:text="${team.currentTeamValue}"></td>
+    </tr>
+    <tr>
+        <th colspan="3" style="text-align: right;">Induced Stars and Mercenaries</th>
+        <th>MA</th>
+        <th>ST</th>
+        <th>AG</th>
+        <th>PA</th>
+        <th>AV</th>
+        <th>Skills</th>
+        <th>CP</th>
+        <th>TD</th>
+        <th>Int</th>
+        <th>Cas</th>
+        <th>MVP</th>
+        <th>SPP</th>
+        <th colspan="2">Value</th>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr><td>&nbsp;</td></tr>
+    <tr>
+        <td colspan="5" style="text-align: right;"><b>Inducements</b> (for next match)</td>
+        <th colspan="5" style="text-align: right;">Team Goods</th>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Bloodweiser Babes (0-2): __ x </td>
+        <td colspan="2">50000</td>
+        <td colspan="5" style="text-align: right;">Rerolls:</td>
+        <td th:text="${team.rerolls}"></td>
+        <td colspan="2" th:text="${'x ' + team.teamTemplateVO.rerollCost}"></td>
+        <td>=</td>
+        <td colspan="2" th:text="${team.rerolls * team.teamTemplateVO.rerollCost}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Bribes (0-3): __ x </td>
+        <td colspan="2">100000</td>
+        <td colspan="5" style="text-align: right;">Dedicated Fans:</td>
+        <td th:text="${team.dedicatedFans}"></td>
+        <td colspan="2">x 10000</td>
+        <td>=</td>
+        <td colspan="2" th:text="${team.dedicatedFans * 10000}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Extra Training (0-4): __ x </td>
+        <td colspan="2">100000</td>
+        <td colspan="5" style="text-align: right;">Assistant Coaches:</td>
+        <td th:text="${team.coaches}"></td>
+        <td colspan="2">x 10000</td>
+        <td>=</td>
+        <td colspan="2" th:text="${team.coaches * 10000}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Halfling Master Chef (0-1): __ x </td>
+        <td colspan="2">300000</td>
+        <td colspan="5" style="text-align: right;">Cheerleaders:</td>
+        <td th:text="${team.cheerleaders}"></td>
+        <td colspan="2">x 10000</td>
+        <td>=</td>
+        <td colspan="2" th:text="${team.cheerleaders * 10000}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Wandering Apothecaries (0-1): __ x </td>
+        <td colspan="2">100000</td>
+        <td colspan="5" style="text-align: right;">Apothecary:</td>
+        <td th:text="${team.hasApothecary ? '1' : '0'}"></td>
+        <td colspan="2">x 50000</td>
+        <td>=</td>
+        <td colspan="2" th:text="${(team.hasApothecary ? 1 : 0) * 50000}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Wizard (0-1): __ x </td>
+        <td colspan="2">150000</td>
+        <td colspan="8" style="text-align: right;">Treasury:</td>
+        <td colspan="5" style="text-align: right;" th:text="${team.treasury}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Card budget: __ x </td>
+        <td colspan="2">0</td>
+        <th colspan="8" style="text-align: right;">Team Value (incl MNGs value):</th>
+        <td colspan="5" style="text-align: right;" th:text="${team.currentTeamValue}"></td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">Gate:</td>
+        <td colspan="2">&nbsp;</td>
+        <th colspan="8" style="text-align: right;">Induced Value:</th>
+        <td colspan="5" style="text-align: right;">0</td>
+    </tr>
+    <tr>
+        <td colspan="3" style="text-align: right;">FAME:</td>
+        <td colspan="2">&nbsp;</td>
+        <th colspan="8" style="text-align: right;">Match Value (TV for match):</th>
+        <td colspan="5" style="text-align: right;" th:text="${team.currentTeamValue}"></td>
+    </tr>
+</table>
 </body>
 </html>
