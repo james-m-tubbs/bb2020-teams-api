@@ -2,6 +2,8 @@ package ca.gkworkbench.bb2020api.config;
 
 import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
 import ca.gkworkbench.bb2020api.auth.bo.impl.AuthBOImpl;
+import ca.gkworkbench.bb2020api.auth.dao.AuthDAO;
+import ca.gkworkbench.bb2020api.auth.dao.impl.AuthDAOImpl;
 import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
 import ca.gkworkbench.bb2020api.player.bo.PlayerTemplateBO;
 import ca.gkworkbench.bb2020api.player.bo.impl.PlayerBOImpl;
@@ -161,10 +163,16 @@ public class bb2020Config {
      * Auth Beans
      ******************************
      */
+    @Bean
+    public AuthDAO authDAO() {
+        AuthDAOImpl authDAOImpl = new AuthDAOImpl();
+        authDAOImpl.setDataSource(dataSource());
+        return authDAOImpl;
+    }
 
     @Bean
     public AuthBO authBO() {
-        AuthBO authBO = new AuthBOImpl(teamsBO());
+        AuthBO authBO = new AuthBOImpl(teamsDAO(), authDAO());
         return authBO;
     }
 }

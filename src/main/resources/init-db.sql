@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS coaches(`id` int NOT NULL AUTO_INCREMENT, username VA
 INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, validatedFlag) values(1, 'admin', 'admin', 'Y', 'Y');
 INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, validatedFlag) values(2, 'user', 'pass', 'N', 'N');
 
-CREATE TABLE IF NOT EXISTS sessions(coachId int NOT NULL, token VARCHAR(255), valid_to timestamp, FOREIGN KEY(coachId) REFERENCES coaches(id));
+CREATE TABLE IF NOT EXISTS coach_sessions(coachId int NOT NULL, bearer_token VARCHAR(255) NOT NULL, valid_to timestamp, FOREIGN KEY(coachId) REFERENCES coaches(id), UNIQUE(bearer_token));
 -- skill table
 CREATE TABLE IF NOT EXISTS Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255) NOT NULL, type CHAR(1) NOT NULL, PRIMARY KEY(`id`));
 -- general

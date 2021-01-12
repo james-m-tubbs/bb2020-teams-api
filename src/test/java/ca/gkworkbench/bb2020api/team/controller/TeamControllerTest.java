@@ -34,7 +34,7 @@ public class TeamControllerTest {
 
     @Test
     public void get_team_endpoint_success() throws Exception {
-        this.mockMvc.perform(get("/api/team/1"))
+        this.mockMvc.perform(get("/api/team/1").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
@@ -185,7 +185,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_delete_team_query_and_fail() throws Exception {
-        MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me"))
+        MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.teamTemplateId").value(6))
