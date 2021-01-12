@@ -123,6 +123,21 @@ public class TeamControllerTest {
     }
 
     @Test
+    public void create_team_no_auth() throws Exception {
+        this.mockMvc.perform(post("/api/team/create/5?teamName=Create%20Team%20Auth%20Missing"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void create_team_bad_auth() throws Exception {
+        this.mockMvc.perform(post("/api/team/create/5?teamName=Create%20Team%20Auth%20Bad").header("bearer_token", "broken_token"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isUnauthorized());
+    }
+
+
+    @Test
     public void create_team_with_custom_treasury() throws Exception {
         this.mockMvc.perform(post("/api/team/create/16?teamName=Create%20Team%20Custom%20Treasury&treasury=1").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
@@ -147,6 +162,20 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.teamTemplateVO.tier").value(1))
                 .andExpect(jsonPath("$.teamTemplateVO.specialRules").value("Badlands Brawl"))
                 .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true));
+    }
+
+    @Test
+    public void create_team_no_auth_custom_treasury() throws Exception {
+        this.mockMvc.perform(post("/api/team/create/5?teamName=Create%20Team%20Auth%20Missing&treasury=1"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void create_team_bad_auth_custom_treasury() throws Exception {
+        this.mockMvc.perform(post("/api/team/create/5?teamName=Create%20Team%20Auth%20Bad&treasury=1").header("bearer_token", "broken_token"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
@@ -203,7 +232,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void create_team_delete_twice_get_404() throws Exception {
+    public void create_team_delete_twice_get_401() throws Exception {
         MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me%20Twice").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -360,6 +389,20 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.players[1].currentValue").value("100000"))
                 .andExpect(jsonPath("$.players[1].cost").value("100000"))
                 .andExpect(jsonPath("$.players[1].fired").value(true));
+    }
+
+    @Test
+    public void hire_player_with_missing_auth() throws Exception {
+        this.mockMvc.perform(post("/api/team/7/players/hire/5?name=Mr%20Chaos%20Chosen"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void hire_player_with_bad_auth() throws Exception {
+        this.mockMvc.perform(post("/api/team/7/players/hire/5?name=Mr%20Chaos%20Chosen").header("bearer_token", "broken_token"))
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
