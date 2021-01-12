@@ -25,7 +25,7 @@ public class TeamsBOTest {
             TeamVO tVO = tBO.getTeamById(1, false);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getId() == 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getCoaches()==0);
@@ -55,7 +55,7 @@ public class TeamsBOTest {
             TeamVO tVO = tBO.getTeamByName("The Rookie Testers", false);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getId() == 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getCoaches()==0);
@@ -182,11 +182,11 @@ public class TeamsBOTest {
     @Test
     public void create_team_add_coaching_items_and_update_with_value() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Uthers Updates", 1, 1);
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Uthers Updates", 1, 9);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getTeamName().equals("Uthers Updates"));
             Assert.assertTrue(tVO.getId() > 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
 
@@ -252,11 +252,11 @@ public class TeamsBOTest {
 
                 if (tVO.getId() == 2) {
                     Assert.assertTrue(tVO.getTeamName().equalsIgnoreCase("The Orcy Orcsters"));
-                    Assert.assertTrue(tVO.getTeamTemplateId() == 2);
+                    Assert.assertTrue(tVO.getTeamTemplateId() == 16);
                 }
                 if (tVO.getId() == 3) {
                     Assert.assertTrue(tVO.getTeamName().equalsIgnoreCase("Da Hoomies"));
-                    Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+                    Assert.assertTrue(tVO.getTeamTemplateId() == 9);
                 }
             }
 
@@ -269,16 +269,16 @@ public class TeamsBOTest {
     @Test
     public void create_orc_team_and_hire_one_player() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Orc Team for Hiring", 1, 2);
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Orc Team for Hiring", 1, 16);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getTeamName().equals("Orc Team for Hiring"));
             Assert.assertTrue(tVO.getId() > 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 2);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 16);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
             Assert.assertFalse(tVO.hasApothecary());
 
-            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 12, "Orc Troll");
+            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 88, "Orc Troll");
 
             Assert.assertTrue(tVO.getTreasury()==885000);
             Assert.assertTrue(tVO.getCurrentTeamValue()==115000);
@@ -295,21 +295,21 @@ public class TeamsBOTest {
     @Test
     public void create_chaos_chosen_team_and_hire_players_then_validate_result() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("1milTV Chaos Team", 1, 3);
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("1milTV Chaos Team", 1, 2);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getTeamName().equals("1milTV Chaos Team"));
             Assert.assertTrue(tVO.getId() > 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 2);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
             Assert.assertFalse(tVO.hasApothecary());
 
             for (int i=0;i<7;i++) {
-                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 13, "Bestman:"+(i+1));
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 4, "Beastman "+(i+1));
             }
 
             for (int i=0;i<4;i++) {
-                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 14, "Chaos Warrior:"+(i+1));
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Blocker "+(i+1));
             }
 
             Assert.assertTrue(tVO.getTreasury()==180000);
@@ -327,8 +327,8 @@ public class TeamsBOTest {
     @Test
     public void create_new_team_hire_from_wrong_team() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Cant hire humans chaos", 1, 3);
-            tBO.hireRookiePlayerFromTemplateId(tVO, 1, "No Lineman 4 u!");
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Cant hire humans chaos", 1, 2);
+            tBO.hireRookiePlayerFromTemplateId(tVO, 45, "No Lineman 4 u!");
             Assert.fail("Expected a failure here");
         } catch (WarnException e) {
             Assert.assertTrue(e.getMessage().equalsIgnoreCase("Player (Human Lineman) cannot be hired by team"));
@@ -342,9 +342,9 @@ public class TeamsBOTest {
     @Test
     public void fire_player_no_games_played_get_refund_success() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Firing Humans", 1, 1);
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Firing Humans", 1, 9);
             Assert.assertTrue(tVO.getPlayers().size() == 0);
-            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 1, "Fired Lineman");
+            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 45, "Fired Lineman");
             System.err.println("Initial TeamVO:"+tVO);
             Assert.assertTrue(tVO.getTreasury() == 950000);
             Assert.assertTrue(tVO.getTeamValue() == 50000);

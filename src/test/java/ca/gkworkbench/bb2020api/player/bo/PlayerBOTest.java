@@ -33,7 +33,7 @@ public class PlayerBOTest {
     public void query_one_premade_player_with_base_skills_success() {
         try {
             PlayerVO pVO = pBO.getPlayerById(1);
-            Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Human Thrower"));
+            Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Thrower"));
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Tiberius Tosser"));
             Assert.assertTrue(pVO.getSpp()==15);
             Assert.assertTrue(pVO.getTd()==4);
@@ -45,9 +45,9 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertFalse(pVO.isLinemanFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId()==2);
+            Assert.assertTrue(pVO.getPlayerTemplateId()==46);
             Assert.assertTrue(pVO.getTeamId()==1);
-            Assert.assertTrue(pVO.getTeamTemplateId()==1);
+            Assert.assertTrue(pVO.getTeamTemplateId()==9);
             Assert.assertTrue(pVO.getQty() == 2);
             Assert.assertTrue(pVO.getCost() == 80000);
             Assert.assertTrue(pVO.getMA() == 6);
@@ -63,7 +63,7 @@ public class PlayerBOTest {
                     Assert.assertTrue(skillVO.getId()==2);
                     Assert.assertTrue(skillVO.getType().equalsIgnoreCase("G"));
                 } else if (skillVO.getSkill().equalsIgnoreCase("Pass")) {
-                    Assert.assertTrue(skillVO.getId()==45);
+                    Assert.assertTrue(skillVO.getId()==46);
                     Assert.assertTrue(skillVO.getType().equalsIgnoreCase("P"));
                 } else {
                     Assert.fail("Unexpected extra skill here: "+skillVO);
@@ -84,7 +84,7 @@ public class PlayerBOTest {
         try {
             PlayerVO pVO = pDAO.getPlayerForNameAndTeam(1, "Tiberius Tosser");
             pVO = pBO.getPlayerDetails(pVO);
-            Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Human Thrower"));
+            Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Thrower"));
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Tiberius Tosser"));
             Assert.assertTrue(pVO.getSpp()==15);
             Assert.assertTrue(pVO.getCas()==1);
@@ -96,9 +96,9 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertFalse(pVO.isLinemanFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId()==2);
+            Assert.assertTrue(pVO.getPlayerTemplateId()==46);
             Assert.assertTrue(pVO.getTeamId()==1);
-            Assert.assertTrue(pVO.getTeamTemplateId()==1);
+            Assert.assertTrue(pVO.getTeamTemplateId()==9);
             Assert.assertTrue(pVO.getQty() == 2);
             Assert.assertTrue(pVO.getCost() == 80000);
             Assert.assertTrue(pVO.getMA() == 6);
@@ -115,7 +115,7 @@ public class PlayerBOTest {
                     Assert.assertTrue(skillVO.getId()==2);
                     Assert.assertTrue(skillVO.getType().equalsIgnoreCase("G"));
                 } else if (skillVO.getSkill().equalsIgnoreCase("Pass")) {
-                    Assert.assertTrue(skillVO.getId()==45);
+                    Assert.assertTrue(skillVO.getId()==46);
                     Assert.assertTrue(skillVO.getType().equalsIgnoreCase("P"));
                 } else {
                     Assert.fail("Unexpected extra skill here: "+skillVO);
@@ -147,9 +147,9 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertTrue(pVO.isLinemanFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId()==1);
+            Assert.assertTrue(pVO.getPlayerTemplateId()==45);
             Assert.assertTrue(pVO.getTeamId()==1);
-            Assert.assertTrue(pVO.getTeamTemplateId()==1);
+            Assert.assertTrue(pVO.getTeamTemplateId()==9);
             Assert.assertTrue(pVO.getQty() == 16);
             Assert.assertTrue(pVO.getCost() == 50000);
             Assert.assertTrue(pVO.getMA() == 6);
@@ -201,9 +201,9 @@ public class PlayerBOTest {
                     Assert.assertFalse(pVO.isTempRetired());
                     Assert.assertTrue(pVO.isLinemanFlag());
                     Assert.assertNotNull(pVO.getBoughtSkills());
-                    Assert.assertTrue(pVO.getPlayerTemplateId() == 1);
+                    Assert.assertTrue(pVO.getPlayerTemplateId() == 45);
                     Assert.assertTrue(pVO.getTeamId() == 1);
-                    Assert.assertTrue(pVO.getTeamTemplateId() == 1);
+                    Assert.assertTrue(pVO.getTeamTemplateId() == 9);
                     Assert.assertTrue(pVO.getQty() == 16);
                     Assert.assertTrue(pVO.getCost() == 50000);
                     Assert.assertTrue(pVO.getMA() == 6);
@@ -239,7 +239,7 @@ public class PlayerBOTest {
     @Test
     public void create_player_from_template_success_and_query_as_part_of_team() {
         try {
-            PlayerVO createPVO = pBO.createPlayerFromTemplateId(1, 1, 1, "Leino Lino 2");
+            PlayerVO createPVO = pBO.createPlayerFromTemplateId(1, 9, 45, "Leino Lino 2");
 
             List<PlayerVO> pVOs = pBO.getPlayersByTeamId(createPVO.getTeamId());
             Assert.assertNotNull(pVOs);
@@ -259,9 +259,9 @@ public class PlayerBOTest {
                     Assert.assertFalse(pVO.isTempRetired());
                     Assert.assertTrue(pVO.isLinemanFlag());
                     Assert.assertNotNull(pVO.getBoughtSkills());
-                    Assert.assertTrue(pVO.getPlayerTemplateId() == 1);
+                    Assert.assertTrue(pVO.getPlayerTemplateId() == 45);
                     Assert.assertTrue(pVO.getTeamId() == 1);
-                    Assert.assertTrue(pVO.getTeamTemplateId() == 1);
+                    Assert.assertTrue(pVO.getTeamTemplateId() == 9);
                     Assert.assertTrue(pVO.getQty() == 16);
                     Assert.assertTrue(pVO.getCost() == 50000);
                     Assert.assertTrue(pVO.getMA() == 6);
@@ -284,7 +284,7 @@ public class PlayerBOTest {
     @Test
     public void create_player_from_template_success_and_validate_result() {
         try {
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, 1, "Leino Lino 3");
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 9, 45, "Leino Lino 3");
             Assert.assertTrue(pVO.getPosition().equalsIgnoreCase("Human Lineman"));
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Leino Lino 3"));
             Assert.assertTrue(pVO.getSpp() == 0);
@@ -298,9 +298,9 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertTrue(pVO.isLinemanFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId() == 1);
+            Assert.assertTrue(pVO.getPlayerTemplateId() == 45);
             Assert.assertTrue(pVO.getTeamId() == 1);
-            Assert.assertTrue(pVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(pVO.getTeamTemplateId() == 9);
             Assert.assertTrue(pVO.getQty() == 16);
             Assert.assertTrue(pVO.getCost() == 50000);
             Assert.assertTrue(pVO.getMA() == 6);
@@ -321,7 +321,7 @@ public class PlayerBOTest {
     @Test
     public void create_player_from_template_success_and_query_individually() {
         try {
-            PlayerVO createPVO = pBO.createPlayerFromTemplateId(1, 1, 1, "Leino Lino 4");
+            PlayerVO createPVO = pBO.createPlayerFromTemplateId(1, 9, 45, "Leino Lino 4");
 
             PlayerVO pVO = pBO.getPlayerById(createPVO.getPlayerId());
 
@@ -338,9 +338,9 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertTrue(pVO.isLinemanFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId() == 1);
+            Assert.assertTrue(pVO.getPlayerTemplateId() == 45);
             Assert.assertTrue(pVO.getTeamId() == 1);
-            Assert.assertTrue(pVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(pVO.getTeamTemplateId() == 9);
             Assert.assertTrue(pVO.getQty() == 16);
             Assert.assertTrue(pVO.getCost() == 50000);
             Assert.assertTrue(pVO.getMA() == 6);
@@ -388,9 +388,9 @@ public class PlayerBOTest {
     @Test
     public void create_too_many_players_of_the_same_position_fail() {
         try {
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, 4, "5th Blitzer Fail");
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 9, 48, "5th Blitzer Fail");
         } catch (WarnException e) {
-            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Human Blitzer"));
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Blitzer"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -412,11 +412,11 @@ public class PlayerBOTest {
     public void check_for_hiring_exceptions_too_many_positionals_fail() {
         try {
             //check if we can hire a blitzer
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(4);
-            pBO.checkForHiringExceptions(1, 1, ptVO);
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(48);
+            pBO.checkForHiringExceptions(1, 9, ptVO);
             Assert.fail("Exception expected");
         } catch (WarnException e) {
-            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Human Blitzer"));
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Blitzer"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
@@ -426,7 +426,7 @@ public class PlayerBOTest {
     @Test
     public void check_for_hiring_exceptions_wrong_team_right_playertemplate_fail() {
         try {
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(1);
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(45);
             pBO.checkForHiringExceptions(1, 2, ptVO);
             Assert.fail();
         } catch (WarnException e) {
@@ -440,7 +440,7 @@ public class PlayerBOTest {
     @Test
     public void check_for_hiring_exceptions_right_team_wrong_playertemplate_fail() {
         try {
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(7);
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(83);
             pBO.checkForHiringExceptions(1, 1, ptVO); // orc lineman
             Assert.fail();
         } catch (WarnException e) {
@@ -469,9 +469,9 @@ public class PlayerBOTest {
     @Test
     public void create_one_big_guy_for_chaos_and_pass() {
         try {
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(16); //chaos ogre
-            pBO.checkForHiringExceptions(3, 3, ptVO);
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(3, 3, ptVO.getPlayerTemplateId(), "Mr New Ogre");
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(7); //chaos ogre
+            pBO.checkForHiringExceptions(3, 2, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(3, 2, ptVO.getPlayerTemplateId(), "Mr New Ogre");
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr New Ogre"));
             Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Chaos Ogre")));
             Assert.assertTrue(pVO.getPlayerId() > 1);
@@ -488,15 +488,15 @@ public class PlayerBOTest {
         int playerId = 0;
 
         try {
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(6); //human ogre
-            pBO.checkForHiringExceptions(1, 1, ptVO);
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, ptVO.getPlayerTemplateId(), "Mr New Ogre 1");
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(50); //human ogre
+            pBO.checkForHiringExceptions(1, 9, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 9, ptVO.getPlayerTemplateId(), "Mr New Ogre 1");
             playerId = pVO.getPlayerId();
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr New Ogre 1"));
             Assert.assertTrue(pVO.getPlayerId() > 1);
             Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Ogre")));
 
-            pVO = pBO.createPlayerFromTemplateId(1, 1, ptVO.getPlayerTemplateId(), "Mr New Ogre 2");
+            pVO = pBO.createPlayerFromTemplateId(1, 9, ptVO.getPlayerTemplateId(), "Mr New Ogre 2");
             Assert.fail();
         } catch (WarnException e) {
             Assert.assertTrue(e.getMessage().equalsIgnoreCase("Positional Count Reached for Ogre"));
@@ -523,9 +523,9 @@ public class PlayerBOTest {
             Assert.assertFalse(checkFiredPVO.isTempRetired());
             Assert.assertFalse(checkFiredPVO.isLinemanFlag());
             Assert.assertNotNull(checkFiredPVO.getBoughtSkills());
-            Assert.assertTrue(checkFiredPVO.getPlayerTemplateId() == 6);
+            Assert.assertTrue(checkFiredPVO.getPlayerTemplateId() == 50);
             Assert.assertTrue(checkFiredPVO.getTeamId() == 1);
-            Assert.assertTrue(checkFiredPVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(checkFiredPVO.getTeamTemplateId() == 9);
             Assert.assertTrue(checkFiredPVO.getQty() == 1);
             Assert.assertTrue(checkFiredPVO.getCost() == 140000);
             Assert.assertTrue(checkFiredPVO.getMA() == 5);
@@ -539,9 +539,9 @@ public class PlayerBOTest {
             Assert.assertTrue(checkFiredPVO.getSecondary().contains("A"));
             Assert.assertTrue(checkFiredPVO.getSecondary().contains("G"));
 
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(6); //human ogre
-            pBO.checkForHiringExceptions(1, 1, ptVO);
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 1, ptVO.getPlayerTemplateId(), "Mr New Ogre 2");
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(50); //human ogre
+            pBO.checkForHiringExceptions(1, 9, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(1, 9, ptVO.getPlayerTemplateId(), "Mr New Ogre 2");
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr New Ogre 2"));
             Assert.assertTrue(pVO.getPlayerId() > 1);
             Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Ogre")));
@@ -556,9 +556,9 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertFalse(pVO.isLinemanFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId() == 6);
+            Assert.assertTrue(pVO.getPlayerTemplateId() == 50);
             Assert.assertTrue(pVO.getTeamId() == 1);
-            Assert.assertTrue(pVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(pVO.getTeamTemplateId() == 9);
             Assert.assertTrue(pVO.getQty() == 1);
             Assert.assertTrue(pVO.getCost() == 140000);
             Assert.assertTrue(pVO.getMA() == 5);
@@ -581,15 +581,15 @@ public class PlayerBOTest {
         int playerId = 0;
 
         try {
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(17); //human ogre
-            pBO.checkForHiringExceptions(6, 3, ptVO);
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(6, 3, ptVO.getPlayerTemplateId(), "Mr Minotaur");
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(8); //chaos chosen minotaur
+            pBO.checkForHiringExceptions(6, 2, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(6, 2, ptVO.getPlayerTemplateId(), "Mr Minotaur");
             playerId = pVO.getPlayerId();
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr Minotaur"));
             Assert.assertTrue(pVO.getPlayerId() > 1);
             Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Minotaur")));
 
-            pVO = pBO.createPlayerFromTemplateId(6, 3, 16, "Mr Chaos Ogre");
+            pVO = pBO.createPlayerFromTemplateId(6, 2, 7, "Mr Chaos Ogre");
             Assert.fail();
         } catch (WarnException e) {
             Assert.assertTrue(e.getMessage().equalsIgnoreCase("Big Guy Limit Reached for Chaos Ogre"));
@@ -615,10 +615,11 @@ public class PlayerBOTest {
             Assert.assertTrue(checkFiredPVO.isFired());
             Assert.assertFalse(checkFiredPVO.isTempRetired());
             Assert.assertFalse(checkFiredPVO.isLinemanFlag());
+            Assert.assertTrue(checkFiredPVO.isBigGuyFlag());
             Assert.assertNotNull(checkFiredPVO.getBoughtSkills());
-            Assert.assertTrue(checkFiredPVO.getPlayerTemplateId() == 17);
+            Assert.assertTrue(checkFiredPVO.getPlayerTemplateId() == 8);
             Assert.assertTrue(checkFiredPVO.getTeamId() == 6);
-            Assert.assertTrue(checkFiredPVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(checkFiredPVO.getTeamTemplateId() == 2);
             Assert.assertTrue(checkFiredPVO.getQty() == 1);
             Assert.assertTrue(checkFiredPVO.getCost() == 150000);
             Assert.assertTrue(checkFiredPVO.getMA() == 5);
@@ -632,11 +633,10 @@ public class PlayerBOTest {
             Assert.assertTrue(checkFiredPVO.getPrimary().contains("M"));
             Assert.assertTrue(checkFiredPVO.getSecondary().contains("A"));
             Assert.assertTrue(checkFiredPVO.getSecondary().contains("G"));
-            Assert.assertTrue(checkFiredPVO.isOnePerTeam());
 
-            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(15); //human ogre
-            pBO.checkForHiringExceptions(6, 3, ptVO);
-            PlayerVO pVO = pBO.createPlayerFromTemplateId(6, 3, ptVO.getPlayerTemplateId(), "Mr Troll");
+            PlayerTemplateVO ptVO = ptDAO.getPlayerTemplateVOById(6); //Chaos Troll
+            pBO.checkForHiringExceptions(6, 2, ptVO);
+            PlayerVO pVO = pBO.createPlayerFromTemplateId(6, 2, ptVO.getPlayerTemplateId(), "Mr Troll");
             Assert.assertTrue(pVO.getName().equalsIgnoreCase("Mr Troll"));
             Assert.assertTrue(pVO.getPlayerId() > 1);
             Assert.assertTrue((pVO.getPosition().equalsIgnoreCase("Chaos Troll")));
@@ -650,10 +650,11 @@ public class PlayerBOTest {
             Assert.assertFalse(pVO.isFired());
             Assert.assertFalse(pVO.isTempRetired());
             Assert.assertFalse(pVO.isLinemanFlag());
+            Assert.assertTrue(pVO.isBigGuyFlag());
             Assert.assertNotNull(pVO.getBoughtSkills());
-            Assert.assertTrue(pVO.getPlayerTemplateId() == 15);
+            Assert.assertTrue(pVO.getPlayerTemplateId() == 6);
             Assert.assertTrue(pVO.getTeamId() == 6);
-            Assert.assertTrue(pVO.getTeamTemplateId() == 3);
+            Assert.assertTrue(pVO.getTeamTemplateId() == 2);
             Assert.assertTrue(pVO.getQty() == 1);
             Assert.assertTrue(pVO.getCost() == 115000);
             Assert.assertTrue(pVO.getMA() == 4);
@@ -667,7 +668,6 @@ public class PlayerBOTest {
             Assert.assertTrue(pVO.getPrimary().contains("M"));
             Assert.assertTrue(pVO.getSecondary().contains("A"));
             Assert.assertTrue(pVO.getSecondary().contains("G"));
-            Assert.assertTrue(pVO.isOnePerTeam());
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();

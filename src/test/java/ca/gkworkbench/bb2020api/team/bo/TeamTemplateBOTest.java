@@ -22,7 +22,7 @@ public class TeamTemplateBOTest {
     @Test
     public void query_human_team_no_details() {
         try {
-            TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(1, false);
+            TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(9, false);
             //System.err.println(ttVO.toString());
             Assert.assertTrue(ttVO.getTeamType().equals("Human"));
             Assert.assertTrue(ttVO.getRerollCost()==50000);
@@ -40,7 +40,7 @@ public class TeamTemplateBOTest {
     public void query_orc_team_with_details() {
         try {
             //check the base template
-            TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(2, true);
+            TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(16, true);
             //System.err.println(ttVO.toString());
             Assert.assertTrue(ttVO.getTeamType().equals("Orc"));
             Assert.assertTrue(ttVO.getRerollCost()==60000);
@@ -57,14 +57,14 @@ public class TeamTemplateBOTest {
     public void query_black_orc_team_with_player_details() {
         try {
             //get the detailed template
-            TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(7, true);
+            TeamTemplateVO ttVO = ttBO.getTeamTemplateByID(1, true);
             //System.err.println(ttVO.toString());
             Assert.assertTrue(ttVO.getPtVOs().size() == 3);
 
             //check the goblin stats
             PlayerTemplateVO ptVO = ttVO.getPtVOs().get(0);
             //System.err.println(ptVO.toString());
-            Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Goblin Bruiser"));
+            Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Goblin Bruiser Lineman"));
             Assert.assertTrue(ptVO.getCost()==45000);
 
             //check the goblin skills

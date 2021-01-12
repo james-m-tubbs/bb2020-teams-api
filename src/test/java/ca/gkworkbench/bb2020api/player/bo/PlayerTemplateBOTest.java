@@ -19,21 +19,23 @@ public class PlayerTemplateBOTest {
     PlayerTemplateBO ptBO;
 
     @Test
-    public void test_get_human_lineman_from_id() {
+    public void test_get_goblin_bruiser_from_id() {
         try {
             PlayerTemplateVO ptVO = ptBO.getPlayerTemplateById(1);
             System.err.println(ptVO);
             Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
             Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
-            Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
-            Assert.assertTrue(ptVO.getQty() == 16);
-            Assert.assertTrue(ptVO.getCost() == 50000);
+            Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Goblin Bruiser Lineman"));
+            Assert.assertTrue(ptVO.isLinemanFlag() == true);
+            Assert.assertTrue(ptVO.isBigGuyFlag() == false);
+            Assert.assertTrue(ptVO.getQty() == 12);
+            Assert.assertTrue(ptVO.getCost() == 45000);
             Assert.assertTrue(ptVO.getMA() == 6);
-            Assert.assertTrue(ptVO.getST() == 3);
+            Assert.assertTrue(ptVO.getST() == 2);
             Assert.assertTrue(ptVO.getAG() == 3);
             Assert.assertTrue(ptVO.getPA() == 4);
-            Assert.assertTrue(ptVO.getAV() == 9);
-            Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
+            Assert.assertTrue(ptVO.getAV() == 8);
+            Assert.assertTrue(ptVO.getBaseSkills().size() == 4);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();;
@@ -55,11 +57,11 @@ public class PlayerTemplateBOTest {
     }
 
     @Test
-    public void test_get_human_players_by_team_id() {
+    public void test_get_black_orc_players_by_team_id() {
         try {
             List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(1);
             System.err.println(ptVOs);
-            Assert.assertTrue(ptVOs.size() == 6);
+            Assert.assertTrue(ptVOs.size() == 3);
             PlayerTemplateVO ptVO;
             //checking for each player on the team
             for (int i=0; i<ptVOs.size(); i++) {
@@ -68,16 +70,17 @@ public class PlayerTemplateBOTest {
                     System.err.println(ptVO);
                     Assert.assertTrue(ptVO.getPlayerTemplateId() == 1);
                     Assert.assertTrue(ptVO.getTeamTemplateId() == 1);
-                    Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Human Lineman"));
-                    Assert.assertTrue(ptVO.getQty() == 16);
-                    Assert.assertTrue(ptVO.getCost() == 50000);
+                    Assert.assertTrue(ptVO.getPosition().equalsIgnoreCase("Goblin Bruiser Lineman"));
+                    Assert.assertTrue(ptVO.isLinemanFlag() == true);
+                    Assert.assertTrue(ptVO.isBigGuyFlag() == false);
+                    Assert.assertTrue(ptVO.getQty() == 12);
+                    Assert.assertTrue(ptVO.getCost() == 45000);
                     Assert.assertTrue(ptVO.getMA() == 6);
-                    Assert.assertTrue(ptVO.getST() == 3);
+                    Assert.assertTrue(ptVO.getST() == 2);
                     Assert.assertTrue(ptVO.getAG() == 3);
                     Assert.assertTrue(ptVO.getPA() == 4);
-                    Assert.assertTrue(ptVO.getAV() == 9);
-                    Assert.assertTrue(ptVO.getBaseSkills().size() == 0);
-                    Assert.assertFalse(ptVO.isOnePerTeam());
+                    Assert.assertTrue(ptVO.getAV() == 8);
+                    Assert.assertTrue(ptVO.getBaseSkills().size() == 4);
                 }
             }
         } catch (Exception e) {
@@ -89,17 +92,19 @@ public class PlayerTemplateBOTest {
     }
 
     @Test
-    public void test_get_human_lineman_from_get_player_templates_by_team_id() {
+    public void test_get_goblin_bruiser_from_get_player_templates_by_team_id() {
         try {
             List<PlayerTemplateVO> ptVOs = ptBO.getPlayerTemplatesByTeamId(1);
             System.err.println(ptVOs);
-            Assert.assertTrue(ptVOs.size() == 6);
+            Assert.assertTrue(ptVOs.size() == 3);
             PlayerTemplateVO ptVO;
             //checking for each player on the team
             for (int i=0; i<ptVOs.size(); i++) {
                 ptVO = ptVOs.get(i);
                 Assert.assertNotNull(ptVO);
                 Assert.assertNotNull(ptVO.getBaseSkills());
+                Assert.assertNotNull(ptVO.isLinemanFlag());
+                Assert.assertNotNull(ptVO.isBigGuyFlag());
                 Assert.assertNotNull(ptVO.getMA());
                 Assert.assertNotNull(ptVO.getST());
                 Assert.assertNotNull(ptVO.getAG());

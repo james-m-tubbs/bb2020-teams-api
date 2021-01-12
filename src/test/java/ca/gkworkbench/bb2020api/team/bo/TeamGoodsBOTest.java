@@ -190,11 +190,11 @@ public class TeamGoodsBOTest {
     @Test
     public void buy_8_rerolls_new_team_and_success() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("8 rerolls?!", 1, 1);
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("8 rerolls?!", 1, 9);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getTeamName().equals("8 rerolls?!"));
             Assert.assertTrue(tVO.getId() > 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
             for (int i = 0; i < 8; i++) {
@@ -214,11 +214,11 @@ public class TeamGoodsBOTest {
     @Test
     public void buy_reroll_verify_delete_verify_new_team_and_success() {
         try {
-            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("buy reroll and delete", 1, 1);
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("buy reroll and delete", 1, 9);
             System.err.println(tVO);
             Assert.assertTrue(tVO.getTeamName().equals("buy reroll and delete"));
             Assert.assertTrue(tVO.getId() > 1);
-            Assert.assertTrue(tVO.getTeamTemplateId() == 1);
+            Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getCoachId() == 1);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
             for (int i = 0; i < 8; i++) {

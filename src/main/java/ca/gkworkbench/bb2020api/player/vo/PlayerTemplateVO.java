@@ -10,6 +10,7 @@ public class PlayerTemplateVO {
     int teamTemplateId;
     String position;
     boolean linemanFlag;
+    boolean bigGuyFlag;
     int qty;
     int cost;
     int MA;
@@ -20,13 +21,13 @@ public class PlayerTemplateVO {
     List<SkillVO> baseSkills;
     String primary;
     String secondary;
-    boolean onePerTeam;
 
-    public PlayerTemplateVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary, boolean onePerTeam) {
+    public PlayerTemplateVO(int playerTemplateId, int teamTemplateId, String position, boolean linemanFlag, boolean bigGuyFlag, int qty, int cost, int MA, int ST, int AG, int PA, int AV, List<SkillVO> baseSkills, String primary, String secondary) {
         this.playerTemplateId = playerTemplateId;
         this.teamTemplateId = teamTemplateId;
         this.position = position;
         this.linemanFlag = linemanFlag;
+        this.bigGuyFlag = bigGuyFlag;
         this.qty = qty;
         this.cost = cost;
         this.MA = MA;
@@ -37,7 +38,6 @@ public class PlayerTemplateVO {
         this.baseSkills = baseSkills;
         this.primary = primary;
         this.secondary = secondary;
-        this.onePerTeam = onePerTeam;
     }
 
     public void setBaseSkills(List<SkillVO> baseSkills) {
@@ -59,6 +59,8 @@ public class PlayerTemplateVO {
     public boolean isLinemanFlag() {
         return linemanFlag;
     }
+
+    public boolean isBigGuyFlag() { return bigGuyFlag; }
 
     public int getQty() {
         return qty;
@@ -100,10 +102,6 @@ public class PlayerTemplateVO {
         return secondary;
     }
 
-    public boolean isOnePerTeam() {
-        return onePerTeam;
-    }
-
     @Override
     public String toString() {
         return "PlayerTemplateVO{" +
@@ -111,6 +109,7 @@ public class PlayerTemplateVO {
                 ", teamTemplateId=" + teamTemplateId +
                 ", position='" + position + '\'' +
                 ", linemanFlag=" + linemanFlag +
+                ", bigGuyFlag=" + bigGuyFlag +
                 ", qty=" + qty +
                 ", cost=" + cost +
                 ", MA=" + MA +
@@ -121,7 +120,6 @@ public class PlayerTemplateVO {
                 ", baseSkills=" + baseSkills +
                 ", primary='" + primary + '\'' +
                 ", secondary='" + secondary + '\'' +
-                ", onePerTeam=" + onePerTeam +
                 '}';
     }
 }
