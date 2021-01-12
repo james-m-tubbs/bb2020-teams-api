@@ -97,7 +97,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_success() throws Exception {
-        this.mockMvc.perform(post("/api/team/create/5?teamName=Create%20Team%20Success"))
+        this.mockMvc.perform(post("/api/team/create/5?teamName=Create%20Team%20Success").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -124,7 +124,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_with_custom_treasury() throws Exception {
-        this.mockMvc.perform(post("/api/team/create/16?teamName=Create%20Team%20Custom%20Treasury&treasury=1"))
+        this.mockMvc.perform(post("/api/team/create/16?teamName=Create%20Team%20Custom%20Treasury&treasury=1").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -151,7 +151,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_twice_and_expect_a_failure() throws Exception {
-        this.mockMvc.perform(post("/api/team/create/9?teamName=Double%20Troubles"))
+        this.mockMvc.perform(post("/api/team/create/9?teamName=Double%20Troubles").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -176,7 +176,7 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.teamTemplateVO.apothecary").value(true));
 
 
-        String error = this.mockMvc.perform(post("/api/team/create/9?teamName=Double%20Troubles"))
+        String error = this.mockMvc.perform(post("/api/team/create/9?teamName=Double%20Troubles").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().is4xxClientError())
                 .andReturn().getResolvedException().getMessage();
 
@@ -194,7 +194,7 @@ public class TeamControllerTest {
 
         Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
 
-        this.mockMvc.perform(post("/api/team/"+id+"/delete"))
+        this.mockMvc.perform(post("/api/team/"+id+"/delete").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk());
 
         this.mockMvc.perform(get("/api/team/" + id))
@@ -204,7 +204,7 @@ public class TeamControllerTest {
 
     @Test
     public void create_team_delete_twice_get_404() throws Exception {
-        MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me%20Twice"))
+        MvcResult result = this.mockMvc.perform(post("/api/team/create/6?teamName=Delete%20Me%20Twice").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.teamTemplateId").value(6))
@@ -213,11 +213,11 @@ public class TeamControllerTest {
 
         Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
 
-        this.mockMvc.perform(post("/api/team/"+id+"/delete"))
+        this.mockMvc.perform(post("/api/team/"+id+"/delete").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk());
 
         //delete is idempotent
-        this.mockMvc.perform(post("/api/team/"+id+"/delete"))
+        this.mockMvc.perform(post("/api/team/"+id+"/delete").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -314,7 +314,7 @@ public class TeamControllerTest {
 
     @Test
     public void hire_and_fire_player_to_chaos_team_and_validate_success() throws Exception {
-        MvcResult result = this.mockMvc.perform(post("/api/team/7/players/hire/5?name=Mr%20Chaos%20Chosen"))
+        MvcResult result = this.mockMvc.perform(post("/api/team/7/players/hire/5?name=Mr%20Chaos%20Chosen").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -341,7 +341,7 @@ public class TeamControllerTest {
 
         Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.players[1].playerId");
 
-        this.mockMvc.perform(post("/api/team/7/players/fire/"+id))
+        this.mockMvc.perform(post("/api/team/7/players/fire/"+id).header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").isNumber())
@@ -364,35 +364,35 @@ public class TeamControllerTest {
 
     @Test
     public void hire_player_for_wrong_team_id() throws Exception {
-        this.mockMvc.perform(post("/api/team/1/players/hire/14?name=Mr%20Chaos%20Chosen"))
+        this.mockMvc.perform(post("/api/team/1/players/hire/14?name=Mr%20Chaos%20Chosen").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void hire_player_for_missing_team_id() throws Exception {
-        this.mockMvc.perform(post("/api/team/99999999/players/hire/14?name=Mr%20Chaos%20Chosen"))
+        this.mockMvc.perform(post("/api/team/99999999/players/hire/14?name=Mr%20Chaos%20Chosen").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().is4xxClientError())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
     public void fire_player_from_missing_team_id() throws Exception {
-        this.mockMvc.perform(post("/api/team/999999/players/fire/1"))
+        this.mockMvc.perform(post("/api/team/999999/players/fire/1").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().is4xxClientError())
-                .andExpect(status().isNotFound());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
     public void fire_player_from_wrong_team() throws Exception {
-        this.mockMvc.perform(post("/api/team/7/players/fire/1"))
+        this.mockMvc.perform(post("/api/team/7/players/fire/1").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void fire_missing_player_from_team() throws Exception {
-        this.mockMvc.perform(post("/api/team/7/players/fire/999999"))
+        this.mockMvc.perform(post("/api/team/7/players/fire/999999").header("bearer_token", "thisisaworkingtoken"))
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
     }

@@ -11,17 +11,19 @@ import java.sql.SQLException;
 
 public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
 
-    private final String SELECT_AUTH_BY_ID = "SELECT coachId, bearer_token from coach_sessions where id = ?";
+    private final String SELECT_AUTH_BY_ID = "SELECT coachId, bearer_token from coach_sessions where coachId = ?";
     @Override
     public AuthVO getAuthForCoachId(int coachId) throws Exception {
         return (AuthVO)getJdbcTemplate().queryForObject(SELECT_AUTH_BY_ID, new AuthDAOImpl.AuthVORowMapper(), new Object[]{coachId});
     }
 
-    private final String SELECT_COACHID_BY_TOKEN = "SELECT coachId from coach_sessions where bearer_token = ?";
+    private final String SELECT_COACHID_BY_TOKEN = "SELECT coachId, bearer_token from coach_sessions where bearer_token = ?";
     @Override
     public Integer getCoachIdFromToken(String token) throws Exception {
         try {
-            return (Integer) getJdbcTemplate().queryForObject(SELECT_COACHID_BY_TOKEN, new AuthDAOImpl.AuthVORowMapper(), new Object[]{token});
+            AuthVO authVO = (AuthVO) getJdbcTemplate().queryForObject(SELECT_COACHID_BY_TOKEN, new AuthDAOImpl.AuthVORowMapper(), new Object[]{token});
+            if (authVO != null) return authVO.getCoachId();
+            return null;
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -29,8 +31,8 @@ public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
 
     private final String DELETE_OLD_TOKENS_BY_COACHID = "DELETE FROM coach_sessions WHERE valid_to < CURRENT_TIMESTAMP";
     @Override
-    public void deleteOldSessions(int coachId) throws Exception {
-        getJdbcTemplate().update(DELETE_OLD_TOKENS_BY_COACHID, new Object[]{coachId});
+    public void deleteOldSessions() throws Exception {
+        getJdbcTemplate().update(DELETE_OLD_TOKENS_BY_COACHID);
     }
 
     @Override

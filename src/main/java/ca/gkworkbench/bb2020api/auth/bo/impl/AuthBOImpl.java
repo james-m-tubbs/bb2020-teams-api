@@ -24,7 +24,7 @@ public class AuthBOImpl implements AuthBO {
         if (token == null) throw new AuthException("");
         Integer coachId = aDAO.getCoachIdFromToken(token);
         if (coachId == null) throw new AuthException(""); // if the
-        aDAO.deleteOldSessions(coachId);
+        aDAO.deleteOldSessions();
         AuthVO aVO = aDAO.getAuthForCoachId(coachId);
         if (aVO == null) throw new AuthException("");
         return aVO.getCoachId();
@@ -39,7 +39,7 @@ public class AuthBOImpl implements AuthBO {
     @Override
     public boolean hasAccessToModifyTeam(int coachId, int teamId) throws WarnException, AuthException, Exception {
         TeamVO tVO = tDAO.getTeamById(teamId);
-        if (tVO == null) throw new WarnException("Team doesn't exist");
+        if (tVO == null) throw new AuthException("Team doesn't exist");
         boolean isAdmin = false; //TODO create an admin check here
         if (tVO.getCoachId() != coachId && !isAdmin) throw new AuthException("No access to modify team");
         return true;

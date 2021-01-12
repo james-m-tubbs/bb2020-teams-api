@@ -6,7 +6,7 @@ public interface AuthDAO {
 
     public AuthVO getAuthForCoachId(int coachId) throws Exception;
 
-    public void deleteOldSessions(int coachId) throws Exception;
+    public void deleteOldSessions() throws Exception;
 
     public boolean login(String username, String saltedPassword) throws Exception;
 
