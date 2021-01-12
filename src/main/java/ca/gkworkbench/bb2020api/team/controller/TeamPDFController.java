@@ -39,11 +39,27 @@ public class TeamPDFController {
             byte[] pdf = generateByteArrayFromHTML(html);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
-            // Here you have to set the actual filename of your pdf
             String filename = tVO.getTeamName().replace(" ","_")+".pdf";
             headers.setContentDispositionFormData(filename, filename);
             headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
             ResponseEntity<byte[]> response = new ResponseEntity<>(pdf, headers, HttpStatus.OK);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Not Found"
+            );
+        }
+    }
+
+    @RequestMapping(value = "/api/team/html/{teamId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ResponseEntity<?> getHtmlForTeamId(@PathVariable("teamId") int teamId) {
+        try {
+            TeamVO tVO = tBO.getTeamById(teamId, true);
+            if (tVO == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            String html = generateHtmlFromTeamVO(tVO);
+            // Here you have to set the actual filename of your pdf
+            ResponseEntity<?> response = new ResponseEntity<>(html, HttpStatus.OK);
             return response;
         } catch (Exception e) {
             e.printStackTrace();

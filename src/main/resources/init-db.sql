@@ -2,8 +2,12 @@
 SET MODE MYSQL;
 --user table
 CREATE TABLE IF NOT EXISTS coaches(id int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, adminFlag CHAR(1), validatedFlag CHAR(1), PRIMARY KEY(id));
-INSERT IGNORE INTO coaches (id,username, password, adminFlag, validatedFlag) values(1, 'admin', 'admin', 'Y', 'Y');
-INSERT IGNORE INTO coaches (id,username, password, adminFlag, validatedFlag) values(2, 'user', 'pass', 'N', 'N');
+INSERT IGNORE INTO coaches(id,username, password, adminFlag, validatedFlag) values(1, 'admin', 'admin', 'Y', 'Y');
+INSERT IGNORE INTO coaches(id,username, password, adminFlag, validatedFlag) values(2, 'user', 'pass', 'N', 'N');
+
+CREATE TABLE IF NOT EXISTS sessions(coachId int NOT NULL, token VARCHAR(255), valid_to timestamp, FOREIGN KEY(coachId) REFERENCES coaches(id));
+INSERT IGNORE INTO sessions(1, 'thisisaworkingtoken', NOW() + INTERVAL 1 DAY);
+INSERT IGNORE INTO sessions(2, 'thisisanoldtoken', NOW() - INTERVAL 1 DAY);
 
 --skill table
 CREATE TABLE IF NOT EXISTS Skills(id int NOT NULL AUTO_INCREMENT, skill VARCHAR(255) NOT NULL, type CHAR(1) NOT NULL);
