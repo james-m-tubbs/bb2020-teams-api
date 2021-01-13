@@ -22,7 +22,6 @@ public class AuthBOImpl implements AuthBO {
         this.aDAO = aDAO;
     }
 
-
     @Override
     public int getUserId(String token) throws WarnException, AuthException, Exception {
         if (token == null) throw new AuthException("");
@@ -70,7 +69,15 @@ public class AuthBOImpl implements AuthBO {
 
     @Override
     public TokenVO createUser(String username, String password) throws Exception {
-        return null; //TODO
+        //create the user
+        byte[] salt = generateSalt();
+        byte[] hashPassword = saltPassword(password, salt);
+        UserVO userVO = new UserVO(-1, salt, hashPassword, false, username);
+        //aDAO.insertUser(userVO); //TODO
+
+        //create the token
+        userVO = aDAO.getUserVOForCoachName(username);
+        return generateToken(userVO.getCoachId());
     }
 
     @Override
@@ -93,8 +100,8 @@ public class AuthBOImpl implements AuthBO {
         return md.digest(password.getBytes(StandardCharsets.UTF_8));
     }
 
-    private TokenVO generateToken(int coachId) {
-        //insert a new token and return it
-        return null;
+    private TokenVO generateToken(int coachId) throws Exception {
+        //aDAO.insertAuthForCoachId(coachId); //TODO
+        return aDAO.getAuthForCoachId(coachId);
     }
 }
