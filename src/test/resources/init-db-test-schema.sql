@@ -1,9 +1,9 @@
 -- only for h2
 SET MODE MYSQL;
 -- user table
-CREATE TABLE IF NOT EXISTS coaches(`id` int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, `password` VARCHAR(255) NOT NULL, adminFlag CHAR(1), validatedFlag CHAR(1), PRIMARY KEY(`id`));
-INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, validatedFlag) values(1, 'admin', 'admin', 'Y', 'Y');
-INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, validatedFlag) values(2, 'user', 'pass', 'N', 'N');
+CREATE TABLE IF NOT EXISTS coaches(`id` int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, `password` VARBINARY(16) NOT NULL, adminFlag CHAR(1) NOT NULL DEFAULT 'N', salt VARBINARY(16) NOT NULL, PRIMARY KEY(`id`), UNIQUE(salt), unique(username));
+INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, salt) values(1, 'admin', 'admin', 'Y', 'testvarbinary1');
+INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, salt) values(2, 'user', 'pass', 'N',  'testvarbinary2');
 
 CREATE TABLE IF NOT EXISTS coach_sessions(coachId int NOT NULL, bearer_token VARCHAR(255) NOT NULL, valid_to timestamp, FOREIGN KEY(coachId) REFERENCES coaches(id), UNIQUE(bearer_token));
 -- skill table

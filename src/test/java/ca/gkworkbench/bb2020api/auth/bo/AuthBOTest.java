@@ -1,10 +1,8 @@
 package ca.gkworkbench.bb2020api.auth.bo;
 
-import ca.gkworkbench.bb2020api.auth.AuthVO;
 import ca.gkworkbench.bb2020api.auth.dao.AuthDAO;
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
 import ca.gkworkbench.bb2020api.exception.AuthException;
-import ca.gkworkbench.bb2020api.exception.WarnException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

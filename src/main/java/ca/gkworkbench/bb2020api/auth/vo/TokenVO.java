@@ -1,13 +1,13 @@
-package ca.gkworkbench.bb2020api.auth;
+package ca.gkworkbench.bb2020api.auth.vo;
 
 import java.sql.Date;
 
-public class AuthVO {
+public class TokenVO {
 
     private int coachId;
     private String bearer_token;
 
-    public AuthVO(int coachId, String bearer_token) {
+    public TokenVO(int coachId, String bearer_token) {
         this.coachId = coachId;
         this.bearer_token = bearer_token;
     }
