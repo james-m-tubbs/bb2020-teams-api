@@ -6,7 +6,7 @@ import ca.gkworkbench.bb2020api.exception.WarnException;
 
 public interface AuthBO {
 
-    public int getUserId(String token) throws WarnException, AuthException, Exception;
+    public int getUserIdAndValidateToken(String token) throws WarnException, AuthException, Exception;
 
     public boolean hasAccessToModifyTeam(int coachId, int teamId) throws WarnException, Exception;
 

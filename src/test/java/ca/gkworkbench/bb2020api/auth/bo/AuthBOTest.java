@@ -21,11 +21,14 @@ public class AuthBOTest {
     @Autowired
     AuthDAO authDAO;
 
-//    public int getUserId(String token) throws WarnException, AuthException, Exception;
+
+    /*******************************************
+     public int getUserId(String token) throws WarnException, AuthException, Exception;     *
+     *******************************************/
     @Test
     public void testValidToken() {
         try {
-            int coachId = authBO.getUserId("thisisaworkingtoken");
+            int coachId = authBO.getUserIdAndValidateToken("thisisaworkingtoken");
             Assert.assertTrue(coachId == 1);
         } catch (Exception e) {
             e.printStackTrace();
@@ -36,7 +39,7 @@ public class AuthBOTest {
     @Test
     public void testInvalidToken() {
         try {
-            int coachId = authBO.getUserId("this is not a token at all");
+            int coachId = authBO.getUserIdAndValidateToken("this is not a token at all");
             Assert.fail("Shouldn't get here");
         } catch (AuthException e) {
             Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
@@ -49,7 +52,7 @@ public class AuthBOTest {
     @Test
     public void testNullToken() {
         try {
-            int coachId = authBO.getUserId(null);
+            int coachId = authBO.getUserIdAndValidateToken(null);
             Assert.fail("Shouldn't get here");
         } catch (AuthException e) {
             Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
@@ -58,8 +61,9 @@ public class AuthBOTest {
             Assert.fail(e.getMessage());
         }
     }
-
-    //  public boolean hasAccessToModifyTeam(int coachId, int teamId) throws WarnException, Exception;
+    /*******************************************
+     //  public boolean hasAccessToModifyTeam(int coachId, int teamId) throws WarnException, Exception;
+     *******************************************/
     @Test
     public void test_access_to_modify_team_success() {
         try {
@@ -109,8 +113,10 @@ public class AuthBOTest {
             Assert.fail(e.getMessage());
         }
     }
-//
-//    public boolean hasAccessToModifyTeam(String token, int teamId) throws WarnException, Exception;
+
+    /*******************************************
+     // public boolean hasAccessToModifyTeam(String token, int teamId) throws WarnException, Exception;
+     *******************************************/
     private final String auth_token = "thisisaworkingtoken";
 
     @Test
@@ -136,17 +142,20 @@ public class AuthBOTest {
         }
     }
 
-//    public AuthVO login(String username, String password) throws WarnException;
+    /*******************************************
+     //    public TokenVO createUser(String username, String password) throws WarnException, Exception;     *
+     //    public AuthVO login(String username, String password) throws WarnException;
+     *******************************************/
     @Test
-    public void test_create_user_and_login() {
+    public void test_create_user_and_login_success() {
         try {
-            TokenVO firstTokenVO = authBO.createUser("createduser","createdpassword");
+            TokenVO firstTokenVO = authBO.createUser("createduser1","createdpassword1");
             Assert.assertNotNull(firstTokenVO);
             Assert.assertNotNull(firstTokenVO.getBearer_token());
             Assert.assertTrue(firstTokenVO.getCoachId() > 1);
             String firstToken = firstTokenVO.getBearer_token();
 
-            TokenVO secondTokenVO = authBO.login("createduser", "createdpassword");
+            TokenVO secondTokenVO = authBO.login("createduser1", "createdpassword1");
             Assert.assertNotNull(secondTokenVO);
             Assert.assertNotNull(secondTokenVO.getBearer_token());
             Assert.assertTrue(secondTokenVO.getCoachId() > 1);
@@ -155,6 +164,26 @@ public class AuthBOTest {
         } catch (AuthException e) {
             System.err.println(e.getMessage());
             Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_create_user_and_login_fail() {
+        try {
+            TokenVO firstTokenVO = authBO.createUser("createduser2","createdpassword");
+            Assert.assertNotNull(firstTokenVO);
+            Assert.assertNotNull(firstTokenVO.getBearer_token());
+            Assert.assertTrue(firstTokenVO.getCoachId() > 1);
+            String firstToken = firstTokenVO.getBearer_token();
+
+            TokenVO secondTokenVO = authBO.login("createduser2", "wrongpassword");
+            Assert.fail();
+        } catch (AuthException e) {
+            System.err.println(e.getMessage());
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase("Username or password invalid"));
         } catch (Exception e) {
             e.printStackTrace();
             Assert.fail(e.getMessage());

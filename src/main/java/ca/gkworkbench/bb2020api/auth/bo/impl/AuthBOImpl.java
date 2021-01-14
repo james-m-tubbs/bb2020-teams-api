@@ -25,7 +25,7 @@ public class AuthBOImpl implements AuthBO {
     }
 
     @Override
-    public int getUserId(String token) throws WarnException, AuthException, Exception {
+    public int getUserIdAndValidateToken(String token) throws WarnException, AuthException, Exception {
         if (token == null) throw new AuthException("");
         Integer coachId = aDAO.getCoachIdFromToken(token);
         if (coachId == null) throw new AuthException(""); // if the
@@ -37,7 +37,7 @@ public class AuthBOImpl implements AuthBO {
 
     @Override
     public boolean hasAccessToModifyTeam(String token, int teamId) throws WarnException, AuthException, Exception {
-        int coachId = getUserId(token);
+        int coachId = getUserIdAndValidateToken(token);
         return hasAccessToModifyTeam(coachId, teamId);
     }
 
@@ -57,7 +57,7 @@ public class AuthBOImpl implements AuthBO {
     }
 
     @Override
-    public TokenVO login(String username, String password) throws WarnException, Exception {
+    public TokenVO login(String username, String password) throws Exception {
         String errorString = "Username or password invalid";
 
         UserVO userVO = aDAO.getUserVOForCoachName(username);
@@ -65,7 +65,7 @@ public class AuthBOImpl implements AuthBO {
 
         //compare the passwords
         byte[] hashedPass = saltPassword(password, userVO.getSalt());
-        if (!Arrays.equals(hashedPass, (userVO.getSaltPwd()))) throw new WarnException(errorString); // i think .equals is right here
+        if (!Arrays.equals(hashedPass, (userVO.getSaltPwd()))) throw new AuthException(errorString); // i think .equals is right here
         return generateToken(userVO.getCoachId());
     }
 
@@ -104,7 +104,7 @@ public class AuthBOImpl implements AuthBO {
 
     private TokenVO generateToken(int coachId) throws Exception {
         String authToken = generateRandomString(32);
-        aDAO.deleteOldSessions();
+        aDAO.deleteOldSessionsByCoachId(coachId);
         aDAO.insertAuthForCoachId(coachId, authToken);
         return aDAO.getAuthForCoachId(coachId);
     }

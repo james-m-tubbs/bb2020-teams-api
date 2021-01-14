@@ -9,6 +9,8 @@ public interface AuthDAO {
 
     public void deleteOldSessions() throws Exception;
 
+    public void deleteOldSessionsByCoachId(int coachId) throws Exception;
+
     public Integer getCoachIdFromToken(String token) throws Exception;
 
     public UserVO getUserVOForCoachId(int coachId) throws Exception;

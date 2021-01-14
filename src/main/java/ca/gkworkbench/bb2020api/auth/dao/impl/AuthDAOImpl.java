@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
@@ -58,8 +59,9 @@ public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
     private final String INSERT_ONE_AUTH = "INSERT into coach_sessions(coachId, bearer_token, valid_to) values (?, ?, ?)";
     @Override
     public void insertAuthForCoachId(int coachId, String authToken) throws Exception {
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, 1);
+        Timestamp timestamp = new Timestamp(cal.getTime().getTime());
         getJdbcTemplate().update(INSERT_ONE_AUTH,coachId,authToken, timestamp);
     }
 
@@ -76,10 +78,16 @@ public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
         );
     }
 
-    private final String DELETE_OLD_TOKENS_BY_COACHID = "DELETE FROM coach_sessions WHERE valid_to < CURRENT_TIMESTAMP";
+    private final String DELETE_OLD_TOKENS = "DELETE FROM coach_sessions WHERE valid_to < CURRENT_TIMESTAMP";
     @Override
     public void deleteOldSessions() throws Exception {
-        getJdbcTemplate().update(DELETE_OLD_TOKENS_BY_COACHID);
+        getJdbcTemplate().update(DELETE_OLD_TOKENS);
+    }
+
+    private final String DELETE_OLD_TOKENS_BY_COACHID = "DELETE FROM coach_sessions WHERE coachId = ?";
+    @Override
+    public void deleteOldSessionsByCoachId(int coachId) throws Exception {
+        getJdbcTemplate().update(DELETE_OLD_TOKENS_BY_COACHID, coachId);
     }
 
     //teamTemplateId, position, linemanFlag, QTY, cost, MA, ST, AG, PA, AV
