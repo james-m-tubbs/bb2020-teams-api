@@ -17,4 +17,6 @@ public interface AuthBO {
     public TokenVO createUser(String username, String password) throws WarnException, Exception;
 
     public void deleteUser(int userId) throws WarnException;
+
+    public String getJsonToken(TokenVO tokenVO);
 }

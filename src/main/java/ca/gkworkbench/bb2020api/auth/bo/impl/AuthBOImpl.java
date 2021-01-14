@@ -8,6 +8,7 @@ import ca.gkworkbench.bb2020api.exception.AuthException;
 import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.team.dao.TeamsDAO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
+import com.google.gson.Gson;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -18,10 +19,12 @@ import java.util.Random;
 public class AuthBOImpl implements AuthBO {
     TeamsDAO tDAO;
     AuthDAO aDAO;
+    Gson gson;
 
     public AuthBOImpl(TeamsDAO tDAO, AuthDAO aDAO) {
         this.tDAO = tDAO;
         this.aDAO = aDAO;
+        gson = new Gson();
     }
 
     @Override
@@ -85,6 +88,11 @@ public class AuthBOImpl implements AuthBO {
     @Override
     public void deleteUser(int userId) throws WarnException {
         //TODO
+    }
+
+    @Override
+    public String getJsonToken(TokenVO tokenVO) {
+        return gson.toJson(tokenVO);
     }
 
     private byte[] generateSalt() throws Exception {
