@@ -1,6 +1,7 @@
 package ca.gkworkbench.bb2020api.auth.bo;
 
 import ca.gkworkbench.bb2020api.auth.dao.AuthDAO;
+import ca.gkworkbench.bb2020api.auth.vo.TokenVO;
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
 import ca.gkworkbench.bb2020api.exception.AuthException;
 import org.junit.Assert;
@@ -135,6 +136,28 @@ public class AuthBOTest {
         }
     }
 
-//
 //    public AuthVO login(String username, String password) throws WarnException;
+    @Test
+    public void test_create_user_and_login() {
+        try {
+            TokenVO firstTokenVO = authBO.createUser("createduser","createdpassword");
+            Assert.assertNotNull(firstTokenVO);
+            Assert.assertNotNull(firstTokenVO.getBearer_token());
+            Assert.assertTrue(firstTokenVO.getCoachId() > 1);
+            String firstToken = firstTokenVO.getBearer_token();
+
+            TokenVO secondTokenVO = authBO.login("createduser", "createdpassword");
+            Assert.assertNotNull(secondTokenVO);
+            Assert.assertNotNull(secondTokenVO.getBearer_token());
+            Assert.assertTrue(secondTokenVO.getCoachId() > 1);
+            Assert.assertTrue(secondTokenVO.getBearer_token() != firstTokenVO.getBearer_token());
+            Assert.assertTrue(secondTokenVO.getCoachId() == firstTokenVO.getCoachId());
+        } catch (AuthException e) {
+            System.err.println(e.getMessage());
+            Assert.assertTrue(e.getMessage().equalsIgnoreCase(""));
+        } catch (Exception e) {
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
+        }
+    }
 }

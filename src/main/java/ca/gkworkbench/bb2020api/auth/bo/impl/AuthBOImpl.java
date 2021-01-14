@@ -12,6 +12,8 @@ import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.Random;
 
 public class AuthBOImpl implements AuthBO {
     TeamsDAO tDAO;
@@ -63,7 +65,7 @@ public class AuthBOImpl implements AuthBO {
 
         //compare the passwords
         byte[] hashedPass = saltPassword(password, userVO.getSalt());
-        if (!hashedPass.equals(userVO.getSaltPwd())) throw new WarnException(errorString); // i think .equals is right here
+        if (!Arrays.equals(hashedPass, (userVO.getSaltPwd()))) throw new WarnException(errorString); // i think .equals is right here
         return generateToken(userVO.getCoachId());
     }
 
@@ -73,7 +75,7 @@ public class AuthBOImpl implements AuthBO {
         byte[] salt = generateSalt();
         byte[] hashPassword = saltPassword(password, salt);
         UserVO userVO = new UserVO(-1, salt, hashPassword, false, username);
-        //aDAO.insertUser(userVO); //TODO
+        aDAO.insertUser(userVO); //TODO
 
         //create the token
         userVO = aDAO.getUserVOForCoachName(username);
@@ -101,7 +103,24 @@ public class AuthBOImpl implements AuthBO {
     }
 
     private TokenVO generateToken(int coachId) throws Exception {
-        //aDAO.insertAuthForCoachId(coachId); //TODO
+        String authToken = generateRandomString(32);
+        aDAO.deleteOldSessions();
+        aDAO.insertAuthForCoachId(coachId, authToken);
         return aDAO.getAuthForCoachId(coachId);
+    }
+
+    private String generateRandomString(int length) {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = length;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return generatedString;
     }
 }

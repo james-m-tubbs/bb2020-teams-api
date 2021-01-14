@@ -9,11 +9,13 @@ public interface AuthDAO {
 
     public void deleteOldSessions() throws Exception;
 
-    public boolean login(String username, String saltedPassword) throws Exception;
-
     public Integer getCoachIdFromToken(String token) throws Exception;
 
     public UserVO getUserVOForCoachId(int coachId) throws Exception;
 
     public UserVO getUserVOForCoachName(String username) throws Exception;
+
+    public void insertAuthForCoachId(int coachId, String authtoken) throws Exception;
+
+    public void insertUser(UserVO userVO) throws Exception;
 }

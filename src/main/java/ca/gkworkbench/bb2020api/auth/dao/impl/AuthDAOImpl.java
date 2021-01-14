@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
 
@@ -52,17 +54,33 @@ public class AuthDAOImpl extends JdbcDaoSupport implements AuthDAO {
         }
     }
 
+    //INSERT IGNORE INTO coach_sessions(coachId, bearer_token, valid_to) values (1, 'thisisaworkingtoken', TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
+    private final String INSERT_ONE_AUTH = "INSERT into coach_sessions(coachId, bearer_token, valid_to) values (?, ?, ?)";
+    @Override
+    public void insertAuthForCoachId(int coachId, String authToken) throws Exception {
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        getJdbcTemplate().update(INSERT_ONE_AUTH,coachId,authToken, timestamp);
+    }
+
+    private final String INSERT_ONE_USER = "INSERT IGNORE INTO coaches (username, `password`, adminFlag, salt) values(?, ?, ?, ?);";
+    @Override
+    public void insertUser(UserVO userVO) throws Exception {
+        String adminFlag = "N";
+        if (userVO.isAdminFlag()) adminFlag = "Y";
+        getJdbcTemplate().update(INSERT_ONE_USER,
+                userVO.getUsername(),
+                userVO.getSaltPwd(),
+                adminFlag,
+                userVO.getSalt()
+        );
+    }
+
     private final String DELETE_OLD_TOKENS_BY_COACHID = "DELETE FROM coach_sessions WHERE valid_to < CURRENT_TIMESTAMP";
     @Override
     public void deleteOldSessions() throws Exception {
         getJdbcTemplate().update(DELETE_OLD_TOKENS_BY_COACHID);
     }
-
-    @Override
-    public boolean login(String username, String saltedPassword) throws Exception {
-        return false;
-    }
-
 
     //teamTemplateId, position, linemanFlag, QTY, cost, MA, ST, AG, PA, AV
     public class AuthVORowMapper implements RowMapper {

@@ -1,7 +1,7 @@
 -- only for h2
 SET MODE MYSQL;
 -- user table
-CREATE TABLE IF NOT EXISTS coaches(`id` int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, `password` VARBINARY(16) NOT NULL, adminFlag CHAR(1) NOT NULL DEFAULT 'N', salt VARBINARY(16) NOT NULL, PRIMARY KEY(`id`), UNIQUE(salt), unique(username));
+CREATE TABLE IF NOT EXISTS coaches(`id` int NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, `password` VARBINARY(64) NOT NULL, adminFlag CHAR(1) NOT NULL DEFAULT 'N', salt VARBINARY(64) NOT NULL, PRIMARY KEY(`id`), UNIQUE(salt), unique(username));
 INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, salt) values(1, 'admin', 'admin', 'Y', 'testvarbinary1');
 INSERT IGNORE INTO coaches (id,username, `password`, adminFlag, salt) values(2, 'user', 'pass', 'N',  'testvarbinary2');
 
