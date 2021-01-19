@@ -1,6 +1,7 @@
 package ca.gkworkbench.bb2020api.auth.controller;
 
 import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
+import ca.gkworkbench.bb2020api.auth.vo.LoginVO;
 import ca.gkworkbench.bb2020api.auth.vo.TokenVO;
 import ca.gkworkbench.bb2020api.exception.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,15 @@ public class AuthController {
     @Autowired
     AuthBO authBO;
 
-    @RequestMapping(value = "/api/user/login", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> loginUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+    @RequestMapping(value = "/api/user/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> loginUser(@RequestBody LoginVO loginVO) {
         try {
-            TokenVO tokenVO = authBO.login(username, password);
+            if (loginVO.getUsername() == null
+                    || loginVO.getUsername().length()<6
+                    || loginVO.getPassword() == null
+                    || loginVO.getPassword().length() < 8
+            ) throw new AuthException(("username or password invalid"));
+            TokenVO tokenVO = authBO.login(loginVO.getUsername(), loginVO.getPassword());
             if (tokenVO == null) throw new Exception("TokenVO is null");
             return new ResponseEntity<>(authBO.getJsonToken(tokenVO), HttpStatus.OK);
         } catch (AuthException e) {
@@ -33,12 +39,21 @@ public class AuthController {
         }
     }
 
-    @RequestMapping(value = "/api/user/create", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+    @RequestMapping(value = "/api/user/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createUser(@RequestBody LoginVO loginVO) {
         try {
-            TokenVO tokenVO = authBO.createUser(username, password);
+            //validate
+            if (loginVO.getUsername() == null || loginVO.getUsername().length() < 6) {
+                return new ResponseEntity<>("usernames must be at least 6 characters", HttpStatus.BAD_REQUEST);
+            }
+            if (loginVO.getPassword() == null || loginVO.getPassword().length() < 8) {
+                return new ResponseEntity<>("passwords must be at least 8 characters", HttpStatus.BAD_REQUEST);
+            }
+            TokenVO tokenVO = authBO.createUser(loginVO.getUsername(), loginVO.getPassword());
             if (tokenVO == null) throw new Exception("TokenVO is null");
             return new ResponseEntity<>(authBO.getJsonToken(tokenVO), HttpStatus.OK);
+        } catch (AuthException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(

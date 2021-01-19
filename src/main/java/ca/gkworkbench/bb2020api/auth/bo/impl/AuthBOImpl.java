@@ -64,7 +64,7 @@ public class AuthBOImpl implements AuthBO {
         String errorString = "Username or password invalid";
 
         UserVO userVO = aDAO.getUserVOForCoachName(username);
-        if (userVO == null) throw new WarnException(errorString);
+        if (userVO == null) throw new AuthException(errorString);
 
         //compare the passwords
         byte[] hashedPass = saltPassword(password, userVO.getSalt());
@@ -74,6 +74,9 @@ public class AuthBOImpl implements AuthBO {
 
     @Override
     public TokenVO createUser(String username, String password) throws Exception {
+        UserVO checkUserVO = aDAO.getUserVOForCoachName(username);
+        if (checkUserVO != null) throw new AuthException("Username Exists");
+
         //create the user
         byte[] salt = generateSalt();
         byte[] hashPassword = saltPassword(password, salt);
