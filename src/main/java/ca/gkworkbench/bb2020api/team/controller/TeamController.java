@@ -1,12 +1,12 @@
 package ca.gkworkbench.bb2020api.team.controller;
 
 import ca.gkworkbench.bb2020api.auth.bo.AuthBO;
+import ca.gkworkbench.bb2020api.exception.AuthException;
 import ca.gkworkbench.bb2020api.exception.WarnException;
 import ca.gkworkbench.bb2020api.player.bo.PlayerBO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
-import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -46,9 +46,9 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/api/team/create/{teamTemplateId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createTeam(@PathVariable("teamTemplateId") int teamTemplateId, @RequestParam(name = "teamName") String teamName, @RequestParam(name="treasury", required = false) Integer treasury) {
+    public String createTeam(@PathVariable("teamTemplateId") int teamTemplateId, @RequestParam(name = "teamName") String teamName, @RequestParam(name="treasury", required = false) Integer treasury, @RequestHeader(name="bearer_token", required = false) String token) {
         try {
-            int coachId = authBO.getUserId();
+            int coachId = authBO.getUserIdAndValidateToken(token);
             teamName = teamName.replaceAll("%20", " ");
             TeamVO teamVO;
             if (treasury != null && treasury >= 0) {
@@ -57,6 +57,9 @@ public class TeamController {
                 teamVO = tBO.createNewTeamFromTemplateIdDefaultTreasury(teamName, coachId, teamTemplateId);
             }
             return tBO.getJsonTeam(teamVO);
+        } catch (AuthException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED);
         } catch (WarnException e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, e.getMessage()
@@ -71,14 +74,18 @@ public class TeamController {
 
     @RequestMapping(value = "/api/team/{teamId}/delete", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> deleteTeam(@PathVariable("teamId") int teamId) {
+    public ResponseEntity<?> deleteTeam(@PathVariable("teamId") int teamId, @RequestHeader(name="bearer_token", required = false) String token) {
         try {
-            if (authBO.hasAccessToModifyTeam(teamId)) {
+            int coachId = authBO.getUserIdAndValidateToken(token);
+            if (authBO.hasAccessToModifyTeam(coachId, teamId)) {
                 tBO.deleteTeam(teamId);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
+        } catch (AuthException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             e.printStackTrace();
             throw new ResponseStatusException(
@@ -141,8 +148,12 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/api/team/{teamId}/players/hire/{playerTemplateId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> hirePlayerByTemplateId(@PathVariable("teamId") int teamId, @PathVariable("playerTemplateId") int playerTemplateId, @RequestParam("name") String playerName) {
+    public ResponseEntity<?> hirePlayerByTemplateId(@PathVariable("teamId") int teamId, @PathVariable("playerTemplateId") int playerTemplateId, @RequestParam("name") String playerName, @RequestHeader(name="bearer_token", required = false) String token) {
         try {
+            //check if we're authorized to edit the team
+            int coachId = authBO.getUserIdAndValidateToken(token);
+            authBO.hasAccessToModifyTeam(coachId, teamId);
+
             //check if team exists
             TeamVO tVO = tBO.getTeamById(teamId, true);
             if (tVO != null) {
@@ -152,6 +163,9 @@ public class TeamController {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } catch (AuthException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED);
         } catch (WarnException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage()
@@ -165,8 +179,11 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/api/team/{teamId}/players/fire/{playerId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> firePlayerById(@PathVariable("teamId") int teamId, @PathVariable("playerId") int playerId) {
+    public ResponseEntity<?> firePlayerById(@PathVariable("teamId") int teamId, @PathVariable("playerId") int playerId, @RequestHeader(name="bearer_token", required = false) String token) {
         try {
+            //check if we're authorized to edit the team
+            int coachId = authBO.getUserIdAndValidateToken(token);
+            authBO.hasAccessToModifyTeam(coachId, teamId);
             //check if team exists
             TeamVO tVO = tBO.getTeamById(teamId, true);
             if (tVO != null) {
@@ -175,6 +192,9 @@ public class TeamController {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } catch (AuthException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED);
         } catch (WarnException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, e.getMessage()

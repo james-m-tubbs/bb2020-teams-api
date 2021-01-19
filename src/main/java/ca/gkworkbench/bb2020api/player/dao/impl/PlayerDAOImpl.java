@@ -63,7 +63,6 @@ public class PlayerDAOImpl extends JdbcDaoSupport implements PlayerDAO {
                 playerVO.getGamesPlayed(),
                 playerVO.getPlayerId()
         ) == 1;
-
     }
 
     private final String SELECT_BY_TEAM_SQL = "SELECT p.id as playerId, pt.id as playerTemplateId, p.teamId, p.name, p.spp, p.currentValue, p.cp, p.pi, p.cas, p.td, p.td, p.mvp, p.injuredFlag, p.tempRetiredFlag, p.firedFlag, pt.teamTemplateId, pt.position, pt.linemanFlag, pt.bigGuyFlag, pt.qty, pt.cost, pt.ma, pt.st, pt.ag, pt.pa, pt.av, pt.primarySkills, pt.secondarySkills, p.gamesPlayed from Players p, PlayerTemplate pt where p.playerTemplateId = pt.id and p.teamId = ?";

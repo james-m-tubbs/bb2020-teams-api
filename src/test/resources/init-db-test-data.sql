@@ -37,3 +37,6 @@ INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName) values (6, 1, 2
 
 INSERT IGNORE INTO Teams (id, coachId, teamTemplateId, teamName, treasury) values (7, 1, 2, 'Chaos Chosen Test 4', 1000000);
 INSERT IGNORE INTO Players(id,teamId, playerTemplateId, name, currentValue, firedFlag) values (25, 7, 5, 'Fired Chosen Blocker', 100000, 'Y');
+
+INSERT IGNORE INTO coach_sessions(coachId, bearer_token, valid_to) values (1, 'thisisaworkingtoken', TIMESTAMPADD(DAY, 1, CURRENT_TIMESTAMP));
+INSERT IGNORE INTO coach_sessions(coachId, bearer_token, valid_to) values (2, 'thisisabrokentoken', TIMESTAMPADD(DAY, -1, CURRENT_TIMESTAMP));
