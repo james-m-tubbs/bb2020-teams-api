@@ -2,6 +2,7 @@ package ca.gkworkbench.bb2020api.team.bo;
 
 import ca.gkworkbench.bb2020api.config.bb2020TestConfig;
 import ca.gkworkbench.bb2020api.exception.WarnException;
+import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
 import ca.gkworkbench.bb2020api.team.vo.TeamVO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -28,20 +29,20 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
             Assert.assertTrue(tVO.getCoachId() == 1);
-            Assert.assertTrue(tVO.getCoaches()==0);
-            Assert.assertTrue(tVO.getCheerleaders()==0);
-            Assert.assertTrue(tVO.getTotalCAS()==0);
-            Assert.assertTrue(tVO.getTotalTouchdowns()==0);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
-            Assert.assertTrue(tVO.getLeaguePoints()==0);
-            Assert.assertTrue(tVO.getRerolls()==0);
-            Assert.assertTrue(tVO.getTeamValue()==0);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
-            Assert.assertTrue(tVO.getDedicatedFans()==1);
+            Assert.assertTrue(tVO.getCoaches() == 0);
+            Assert.assertTrue(tVO.getCheerleaders() == 0);
+            Assert.assertTrue(tVO.getTotalCAS() == 0);
+            Assert.assertTrue(tVO.getTotalTouchdowns() == 0);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 0);
+            Assert.assertTrue(tVO.getLeaguePoints() == 0);
+            Assert.assertTrue(tVO.getRerolls() == 0);
+            Assert.assertTrue(tVO.getTeamValue() == 0);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 0);
+            Assert.assertTrue(tVO.getDedicatedFans() == 1);
             Assert.assertFalse(tVO.hasApothecary());
             Assert.assertNull(tVO.getTeamTemplateVO());
             Assert.assertNotNull(tVO.getPlayers());
-            Assert.assertTrue(tVO.getPlayers().size()==0);
+            Assert.assertTrue(tVO.getPlayers().size() == 0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -58,20 +59,20 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTeamTemplateId() == 9);
             Assert.assertTrue(tVO.getTeamName().equals("The Rookie Testers"));
             Assert.assertTrue(tVO.getCoachId() == 1);
-            Assert.assertTrue(tVO.getCoaches()==0);
-            Assert.assertTrue(tVO.getCheerleaders()==0);
-            Assert.assertTrue(tVO.getTotalCAS()==0);
-            Assert.assertTrue(tVO.getTotalTouchdowns()==0);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
-            Assert.assertTrue(tVO.getLeaguePoints()==0);
-            Assert.assertTrue(tVO.getRerolls()==0);
-            Assert.assertTrue(tVO.getTeamValue()==0);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
-            Assert.assertTrue(tVO.getDedicatedFans()==1);
+            Assert.assertTrue(tVO.getCoaches() == 0);
+            Assert.assertTrue(tVO.getCheerleaders() == 0);
+            Assert.assertTrue(tVO.getTotalCAS() == 0);
+            Assert.assertTrue(tVO.getTotalTouchdowns() == 0);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 0);
+            Assert.assertTrue(tVO.getLeaguePoints() == 0);
+            Assert.assertTrue(tVO.getRerolls() == 0);
+            Assert.assertTrue(tVO.getTeamValue() == 0);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 0);
+            Assert.assertTrue(tVO.getDedicatedFans() == 1);
             Assert.assertFalse(tVO.hasApothecary());
             Assert.assertNull(tVO.getTeamTemplateVO());
             Assert.assertNotNull(tVO.getPlayers());
-            Assert.assertTrue(tVO.getPlayers().size()==0);
+            Assert.assertTrue(tVO.getPlayers().size() == 0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -164,7 +165,7 @@ public class TeamsBOTest {
         }
 
     }
-    
+
     @Test
     public void update_missing_team_and_fail() {
         try {
@@ -197,8 +198,8 @@ public class TeamsBOTest {
             //total 180k
             tVO = tBO.updateTeamWithGeneratedTV(tVO);
             System.err.println(tVO);
-            Assert.assertTrue(tVO.getTeamValue()==180000);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==180000);
+            Assert.assertTrue(tVO.getTeamValue() == 180000);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 180000);
         } catch (Exception e) {
             System.err.print(e.getMessage());
             e.printStackTrace();
@@ -224,14 +225,14 @@ public class TeamsBOTest {
             tVO.setDedicatedFans(4);
             //total 170k
             tVO = tBO.updateTeamWithGeneratedTV(tVO);
-            Assert.assertTrue(tVO.getTeamValue()==170000);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==170000);
+            Assert.assertTrue(tVO.getTeamValue() == 170000);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 170000);
 
             TeamVO qVO = tBO.getTeamById(tVO.getId(), true);
-            Assert.assertTrue(tVO.getId()==qVO.getId());
-            Assert.assertTrue(tVO.getTeamValue()==qVO.getTeamValue());
-            Assert.assertTrue(tVO.getCurrentTeamValue()==qVO.getCurrentTeamValue());
-            Assert.assertTrue(tVO.getDedicatedFans()==qVO.getDedicatedFans());
+            Assert.assertTrue(tVO.getId() == qVO.getId());
+            Assert.assertTrue(tVO.getTeamValue() == qVO.getTeamValue());
+            Assert.assertTrue(tVO.getCurrentTeamValue() == qVO.getCurrentTeamValue());
+            Assert.assertTrue(tVO.getDedicatedFans() == qVO.getDedicatedFans());
         } catch (Exception e) {
             System.err.print(e.getMessage());
             e.printStackTrace();
@@ -244,9 +245,9 @@ public class TeamsBOTest {
         try {
             List<TeamVO> tVOs = tBO.getTeamsForCoachId(2);
             Assert.assertTrue(tVOs.size() == 2);
-            for (int i=0; i<tVOs.size();i++) {
+            for (int i = 0; i < tVOs.size(); i++) {
                 TeamVO tVO = tVOs.get(i);
-                Assert.assertTrue(tVO.getCoachId()==2);
+                Assert.assertTrue(tVO.getCoachId() == 2);
                 Assert.assertNull(tVO.getTeamTemplateVO());
                 Assert.assertTrue(tVO.getPlayers().size() == 0);
 
@@ -280,9 +281,9 @@ public class TeamsBOTest {
 
             tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 88, "Orc Troll");
 
-            Assert.assertTrue(tVO.getTreasury()==885000);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==115000);
-            Assert.assertTrue(tVO.getPlayers().size()==1);
+            Assert.assertTrue(tVO.getTreasury() == 885000);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 115000);
+            Assert.assertTrue(tVO.getPlayers().size() == 1);
             System.err.println(tVO);
 
         } catch (Exception e) {
@@ -304,17 +305,17 @@ public class TeamsBOTest {
             Assert.assertTrue(tVO.getTreasury() == 1000000);
             Assert.assertFalse(tVO.hasApothecary());
 
-            for (int i=0;i<7;i++) {
-                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 4, "Beastman "+(i+1));
+            for (int i = 0; i < 7; i++) {
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 4, "Beastman " + (i + 1));
             }
 
-            for (int i=0;i<4;i++) {
-                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Blocker "+(i+1));
+            for (int i = 0; i < 4; i++) {
+                tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Blocker " + (i + 1));
             }
 
-            Assert.assertTrue(tVO.getTreasury()==180000);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==820000);
-            Assert.assertTrue(tVO.getPlayers().size()==11);
+            Assert.assertTrue(tVO.getTreasury() == 180000);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 820000);
+            Assert.assertTrue(tVO.getPlayers().size() == 11);
             System.err.println(tVO);
 
         } catch (Exception e) {
@@ -345,13 +346,13 @@ public class TeamsBOTest {
             TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury("Firing Humans", 1, 9);
             Assert.assertTrue(tVO.getPlayers().size() == 0);
             tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 45, "Fired Lineman");
-            System.err.println("Initial TeamVO:"+tVO);
+            System.err.println("Initial TeamVO:" + tVO);
             Assert.assertTrue(tVO.getTreasury() == 950000);
             Assert.assertTrue(tVO.getTeamValue() == 50000);
             Assert.assertTrue(tVO.getPlayers().size() == 1);
 
             tVO = tBO.firePlayerByPlayerId(tVO, tVO.getPlayers().get(0).getPlayerId());
-            System.err.println("Fire TeamVO:"+tVO);
+            System.err.println("Fire TeamVO:" + tVO);
             Assert.assertTrue(tVO.getTreasury() == 1000000);
             Assert.assertTrue(tVO.getPlayers().size() == 1);
             Assert.assertTrue(tVO.getTeamValue() == 0);
@@ -366,23 +367,23 @@ public class TeamsBOTest {
     public void fire_player_with_games_played_no_refund_success() {
         try {
             TeamVO tVO = tBO.getTeamById(4, true);
-            System.err.println("initialTeamVO:"+tVO);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==260000);
-            Assert.assertTrue(tVO.getTreasury()==50000);
+            System.err.println("initialTeamVO:" + tVO);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 260000);
+            Assert.assertTrue(tVO.getTreasury() == 50000);
             Assert.assertTrue(tVO.getPlayers().size() == 2);
 
             //fire the guy with games
             tVO = tBO.firePlayerByPlayerId(tVO, 24);
-            System.err.println("FireOne:"+tVO);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==140000);
-            Assert.assertTrue(tVO.getTreasury()==50000);
+            System.err.println("FireOne:" + tVO);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 140000);
+            Assert.assertTrue(tVO.getTreasury() == 50000);
             Assert.assertTrue(tVO.getPlayers().size() == 2);
 
             //fire the ogre for a refund
             tVO = tBO.firePlayerByPlayerId(tVO, 7);
-            System.err.println("FireTwo:"+tVO);
-            Assert.assertTrue(tVO.getCurrentTeamValue()==0);
-            Assert.assertTrue(tVO.getTreasury()==190000);
+            System.err.println("FireTwo:" + tVO);
+            Assert.assertTrue(tVO.getCurrentTeamValue() == 0);
+            Assert.assertTrue(tVO.getTreasury() == 190000);
             Assert.assertTrue(tVO.getPlayers().size() == 2);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -427,10 +428,10 @@ public class TeamsBOTest {
             TeamVO tVO = tBO.getTeamById(7, true);
             int treasury = tVO.getTreasury();
             tVO = tBO.firePlayerByPlayerId(tVO, 25);
-            Assert.assertTrue(treasury==tVO.getTreasury());
-            for (int i=0; i<tVO.getPlayers().size(); i++) {
-                if (tVO.getPlayers().get(i).getPlayerId()==25) {
-                    Assert.assertTrue(tVO.getPlayers().get(i).isFired()==true);
+            Assert.assertTrue(treasury == tVO.getTreasury());
+            for (int i = 0; i < tVO.getPlayers().size(); i++) {
+                if (tVO.getPlayers().get(i).getPlayerId() == 25) {
+                    Assert.assertTrue(tVO.getPlayers().get(i).isFired() == true);
                 }
             }
         } catch (Exception e) {
@@ -438,5 +439,29 @@ public class TeamsBOTest {
             Assert.fail();
         }
     }
-}
 
+    @Test
+    public void create_new_team_hire_players_fire_players_check_active_list() {
+        try {
+            TeamVO tVO = tBO.createNewTeamFromTemplateIdDefaultTreasury(
+                    "Chaos Check Team List",
+                    1,
+                    2);
+            tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Chosen 1");
+            tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Chosen 2");
+            tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Chosen 3");
+            tVO = tBO.hireRookiePlayerFromTemplateId(tVO, 5, "Chaos Chosen 4");
+
+            List<PlayerVO> players = tVO.getPlayers();
+            Assert.assertTrue(players.size()==4);
+            tVO = tBO.firePlayerByPlayerId(tVO, players.get(0).getPlayerId());
+
+            List<PlayerVO> activePlayers = tVO.getActivePlayers();
+            Assert.assertTrue(activePlayers.size()==3);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+}

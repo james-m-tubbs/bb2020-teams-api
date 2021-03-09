@@ -366,6 +366,8 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.players[1].currentValue").value("100000"))
                 .andExpect(jsonPath("$.players[1].cost").value("100000"))
                 .andExpect(jsonPath("$.players[1].fired").value(false))
+                .andExpect(jsonPath("$.activePlayers[0].name").value("Mr Chaos Chosen"))
+                .andExpect(jsonPath("$.activePlayers[1].name").doesNotExist())
                 .andReturn();
 
         Integer id = JsonPath.read(result.getResponse().getContentAsString(), "$.players[1].playerId");
@@ -388,7 +390,9 @@ public class TeamControllerTest {
                 .andExpect(jsonPath("$.players[1].name").value("Mr Chaos Chosen"))
                 .andExpect(jsonPath("$.players[1].currentValue").value("100000"))
                 .andExpect(jsonPath("$.players[1].cost").value("100000"))
-                .andExpect(jsonPath("$.players[1].fired").value(true));
+                .andExpect(jsonPath("$.players[1].fired").value(true))
+                .andExpect(jsonPath("$.activePlayers").isEmpty())
+                .andExpect(jsonPath("$.activePlayers[0].name").doesNotExist());
     }
 
     @Test
