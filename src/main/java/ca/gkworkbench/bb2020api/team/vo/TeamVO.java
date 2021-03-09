@@ -36,8 +36,10 @@ public class TeamVO {
     private int currentTeamValue;
     //dedicated fans
     private int dedicatedFans;
-    // player List
+    // full player List
     private List<PlayerVO> players;
+    // active Player List
+    private List<PlayerVO> activePlayers;
     // team template
     private TeamTemplateVO teamTemplateVO;
 
@@ -57,7 +59,7 @@ public class TeamVO {
         this.teamValue = teamValue;
         this.currentTeamValue = currentTeamValue;
         this.dedicatedFans = dedicatedFans;
-        this.players = players;
+        setPlayers(players); // use the setplayers method to initialize activeplayers
         this.teamTemplateVO = teamTemplateVO;
     }
 
@@ -188,6 +190,17 @@ public class TeamVO {
     public void setPlayers(List<PlayerVO> players) {
         if (players == null) players = new ArrayList<PlayerVO>();
         this.players = players;
+        List<PlayerVO> activePlayers = new ArrayList<PlayerVO>();
+        for (int i=0; i<players.size(); i++) {
+            if (!players.get(i).isFired()) {
+                activePlayers.add(players.get(i));
+            }
+        }
+        this.activePlayers = activePlayers;
+    }
+
+    public List<PlayerVO> getActivePlayers() {
+        return activePlayers;
     }
 
     public TeamTemplateVO getTeamTemplateVO() {

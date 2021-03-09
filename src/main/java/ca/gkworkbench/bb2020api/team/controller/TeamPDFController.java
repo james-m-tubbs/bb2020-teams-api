@@ -84,7 +84,7 @@ public class TeamPDFController {
         context.setVariable("teamName", tVO.getTeamName());
         context.setVariable("teamRace", tVO.getTeamTemplateVO().getTeamType());
         context.setVariable("coachName", tVO.getCoachId());
-        context.setVariable("players", tVO.getPlayers());
+        context.setVariable("players", tVO.getActivePlayers());
 
         return templateEngine.process("pdfRoster", context);
     }
