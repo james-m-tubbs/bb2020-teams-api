@@ -6,11 +6,13 @@ public class SkillVO {
     int id;
     String skill;
     String type;
+    boolean secondary;
 
-    public SkillVO(int id, String skill, String type) {
+    public SkillVO(int id, String skill, String type, boolean secondary) {
         this.id = id;
         this.skill = skill;
         this.type = type;
+        this.secondary = secondary;
     }
 
     public int getId() {
@@ -37,12 +39,17 @@ public class SkillVO {
         this.type = type;
     }
 
+    public void setSecondary(boolean secondary) { this.secondary = secondary; }
+
+    public boolean isSecondary() { return this.secondary; }
+
     @Override
     public String toString() {
         return "SkillVO{" +
                 "id=" + id +
                 ", skill='" + skill + '\'' +
                 ", type='" + type + '\'' +
+                ", secondary=" + secondary +
                 '}';
     }
 }

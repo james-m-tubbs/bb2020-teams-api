@@ -7,6 +7,7 @@ import ca.gkworkbench.bb2020api.player.dao.PlayerDAO;
 import ca.gkworkbench.bb2020api.player.dao.PlayerTemplateDAO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerTemplateVO;
 import ca.gkworkbench.bb2020api.player.vo.PlayerVO;
+import ca.gkworkbench.bb2020api.skill.dao.PlayerSkillsDAO;
 import ca.gkworkbench.bb2020api.skill.dao.SkillTemplateDAO;
 import ca.gkworkbench.bb2020api.skill.vo.SkillVO;
 import ca.gkworkbench.bb2020api.team.bo.TeamsBO;
@@ -27,13 +28,16 @@ public class PlayerBOImpl implements PlayerBO {
     private PlayerTemplateDAO ptDAO;
     private SkillTemplateDAO stDAO;
     private TeamTemplateDAO ttDAO;
+    private PlayerSkillsDAO psDAO;
     private Gson gson;
 
-    public PlayerBOImpl(PlayerDAO pDAO, SkillTemplateDAO stDAO, PlayerTemplateDAO ptDAO, TeamTemplateDAO ttDAO) {
+    public PlayerBOImpl(PlayerDAO pDAO, SkillTemplateDAO stDAO, PlayerTemplateDAO ptDAO, TeamTemplateDAO ttDAO, PlayerSkillsDAO psDAO) {
         this.pDAO = pDAO;
         this.stDAO = stDAO;
         this.ptDAO = ptDAO;
         this.ttDAO = ttDAO;
+        this.psDAO = psDAO;
+
         this.gson = new Gson();
     }
 
@@ -171,10 +175,56 @@ public class PlayerBOImpl implements PlayerBO {
         //set base skills
         if (pVO != null) {
             pVO.setBaseSkills(stDAO.getBaseSkillsByPlayerTemplateId(pVO.getPlayerTemplateId()));
+            //TODO set bought skills
             pVO.setBoughtSkills(new ArrayList<SkillVO>());
             //TODO set injuries
             //TODO set stat upgrades
         }
         return pVO;
+    }
+
+    @Override
+    public List<SkillVO> getAvailablePlayerSkills(int playerId) throws Exception {
+        PlayerVO pVO = getPlayerById(playerId);
+
+        //get available skills
+        List<SkillVO> skills = new ArrayList<SkillVO>();
+        List<SkillVO> primarySkills = psDAO.getPrimarySkillsByPlayerTemplateId(pVO.getPlayerTemplateId());
+        List<SkillVO> secondarySkills = psDAO.getSecondarySkillsByPlayerTemplateId(pVO.getPlayerTemplateId());
+
+        skills.addAll(primarySkills);
+        skills.addAll(secondarySkills);
+
+        //get existing skills
+        pVO = getPlayerDetails(pVO);
+
+        //remove existing from the list of things that can be added
+        for (int i=0; i<skills.size();i++) {
+            //remove base skills
+            for (int j=0; j<pVO.getBaseSkills().size();j++) {
+                if (skills.get(i).getId() == pVO.getBaseSkills().get(j).getId()) skills.remove(i);
+            }
+            //remove bought skills
+            for (int k=0; k<pVO.getBoughtSkills().size();k++) {
+                if (skills.get(i).getId() == pVO.getBoughtSkills().get(k).getId()) skills.remove(i);
+            }
+        }
+
+        return skills;
+    }
+
+    @Override
+    public PlayerVO buyPlayerSkill(int skillId) throws Exception {
+        return null;
+    }
+
+    @Override
+    public PlayerVO buyRandomPrimarySkill(PlayerVO pVO, boolean isSecondary) throws Exception {
+        return null;
+    }
+
+    @Override
+    public PlayerVO addInjury(int injuryId) throws Exception {
+        return null;
     }
 }

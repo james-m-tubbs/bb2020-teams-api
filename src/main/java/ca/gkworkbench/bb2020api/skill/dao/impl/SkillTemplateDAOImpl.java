@@ -24,7 +24,8 @@ public class SkillTemplateDAOImpl extends JdbcDaoSupport implements SkillTemplat
             SkillVO sVO = new SkillVO(
                     rs.getInt("id"),
                     rs.getString("skill"),
-                    rs.getString("type")
+                    rs.getString("type"),
+                    false
             );
             String skillValue = rs.getString("skillValue");
             if (skillValue != null && skillValue.length() > 0) {
