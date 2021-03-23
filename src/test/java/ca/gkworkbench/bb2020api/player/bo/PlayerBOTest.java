@@ -673,5 +673,22 @@ public class PlayerBOTest {
             Assert.fail();
         }
     }
+
+    @Test
+    public void test_get_skills_for_rookie_player_with_nothing() {
+        try {
+            PlayerVO playerVO = pBO.getPlayerById(8);
+            System.err.println(playerVO);
+            Assert.assertTrue(playerVO.getPrimary().equalsIgnoreCase("G"));
+            Assert.assertTrue(playerVO.getSecondary().equalsIgnoreCase("AS"));
+            List<SkillVO> skills = pBO.getAvailablePlayerSkills(8);
+            Assert.assertTrue(skills.size() > 0);
+            for (int i = 0; i < skills.size(); i++) {
+                Assert.assertTrue(skills.get(i).getType().equalsIgnoreCase("G"));
+            }
+        } catch (Exception e) {
+            Assert.fail(e.getMessage());
+        }
+    }
 }
 
